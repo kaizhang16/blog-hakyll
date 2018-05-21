@@ -38,7 +38,7 @@ deploy:
 当然，还需要在 `.travis.yml` 填写 `language`、`install` 和 `script` 等字段指定如
 何生成静态文件，例如：
 
-```
+```yaml
 language: nix
 install:
 - nix-channel --add https://nixos.org/channels/nixos-18.03 nixpkgs

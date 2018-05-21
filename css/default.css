@@ -145,13 +145,7 @@ caption {
 }
 
 .icon {
-    font-size: 22px;
-}
-
-pre {
-    background-color: #f6f8fa;
-    border-radius: 3px;
-    padding: 16px;
+    font-size: 24px;
 }
 
 code {
@@ -161,8 +155,8 @@ code {
     border-radius: 3px;
 }
 
-pre code {
-    background-color: transparent;
+pre code.hljs {
+    padding: 0.8em 1em;
 }
 
 blockquote {

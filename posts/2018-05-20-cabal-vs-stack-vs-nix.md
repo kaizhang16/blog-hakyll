@@ -1,6 +1,7 @@
 ---
 title: Cabal vs Stack vs Nix
 author: 张凯
+tags: [haskell, cabal, stack, nix]
 ---
 
 指标           cabal     stack  nix
