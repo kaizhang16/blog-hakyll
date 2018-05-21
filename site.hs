@@ -29,12 +29,6 @@ main =
         myPandocCompiler >>= loadAndApplyTemplate "templates/post.html" postCtx >>=
         loadAndApplyTemplate "templates/default.html" postCtx >>=
         relativizeUrls
-    match (fromList ["about.rst", "contact.markdown"]) $ do
-      route $ setExtension "html"
-      compile $
-        pandocCompiler >>=
-        loadAndApplyTemplate "templates/default.html" defaultContext >>=
-        relativizeUrls
     create ["archive.html"] $ do
       route idRoute
       compile $ do
