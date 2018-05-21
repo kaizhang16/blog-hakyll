@@ -4,6 +4,11 @@ author: 张凯
 tags: [travis-ci, gh-pages]
 ---
 
+本文阐述了 `Github Pages` 的作用，以及如何利用 `Travis CI` 自动把静态网站部署到
+其上。
+
+<!--more-->
+
 ## Github Pages
 
 `Github Pages` 是 `Github` 免费提供的静态网站托管服务，我们可以在上面部署博客、

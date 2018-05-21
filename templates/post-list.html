@@ -1,7 +1,22 @@
-<ul>
-    $for(posts)$
-        <li>
-            <a href="$url$">$title$</a> - $date$
-        </li>
-    $endfor$
-</ul>
+$for(posts)$
+<article>
+    <section class="compact">
+        <h1>
+            <a href="$url$">$title$</a>
+        </h1>
+    </section>
+
+    <section class="header compact">
+        <h2>
+            $date$
+        </h2>
+    </section>
+
+    <section class="teaser compact">
+        $teaser$
+        <button type="button" class="btn btn-light">
+            <a href="$url$">更多</a>
+        </button>
+    </section>
+</article>
+$endfor$

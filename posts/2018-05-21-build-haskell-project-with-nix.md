@@ -4,4 +4,8 @@ author: 张凯
 tags: [haskell, nix]
 ---
 
+如何使用 `Nix` 来编译 `Haskell` 工程？
+
+<!--more-->
+
 ## 为什么要使用 `Nix`？

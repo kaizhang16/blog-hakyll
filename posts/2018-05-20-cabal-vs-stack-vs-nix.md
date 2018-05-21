@@ -4,6 +4,10 @@ author: 张凯
 tags: [haskell, cabal, stack, nix]
 ---
 
+`Cabal`、`Stack` 与 `Nix` 的优缺点比较。
+
+<!--more-->
+
 指标           cabal     stack  nix
 ------------   --------  -----  -----
 隔离性         ✘         ✔      ✔
