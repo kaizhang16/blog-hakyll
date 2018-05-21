@@ -1,7 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
 
 import           Control.Monad.IO.Class   (liftIO)
-import           Data.Monoid              (mappend, (<>))
+import           Data.Monoid              ((<>))
 import           Hakyll
 import qualified Text.CSL                 as CSL
 import           Text.CSL.Pandoc          (processCites)
@@ -38,7 +38,8 @@ main =
               listField
                 "posts"
                 (teaserField "teaser" "content" <> postCtx)
-                (return posts) `mappend`
+                (return posts) <>
+              constField "title" "主页" <>
               defaultContext
         getResourceBody >>= applyAsTemplate indexCtx >>=
           loadAndApplyTemplate "templates/default.html" indexCtx >>=
@@ -48,7 +49,7 @@ main =
 
 postCtx :: Context String
 postCtx =
-    dateField "date" "%Y-%m-%d" `mappend`
+    dateField "date" "%Y-%m-%d" <>
     defaultContext
 
 myPandocCompiler :: Compiler (Item String)
