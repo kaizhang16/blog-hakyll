@@ -1,5 +1,5 @@
-{ mkDerivation, base, hakyll, pandoc, pandoc-crossref, pandoc-types
-, stdenv
+{ mkDerivation, base, hakyll, pandoc, pandoc-citeproc
+, pandoc-crossref, pandoc-types, stdenv
 }:
 mkDerivation {
   pname = "blog";
@@ -8,7 +8,7 @@ mkDerivation {
   isLibrary = false;
   isExecutable = true;
   executableHaskellDepends = [
-    base hakyll pandoc pandoc-crossref pandoc-types
+    base hakyll pandoc pandoc-citeproc pandoc-crossref pandoc-types
   ];
   license = stdenv.lib.licenses.bsd3;
 }

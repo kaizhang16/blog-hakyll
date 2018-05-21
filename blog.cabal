@@ -12,6 +12,7 @@ executable site
   build-depends:    base == 4.*
                   , hakyll == 4.10.*
                   , pandoc == 2.0.*
+                  , pandoc-citeproc >= 0.12
                   , pandoc-crossref == 0.3.0.*
                   , pandoc-types >= 1.17
   ghc-options:      -threaded

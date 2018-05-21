@@ -13,7 +13,3 @@ author: 张凯
 支持镜像源     ✔         ✔      ✘
 
 : `cabal` vs `stack` vs `nix` {#tbl:cabalStackNix}
-
-测试[@nixHackage]
-
-## 参考文献
