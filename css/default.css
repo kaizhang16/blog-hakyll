@@ -37,6 +37,11 @@ nav a {
     text-transform: uppercase;
 }
 
+section {
+    margin-top: 2em;
+    margin-bottom: 2em;
+}
+
 h1 {
     font-size: 2.4rem;
 }
@@ -45,6 +50,10 @@ h2 {
     font-size: 2rem;
     margin-top: 4rem;
     margin-bottom: 2rem;
+}
+
+p {
+    margin: 2rem 0;
 }
 
 article .header {
@@ -135,11 +144,6 @@ caption {
     margin-top: 1em;
 }
 
-section {
-    margin-top: 2em;
-    margin-bottom: 2em;
-}
-
 .icon {
     font-size: 22px;
 }
@@ -152,11 +156,17 @@ pre {
 
 code {
     background-color: rgba(27,31,35,0.05);
-    color: #111;
+    color: #222;
     padding: 0.2em 0.4em;
     border-radius: 3px;
 }
 
 pre code {
     background-color: transparent;
+}
+
+blockquote {
+    padding: 0 1em;
+    color: #6a737d;
+    border-left: 0.25em solid #dfe2e5;
 }
