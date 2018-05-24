@@ -8,13 +8,13 @@ tags: [haskell, cabal, stack, nix]
 
 <!--more-->
 
-指标           cabal     stack  nix
-------------   --------  -----  -----
-隔离性         ✘         ✔      ✔
-免编译依赖     ✘         ✘      ✔
-支持静态链接库 ✔         ✔      ✘
-占用空间少     ✔         ✘      ✔
-支持系统依赖   ✘         ✘      ✔
-支持镜像源     ✔         ✔      ✘
+指标           cabal              stack               nix
+------------   -----------------  ------------------  -----
+隔离性         ✘                  :heavy_check_mark:  :heavy_check_mark:
+免编译依赖     ✘                  ✘                   :heavy_check_mark:
+支持静态链接库 :heavy_check_mark: :heavy_check_mark:  ✘
+占用空间少     :heavy_check_mark: ✘                   :heavy_check_mark:
+支持系统依赖   ✘                  ✘                   :heavy_check_mark:
+支持镜像源     :heavy_check_mark: :heavy_check_mark:  ✘
 
 : `cabal` vs `stack` vs `nix` {#tbl:cabalStackNix}
