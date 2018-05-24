@@ -9,6 +9,7 @@ import qualified Text.Pandoc              as P
 import           Text.Pandoc.Builder      (str)
 import qualified Text.Pandoc.CrossRef     as CR
 import           Text.Pandoc.Highlighting (pygments)
+import           Text.Pandoc.Shared       (eastAsianLineBreakFilter)
 
 
 main :: IO ()
@@ -57,24 +58,17 @@ myPandocCompiler =
   pandocCompilerWithTransformM readerOptions writerOptions transformM
 
 readerOptions :: P.ReaderOptions
-readerOptions =
-  P.def
-    { P.readerExtensions =
-        P.enableExtension
-          P.Ext_east_asian_line_breaks
-          (P.enableExtension P.Ext_smart P.pandocExtensions)
-    }
+readerOptions = defaultHakyllReaderOptions {P.readerExtensions = newExtensions}
+  where
+    defaultExtensions = P.readerExtensions defaultHakyllReaderOptions
+    newExtensions = P.enableExtension P.Ext_emoji defaultExtensions
 
 writerOptions :: P.WriterOptions
-writerOptions =
-  P.def
-    { P.writerExtensions = P.enableExtension P.Ext_smart P.pandocExtensions
-    , P.writerHighlightStyle = Just pygments
-    }
+writerOptions = defaultHakyllWriterOptions
 
 transformM :: P.Pandoc -> Compiler P.Pandoc
 transformM p = unsafeCompiler $ do
-  p' <- crossRef p
+  p' <- crossRef (eastAsianLineBreakFilter p)
   processCites' p'
 
 crossRef :: P.Pandoc -> IO P.Pandoc

@@ -94,7 +94,7 @@ article .header {
     color: #555;
 }
 
-a, a:hover {
+.compact a, .compact a:hover {
     color: #222324;
 }
 
