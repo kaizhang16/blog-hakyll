@@ -64,7 +64,7 @@ section.content h2 {
 }
 
 .teaser p {
-    display: inline;
+    display: inline-block;
 }
 
 .teaser a {
@@ -209,4 +209,20 @@ blockquote {
 
 blockquote p {
     text-indent: 0;
+}
+
+img {
+    max-width: 80%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+figure {
+    margin-top: 3rem;
+}
+
+figcaption {
+    text-align: center;
+    margin-top: 2rem;
 }
