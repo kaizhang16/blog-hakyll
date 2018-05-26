@@ -1,7 +1,7 @@
 ---
 title: 使用 Travis CI 部署 Github Pages
 author: 张凯
-tags: [travis-ci, gh-pages]
+tags: travis-ci, gh-pages
 ---
 
 本文阐述了 `Github Pages` 的作用，以及如何利用 `Travis CI` 自动把静态网站部署到
