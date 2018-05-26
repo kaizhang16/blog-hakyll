@@ -5,7 +5,7 @@ tags: hakyll, pandoc, pandoc-citeproc, pandoc-crossref
 ---
 
 本文介绍在 `Hakyll` 里使用 `pandoc-citeproc` 和 `pandoc-crossref` 的方法，这 2
-个插件是 `Hakyll` 的重要优势。
+款插件让 `Hakyll` 比其他静态网站生成软件更加强大。
 
 <!--more-->
 

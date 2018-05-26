@@ -1,10 +1,11 @@
 ---
-title: Hakyll 中支持 east_asian_line_breaks
+title: 在 Hakyll 中使用 east_asian_line_breaks
 author: 张凯
 tags: hakyll, pandoc, east_asian_line_breaks
 ---
 
-本文介绍 `Hakyll` 里中文断行的处理，这也是 `Hakyll` 的重要优势之一。
+本文介绍 `Hakyll` 里中文断行的处理，这也是 `Hakyll` 相比于其他静态网站生成软件的
+优势之一。
 
 <!--more-->
 
