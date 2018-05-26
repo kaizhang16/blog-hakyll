@@ -28,6 +28,7 @@ import           Hakyll
 import qualified Text.CSL                 as CSL
 import           Text.CSL.Pandoc          (processCites)
 import qualified Text.Pandoc              as P
+import           Text.Pandoc.Builder      (str)
 import qualified Text.Pandoc.CrossRef     as CR
 
 myPandocCompiler :: Compiler (Item String)
