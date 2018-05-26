@@ -24,12 +24,28 @@ main =
     match "js/*" $ do
       route idRoute
       compile copyFileCompiler
+    tags <- buildTags "posts/*" (fromCapture "tags/*.html")
+    tagsRules tags $ \tag pattern' -> do
+      let title = tag
+      route idRoute
+      compile $ do
+        posts <- recentFirst =<< loadAll pattern'
+        let ctx =
+              listField
+                "posts"
+                (teaserField "teaser" "content" <> postCtxWithTags tags)
+                (return posts) <>
+              constField "title" title <>
+              defaultContext
+        makeItem "" >>= loadAndApplyTemplate "templates/tag.html" ctx >>=
+          loadAndApplyTemplate "templates/default.html" ctx >>=
+          relativizeUrls
     match "posts/*" $ do
       route $ setExtension "html"
       compile $
         myPandocCompiler >>= saveSnapshot "content" >>=
-        loadAndApplyTemplate "templates/post.html" postCtx >>=
-        loadAndApplyTemplate "templates/default.html" postCtx >>=
+        loadAndApplyTemplate "templates/post.html" (postCtxWithTags tags) >>=
+        loadAndApplyTemplate "templates/default.html" (postCtxWithTags tags) >>=
         relativizeUrls
     match "index.html" $ do
       route idRoute
@@ -38,7 +54,7 @@ main =
         let indexCtx =
               listField
                 "posts"
-                (teaserField "teaser" "content" <> postCtx)
+                (teaserField "teaser" "content" <> postCtxWithTags tags)
                 (return posts) <>
               constField "title" "主页" <>
               defaultContext
@@ -47,6 +63,9 @@ main =
           relativizeUrls
     match "templates/*" $ compile templateBodyCompiler
 
+
+postCtxWithTags :: Tags -> Context String
+postCtxWithTags tags = tagsField "tags" tags <> postCtx
 
 postCtx :: Context String
 postCtx =

@@ -1,7 +1,7 @@
 ---
 title: 在 Hakyll 里使用 pandoc-citeproc 和 pandoc-crossref 
 author: 张凯
-tags: [hakyll, pandoc-citeproc, pandoc-crossref]
+tags: hakyll, pandoc, pandoc-citeproc, pandoc-crossref
 ---
 
 本文介绍在 `Hakyll` 里使用 `pandoc-citeproc` 和 `pandoc-crossref` 的方法，这 2

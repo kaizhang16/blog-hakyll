@@ -1,7 +1,7 @@
 ---
 title: Cabal vs Stack vs Nix
 author: 张凯
-tags: [haskell, cabal, stack, nix]
+tags: haskell, cabal, stack, nix
 ---
 
 `Cabal`、`Stack` 与 `Nix` 的优缺点比较。

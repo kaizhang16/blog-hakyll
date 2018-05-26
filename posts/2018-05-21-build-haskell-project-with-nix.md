@@ -1,7 +1,7 @@
 ---
 title: 使用 Nix 编译 Haskell 工程
 author: 张凯
-tags: [haskell, nix]
+tags: haskell, nix
 ---
 
 本文介绍如何使用 `Nix` 来编译 `Haskell` 工程。
