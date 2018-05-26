@@ -1,6 +1,6 @@
 # blog
 
-My blog.
+[My blog](https://kaizhang91.github.io/blog/).
 
 ## TODO
 
