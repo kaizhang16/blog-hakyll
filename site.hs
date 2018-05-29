@@ -24,6 +24,9 @@ main =
     match "js/*" $ do
       route idRoute
       compile copyFileCompiler
+    match "references/*" $ do
+      route idRoute
+      compile biblioCompiler
     tags <- buildTags "posts/*" (fromCapture "tags/*.html")
     tagsRules tags $ \tag pattern' -> do
       let title = tag
@@ -83,23 +86,32 @@ readerOptions = defaultHakyllReaderOptions {P.readerExtensions = newExtensions}
     newExtensions = P.enableExtension P.Ext_emoji defaultExtensions
 
 writerOptions :: P.WriterOptions
-writerOptions = defaultHakyllWriterOptions
+writerOptions =
+  defaultHakyllWriterOptions
+    { P.writerHTMLMathMethod =
+        P.MathJax
+          "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"
+    }
 
 transformM :: P.Pandoc -> Compiler P.Pandoc
-transformM p = unsafeCompiler $ do
+transformM p = do
   p' <- crossRef (eastAsianLineBreakFilter p)
   processCites' p'
 
-crossRef :: P.Pandoc -> IO P.Pandoc
-crossRef = CR.runCrossRefIO meta Nothing CR.defaultCrossRefAction
-  where
-    meta =
-      CR.figureTitle (str "图") <> CR.figPrefix (str "图.") <>
-      CR.tableTitle (str "表") <>
-      CR.tblPrefix (str "表.")
+crossRef :: P.Pandoc -> Compiler P.Pandoc
+crossRef p =
+  unsafeCompiler $ do
+    let meta =
+          CR.figureTitle (str "图") <> CR.figPrefix (str "图.") <>
+          CR.tableTitle (str "表") <>
+          CR.tblPrefix (str "表.")
+    CR.runCrossRefIO meta Nothing CR.defaultCrossRefAction p
 
-processCites' :: P.Pandoc -> IO P.Pandoc
+processCites' :: P.Pandoc -> Compiler P.Pandoc
 processCites' p = do
-  refs <- CSL.readBiblioFile "references/all.bib"
-  style <- CSL.readCSLFile Nothing "csl/chinese-gb7714-2005-numeric.csl"
+  style <-
+    unsafeCompiler $
+    CSL.readCSLFile Nothing "csl/chicago-author-date.csl"
+  bib <- load $ fromFilePath "references/all.bib"
+  let Biblio refs = itemBody bib
   return $ processCites style refs p
