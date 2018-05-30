@@ -1,7 +1,7 @@
 ---
 title: 深度学习的 Softmax
 author: 张凯
-tags: deep-leading, softmax
+tags: deep-learning, softmax
 ---
 
 本文介绍深度学习中的 `Softmax`。
