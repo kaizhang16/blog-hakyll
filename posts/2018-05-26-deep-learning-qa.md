@@ -37,4 +37,14 @@ tags: deep-learning
 Applications](./2018-05-29-Dropout-as-a-Bayesian-Approximation-Insights-and-Applications.html)
 。
 
+## 何为共线性，跟过拟合有啥关联？
+
+- 共线性指多变量线性回归中，变量之间由于存在高度相关关系而使回归估计不准确。
+- 共线性会造成冗余，导致过拟合
+- 解决方法：排除变量的相关性/正则化
+
+## 说明如何用支持向量机实现深度学习
+
+## 列举常见的范数及其应用场景，如 
+
 ## 参考文献

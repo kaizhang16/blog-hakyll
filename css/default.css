@@ -85,6 +85,10 @@ p {
     text-indent: 2em;
 }
 
+dd {
+    text-indent: 2em;
+}
+
 .compact p {
     margin: 0rem 0;
 }
@@ -247,4 +251,8 @@ li > p {
 .badge {
     font-size: medium;
     font-weight: normal;
+}
+
+.table {
+    margin-top: 6rem;
 }
