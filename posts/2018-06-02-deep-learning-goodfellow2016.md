@@ -8,7 +8,7 @@ tags: 文献阅读, deep-learning
 
 <!--more-->
 
-## 线性代数
+## Linear Algebra
 
 ### 范数
 
@@ -38,5 +38,45 @@ $L^2$ 范数为 Euclidean 距离。
 
 $L^\infty$ 范数或者最大范数：
 $$||\bm{x}||_\infty = \max_i|x_i|$$ {#eq:LInfty}
+
+Frobenius 范数为：
+$$||\bm{A}|| = \sqrt{\sum_{i, j}A_{i, j}^2}$$ {#eq:frobeniusNorm}
+
+点积可以用范数表示：
+$$\bm{x}^T\bm{y} = ||\bm{x}||_2 ||\bm{y}||_2 \cos\theta$$ {#eq:dotProduct}
+
+## Probability and Information Theory
+
+### Bayes' Rule
+
+$$P(\textrm{x}|\textrm{y}) = \frac{P(\textrm{x})P(\textrm{y}|\textrm{x})}{P(\textrm{y})}$$ {#eq:bayesRule}
+
+### Gaussian Distribution
+
+$$\mathcal{N}(x;\mu, \sigma^2) = \sqrt{\frac{1}{2\pi\sigma^2}}\exp\left(-\frac{1}{2\sigma^2}(x-\mu)^2\right)$$ {eq:gaussianDistribution}
+$$\mathcal{N}(\bm{x};\bm{\mu},\bm{\Sigma}) = \sqrt{\frac{1}{(2\pi)^n\det(\bm{\Sigma})}}\exp\left(-\frac{1}{2}(\bm{x}-\bm{\mu})^\mathsf{T}\bm{\Sigma}^{-1}(\bm{x}-\bm{\mu})\right)$$ {#eq:gaussianDistributionMulti}
+
+## Machine Learning Basics
+
+### Maximum Likelihood Estimation（最大似然估计）
+
+$$
+\begin{align*}
+\bm{\theta}_{\textrm{ML}} &= \arg\max_{\bm{\theta}}p_{\textrm{model}}(\mathbb{X;\bm{\theta}}) \\
+&= \arg\max_{\bm{\theta}}\prod_{i=1}^m p_{\textrm{model}}(\bm{x}^{(i)};\bm{\theta}) \\
+&= \arg\max_{\bm{\theta}}\sum_{i=1}^m \log p_{\textrm{model}}(\bm{x}^{(i)};\bm{\theta})
+\end{align*}
+$$ {#eq:mle}
+其中，$\mathbb{X} = \{\bm{x}^{(1)},\dots,\bm{x}^{(m)}\}$
+
+### Maximum A Posteriori (MAP) Estimation（最大后验概率估计）
+
+$$
+\begin{align*}
+\bm{\theta}_{\textrm{MAP}} &= \arg\max_{\bm{\theta}}p(\bm{\theta}|\mathbb{X}) \\
+&= \arg\max_{\bm{\theta}}\log p(\mathbb{X}|\bm{\theta})p(\bm{\theta}) \\
+&= \arg\max_{\bm{\theta}}\left[\sum_{i=1}^m\log p(\bm{x}^{(i)}|\bm{\theta}) + \log p(\bm{\theta})\right]
+\end{align*}
+$$ {#eq:map}
 
 ## 参考文献
