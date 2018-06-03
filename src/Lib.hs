@@ -37,6 +37,8 @@ writerOptions =
     { P.writerHTMLMathMethod =
         P.MathJax
           "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"
+    , P.writerTableOfContents = True
+    , P.writerTemplate = Just "$body$\n<div id=\"toc\">$toc$</div>"
     }
 
 transformM :: P.Pandoc -> Compiler P.Pandoc

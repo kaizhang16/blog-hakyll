@@ -56,4 +56,8 @@ Applications](./2018-05-29-Dropout-as-a-Bayesian-Approximation-Insights-and-Appl
   分布先有一个预判，而后通过观测数据对这个预判做调整，我们的目标是要找到最优的描
   述参数的概率分布。
 
+## 概率密度的万能近似器
+
+
+
 ## 参考文献

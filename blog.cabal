@@ -2,10 +2,10 @@
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: b28e620c781925ac54a983fbb62504d0d5ed368d307d05813388451394dc39ee
+-- hash: 22d3741fa15996fc2f5ca886da72e3ffafeef948f12062112715c6ae3a07e650
 
 name:           blog
-version:        1.2.0
+version:        1.3.0
 description:    Please see the README on GitHub at <https://github.com/kaizhang91/blog#readme>
 homepage:       https://github.com/kaizhang91/blog#readme
 bug-reports:    https://github.com/kaizhang91/blog/issues

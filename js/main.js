@@ -10,3 +10,9 @@ Array.prototype.forEach.call(document.getElementsByClassName('tags'), tags => {
         e.classList.add('badge-light');
     });
 });
+
+const toc = document.getElementById('toc');
+const newTOC = document.getElementById('newTOC');
+if (toc) {
+    newTOC.append(toc);
+}
