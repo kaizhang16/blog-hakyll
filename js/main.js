@@ -1,3 +1,13 @@
+const toc = document.getElementById('toc');
+if (toc) {
+    const newTOC = document.getElementById('newTOC');
+    const tocTitle = document.createElement('h1');
+    tocTitle.setAttribute('id', 'tocTitle');
+    tocTitle.appendChild(document.createTextNode("目录"));
+    newTOC.append(tocTitle);
+    newTOC.append(toc);
+}
+
 Array.prototype.forEach.call(document.getElementsByTagName('table'), e => {
     e.classList.add('table');
     e.classList.add('table-striped');
@@ -10,9 +20,3 @@ Array.prototype.forEach.call(document.getElementsByClassName('tags'), tags => {
         e.classList.add('badge-light');
     });
 });
-
-const toc = document.getElementById('toc');
-const newTOC = document.getElementById('newTOC');
-if (toc) {
-    newTOC.append(toc);
-}

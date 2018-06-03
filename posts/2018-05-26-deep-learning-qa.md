@@ -49,7 +49,7 @@ Applications](./2018-05-29-Dropout-as-a-Bayesian-Approximation-Insights-and-Appl
 
 请参考[文献阅读：Deep Learning](./2018-06-02-deep-learning-goodfellow2016.html#范数)。
 
-## 简单介绍一下贝叶斯概率与频率派概率，以及在统计中对于真实参数的假设
+## 贝叶斯概率与频率派概率，以及在统计中对于真实参数的假设
 
 - 世界观不同。频率派认为世界是确定的，参数有一个真值，我们的目标是找到这个真值或
   真值所在的范围；贝叶斯派则认为世界是不确定的，参数是随机变量，人们对参数的概率
@@ -58,6 +58,6 @@ Applications](./2018-05-29-Dropout-as-a-Bayesian-Approximation-Insights-and-Appl
 
 ## 概率密度的万能近似器
 
+请参考[文献阅读：Deep Learning](./2018-06-02-deep-learning-goodfellow2016.html#混合分布)。
 
-
-## 参考文献
+## sigmoid，relu，softplus，tanh 和 RBF 及其应用场景

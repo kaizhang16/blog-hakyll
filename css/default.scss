@@ -312,7 +312,7 @@ aside {
     flex-direction: column;
     justify-content: center;
 
-    #toc {
+    #newTOC {
         background: #eee;
         border-radius: 5px;
         padding: 0.8em 1em;
@@ -321,6 +321,11 @@ aside {
         max-height: 90vh;
         overflow: auto;
 
+        h1 {
+            margin-top: 1rem;
+            font-size: larger;
+        }
+
         ul {
             list-style-type: none;
             padding-left: 1.5em;
@@ -328,17 +333,22 @@ aside {
         }
 
         li {
-            line-height: 1.8em;
+            line-height: 1.5em;
         }
 
-        > ul {
+        #toc > ul {
             padding-left: 0;
         }
 
         counter-reset: chapter;
 
-        > ul > li {
+        #toc > ul > li {
             counter-reset: section;
+            margin: 0.8em 0;
+
+            > ul > li {
+                margin: 0.5em 0;
+            }
 
             > ul > li::before {
                 counter-increment: section;
@@ -346,7 +356,7 @@ aside {
             }
         }
 
-        > ul > li::before {
+        #toc > ul > li::before {
             counter-increment: chapter;
             content: counter(chapter) ".\0000a0\0000a0";
         }
