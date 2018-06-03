@@ -6,6 +6,7 @@ if (toc) {
     tocTitle.appendChild(document.createTextNode("目录"));
     newTOC.append(tocTitle);
     newTOC.append(toc);
+    newTOC.style.display = 'block';
 }
 
 Array.prototype.forEach.call(document.getElementsByTagName('table'), e => {
