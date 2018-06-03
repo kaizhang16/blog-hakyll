@@ -238,10 +238,9 @@ li > p {
 
 .container {
     padding: 0;
-}
-
-.container h2 {
-    margin-bottom: 0;
+    h2 {
+        margin-bottom: 0;
+    }
 }
 
 .tags {
@@ -255,4 +254,7 @@ li > p {
 
 .table {
     margin-top: 6rem;
+    td {
+        vertical-align: middle;
+    }
 }

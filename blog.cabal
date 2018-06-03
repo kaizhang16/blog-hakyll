@@ -1,19 +1,79 @@
-name:               blog
-version:            1.1.0
-author:             Kai Zhang
-maintainer:         kaizhang91@foxmail.com
-copyright:          Kai Zhang
-license:            BSD3
-build-type:         Simple
-cabal-version:      >= 1.10
+-- This file has been generated from package.yaml by hpack version 0.28.2.
+--
+-- see: https://github.com/sol/hpack
+--
+-- hash: b28e620c781925ac54a983fbb62504d0d5ed368d307d05813388451394dc39ee
 
-executable site
-  main-is:          site.hs
-  build-depends:    base == 4.*
-                  , hakyll == 4.10.*
-                  , pandoc == 2.0.*
-                  , pandoc-citeproc >= 0.12
-                  , pandoc-crossref == 0.3.0.*
-                  , pandoc-types >= 1.17
-  ghc-options:      -threaded
+name:           blog
+version:        1.2.0
+description:    Please see the README on GitHub at <https://github.com/kaizhang91/blog#readme>
+homepage:       https://github.com/kaizhang91/blog#readme
+bug-reports:    https://github.com/kaizhang91/blog/issues
+author:         Kai Zhang
+maintainer:     kaizhang91@foxmail.com
+copyright:      Kai Zhang
+license:        BSD3
+license-file:   LICENSE
+build-type:     Simple
+cabal-version:  >= 1.10
+extra-source-files:
+    ChangeLog.md
+    README.md
+
+source-repository head
+  type: git
+  location: https://github.com/kaizhang91/blog
+
+library
+  exposed-modules:
+      Lib
+  other-modules:
+      Paths_blog
+  hs-source-dirs:
+      src
+  build-depends:
+      base >=4.7 && <5
+    , hakyll >=4.12
+    , hakyll-sass >=0.2
+    , pandoc >=2.1
+    , pandoc-citeproc >=0.14
+    , pandoc-crossref >=0.3
+    , pandoc-types >=1.17
+  default-language: Haskell2010
+
+executable blog
+  main-is: Main.hs
+  other-modules:
+      Paths_blog
+  hs-source-dirs:
+      app
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      base >=4.7 && <5
+    , blog
+    , hakyll >=4.12
+    , hakyll-sass >=0.2
+    , pandoc >=2.1
+    , pandoc-citeproc >=0.14
+    , pandoc-crossref >=0.3
+    , pandoc-types >=1.17
+  default-language: Haskell2010
+
+test-suite blog-test
+  type: exitcode-stdio-1.0
+  main-is: Spec.hs
+  other-modules:
+      Paths_blog
+  hs-source-dirs:
+      test
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      base >=4.7 && <5
+    , blog
+    , hakyll >=4.12
+    , hakyll-sass >=0.2
+    , pandoc >=2.1
+    , pandoc-citeproc >=0.14
+    , pandoc-crossref >=0.3
+    , pandoc-types >=1.17
   default-language: Haskell2010
