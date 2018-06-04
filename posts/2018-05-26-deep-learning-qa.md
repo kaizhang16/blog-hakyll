@@ -67,3 +67,7 @@ Applications](./2018-05-29-Dropout-as-a-Bayesian-Approximation-Insights-and-Appl
 ## KL 散度
 
 请参考[文献阅读：Deep Learning#信息论](./2018-06-02-deep-learning-goodfellow2016.html#信息论)。
+
+## 数值计算中的计算上溢与下溢问题，如 softmax 中的处理方式
+
+请参考[文献阅读：Deep Learning#上溢和下溢](./2018-06-02-deep-learning-goodfellow2016.html#上溢和下溢)。

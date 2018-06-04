@@ -111,6 +111,18 @@ KL 散度和交叉信息熵之间的关系：$H(P, Q) = H(P) + D_{\textrm{KL}}(P
 [^klEqualEverywhere]: 当 $\textrm{x}$ 为离散随机变量时，需要处处相等；当
     $\textrm{x}$ 为连续随机变量时，需要几乎处处相等。
 
+## 数值计算
+
+### 上溢和下溢
+
+下溢
+: 接近于 $0$ 的数取整为 $0$。
+
+下溢
+: 大数近似成 $\infty$ 或者 $-\infty$。
+
+为了使数值计算稳定，需要把 softmax 里的 $x$ 换成 $x - \max_i x_i$。
+
 ## Machine Learning Basics
 
 ### Maximum Likelihood Estimation（最大似然估计）
