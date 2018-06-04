@@ -54,6 +54,9 @@ $$P(\textrm{x}|\textrm{y}) = \frac{P(\textrm{x})P(\textrm{y}|\textrm{x})}{P(\tex
 ### Gaussian Distribution
 
 $$\mathcal{N}(x;\mu, \sigma^2) = \sqrt{\frac{1}{2\pi\sigma^2}}\exp\left(-\frac{1}{2\sigma^2}(x-\mu)^2\right)$$ {#eq:gaussianDistribution}
+为了计算的简便，也可以用 $\beta^{-1} = \sigma^2$ 替代 $\sigma^2$ 作为参数，其中
+$\beta \in (0, \infty)$，表示精度。
+
 $$\mathcal{N}(\bm{x};\bm{\mu},\bm{\Sigma}) = \sqrt{\frac{1}{(2\pi)^n\det(\bm{\Sigma})}}\exp\left(-\frac{1}{2}(\bm{x}-\bm{\mu})^\mathsf{T}\bm{\Sigma}^{-1}(\bm{x}-\bm{\mu})\right)$$ {#eq:gaussianDistributionMulti}
 
 ### 混合分布
@@ -70,9 +73,27 @@ Gaussian 混合
 
 logistic sigmoid:
 $$\sigma(x) = \frac{1}{1 + \exp(-x)}$$ {#eq:sigmoid}
-用来产生 Bernoulli 分布的 $\phi$ 参数。
+因为取值范围是 $(0, 1)$，所以用来产生 Bernoulli 分布的 $\phi$ 参数。
 
+softplus:
+$$\zeta(x) = \log(1 + \exp(x))$$ {#eq:softplus}
+因为取值范围是 $(0, \infty)$，所以用来产生正态分布的 $\beta$ 或 $\sigma$ 参数。
+之所以叫 softplus 是因为它是
+$$x^+ = \max(0, x)$$ {#eq:plus}
+的光滑版。
 
+Rectified Linear Unit(ReLU):
+$$g(z) = \max(0, z)$$ {#eq:relu}
+只要激活，梯度即为 $1$，相比于 sigmoid 更加容易学习。
+
+tanh:
+$$\tanh(x) = \frac{e^x - e^{-x}}{e^x + e^{-x}}$$ {#eq:tanh}
+$\tanh(0) = 0$，更类似于单位函数。
+
+Radial basis function (RBF):
+$$h_i = \exp\left(-\frac{1}{\sigma_i^2}\left\lVert\bm{W}_{:,i} - \bm{x}\right\rVert^2\right)$$ {#eq:rbf}
+当 $\bm{x}$ 接近模板 $\bm{W}_{:,i}$ 时，函数激活；此外大部分情况不激活，所以难于
+优化。
 
 ## Machine Learning Basics
 

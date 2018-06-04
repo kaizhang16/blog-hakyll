@@ -61,3 +61,5 @@ Applications](./2018-05-29-Dropout-as-a-Bayesian-Approximation-Insights-and-Appl
 请参考[文献阅读：Deep Learning](./2018-06-02-deep-learning-goodfellow2016.html#混合分布)。
 
 ## sigmoid，relu，softplus，tanh 和 RBF 及其应用场景
+
+请参考[文献阅读：Deep Learning](./2018-06-02-deep-learning-goodfellow2016.html#常见函数)。
