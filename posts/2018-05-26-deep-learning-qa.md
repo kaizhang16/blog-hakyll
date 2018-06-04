@@ -47,7 +47,7 @@ Applications](./2018-05-29-Dropout-as-a-Bayesian-Approximation-Insights-and-Appl
 
 ## 列举常见的范数及其应用场景，如 $L^0, L^1, L^2, L^\infty$, Frobenius 范数
 
-请参考[文献阅读：Deep Learning](./2018-06-02-deep-learning-goodfellow2016.html#范数)。
+请参考[文献阅读：Deep Learning#范数](./2018-06-02-deep-learning-goodfellow2016.html#范数)。
 
 ## 贝叶斯概率与频率派概率，以及在统计中对于真实参数的假设
 
@@ -58,8 +58,12 @@ Applications](./2018-05-29-Dropout-as-a-Bayesian-Approximation-Insights-and-Appl
 
 ## 概率密度的万能近似器
 
-请参考[文献阅读：Deep Learning](./2018-06-02-deep-learning-goodfellow2016.html#混合分布)。
+请参考[文献阅读：Deep Learning#混合分布](./2018-06-02-deep-learning-goodfellow2016.html#混合分布)。
 
 ## sigmoid，relu，softplus，tanh 和 RBF 及其应用场景
 
-请参考[文献阅读：Deep Learning](./2018-06-02-deep-learning-goodfellow2016.html#常见函数)。
+请参考[文献阅读：Deep Learning#常见函数](./2018-06-02-deep-learning-goodfellow2016.html#常见函数)。
+
+## KL 散度
+
+请参考[文献阅读：Deep Learning#信息论](./2018-06-02-deep-learning-goodfellow2016.html#信息论)。
