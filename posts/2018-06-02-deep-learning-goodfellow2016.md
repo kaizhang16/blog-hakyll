@@ -123,6 +123,17 @@ KL 散度和交叉信息熵之间的关系：$H(P, Q) = H(P) + D_{\textrm{KL}}(P
 
 为了使数值计算稳定，需要把 softmax 里的 $x$ 换成 $x - \max_i x_i$。
 
+### 病态条件
+
+矩阵条件数
+
+: $\kappa(\bm{A}) = \lVert \bm{A}^{-1}\rVert \cdot \lVert\bm{A}\rVert$。当范数选
+  $L^2$ 范数，且 $\bm{A}$ 为正规矩阵时，$\kappa(\bm{A}) =
+  \left\lvert\frac{\lambda_{max}(\bm{A})}{\lambda_{min}(\bm{A})}\right\rvert$。
+  其中，$\lambda_{max}(\bm{A})$ 和 $\lambda_{min}(\bm{A})$ 分别为 $\bm{A}$ 的极
+  大和极小（根据模数）特征值。当条件数较大时，矩阵求逆对输入错误非常敏感，此时称
+  矩阵为病态条件的矩阵。
+
 ## Machine Learning Basics
 
 ### Maximum Likelihood Estimation（最大似然估计）
@@ -145,5 +156,15 @@ $$
 &= \arg\max_{\bm{\theta}}\left[\sum_{i=1}^m\log p(\bm{x}^{(i)}|\bm{\theta}) + \log p(\bm{\theta})\right]
 \end{align*}
 $$ {#eq:map}
+
+## 训练深度模型的优化
+
+### 长期依赖
+
+假设 $\bm{W}$ 有特征值分解 $\bm{W} =
+\bm{V}\textrm{diag}(\bm{\lambda})\bm{V}^{-1}$，那么有
+$$\bm{W}^t = (\bm{V}\textrm{diag}(\bm{\lambda})\bm{V}^{-1})^t = \bm{V}\textrm{diag}(\bm{\lambda})^t\bm{V}^{-1}$$ {#eq:gradientMultiply}
+当 $\lvert\lambda_i\rvert > 1$ 时，梯度会爆炸，导致学习不稳定；当
+$\lvert\lambda_i\rvert < 1$ 时，梯度会消失，导致不好判断向哪个方向优化。
 
 ## 参考文献
