@@ -73,3 +73,24 @@ Applications](./2018-05-29-Dropout-as-a-Bayesian-Approximation-Insights-and-Appl
 请参考[文献阅读：Deep Learning#上溢和下溢](./2018-06-02-deep-learning-goodfellow2016.html#上溢和下溢)。
 
 ## 与矩阵的特征值相关联的条件数（病态条件）指什么，与梯度爆炸和梯度弥散的关系
+
+请参考[文献阅读：Deep Learning#病态条件](./2018-06-02-deep-learning-goodfellow2016.html#病态条件)
+和[文献阅读：Deep Learning#长期依赖](./2018-06-02-deep-learning-goodfellow2016.html#长期依赖)。
+
+## 在基于梯度的优化问题中，如何判断一个梯度为 $0$ 的临界点为极大值、极小值还是鞍点？Hessian 矩阵的条件数与梯度下降的关系
+
+请参考[文献阅读：Deep Learning#梯度之外：Jacobian 和 Hessian 矩阵](./2018-06-02-deep-learning-goodfellow2016.html#梯度之外jacobian-和-hessian-矩阵)。
+
+## KTT 方法与约束优化问题，活跃约束的定义
+
+请参考[文献阅读：Deep Learning#有约束的优化](./2018-06-02-deep-learning-goodfellow2016.html#有约束的优化)。
+
+## 模型容量，表示容量，有效容量和最优容量概念
+
+请参考[文献阅读：Deep Learning#容量过拟合和欠拟合](./2018-06-02-deep-learning-goodfellow2016.html#容量过拟合和欠拟合)。
+
+## 正则化中的权重衰减与加入先验知识在某些条件下的等价性
+
+请参考[文献阅读：Deep Learning#Maximum A Posterior (MAP) Estimation（最大后验概率估计）](./2018-06-02-deep-learning-goodfellow2016.html#maximum-a-posteriori-map-estimation最大后验概率估计)。
+
+## 高斯分布的广泛应用的缘由

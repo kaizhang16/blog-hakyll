@@ -134,7 +134,53 @@ KL 散度和交叉信息熵之间的关系：$H(P, Q) = H(P) + D_{\textrm{KL}}(P
   大和极小（根据模数）特征值。当条件数较大时，矩阵求逆对输入错误非常敏感，此时称
   矩阵为病态条件的矩阵。
 
+### 梯度之外：Jacobian 和 Hessian 矩阵
+
+Jacobian 矩阵
+: 对一个函数 $\bm{f}:\mathbb{R}^m \to \mathbb{R}^n$ 来说，
+  $$\bm{J}_{i, j} = \frac{\partial}{\partial x_j} f(\bm{x})_i$$ {#eq:jacobianMatrix}
+  为其 Jacobian 矩阵，$\bm{J} \in \mathbb{R}^{n\times m}$。
+
+Hessian 矩阵
+: 对一个函数 $f: \mathbb{R}^n \to \mathbb{R}$ 来说，
+  $$\bm{H}(f)(\bm{x})_{i, j} = \frac{\partial^2}{\partial x_i\partial x_j}f(\bm{x})$$ {#eq:hessianMatrix}
+  为其 Hessian 矩阵。
+
+Hessian 矩阵的条件数描述了二阶导数有多大区别。
+
+![Hessian 矩阵的条件数示意图](../images/hessian-matrix-condition-number.png){#fig:hessianMatrixConditionNumber}
+
+### 有约束的优化
+
+扩展 Lagrange 函数
+: $$L(\bm{x}, \bm{\lambda}, \bm{\alpha}) = f(\bm{x}) + \sum_i \lambda_i g^{(i)}(\bm{x}) + \sum_j \alpha_j h^{(j)}(\bm{x})$$ {#eq:generalizedLagrange}
+
+有约束的最小化
+: $$\min_{\bm{x}}\max_{\bm{\lambda}}\max_{\bm{\alpha}, \bm{\alpha} \le 0}L(\bm{x}, \bm{\lambda}, \bm{\alpha})$$ {#eq:constrainedMin}
+
+KKT 条件（有约束优化的最优点的必要条件）
+: - 扩展 Lagrange 函数的梯度为 $0$；
+ - 满足 $\bm{x}$ 和 KKT 乘子（$\bm{\lambda}, \bm{\alpha}$）的约束；
+ - $\bm{\alpha} \odot \bm{h}(\bm{x}) = \bm{0}$。
+
+活跃约束
+: $h^{(i)}(\bm{x}^*) = 0$ 时称 $h^{(i)}(\bm{x})$ 为活跃的约束。
+
 ## Machine Learning Basics
+
+### 容量、过拟合和欠拟合
+
+模型容量
+: （非正式）拟合各类函数的能力。
+
+表示容量
+: 学习算法可以选择的函数家族。
+
+有效容量
+: 实际容量，小于表示容量。
+
+最优容量
+: 泛化误差最小时的模型容量。
 
 ### Maximum Likelihood Estimation（最大似然估计）
 
@@ -156,6 +202,8 @@ $$
 &= \arg\max_{\bm{\theta}}\left[\sum_{i=1}^m\log p(\bm{x}^{(i)}|\bm{\theta}) + \log p(\bm{\theta})\right]
 \end{align*}
 $$ {#eq:map}
+先验分布为 $\mathcal{N}(\bm{w}; \bm{0}, \frac{1}{\lambda}\bm{I}^2)$ 时，先验项对
+应于最大似然估计里的权重衰减。
 
 ## 训练深度模型的优化
 
