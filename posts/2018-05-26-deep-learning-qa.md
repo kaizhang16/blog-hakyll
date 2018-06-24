@@ -94,3 +94,13 @@ Applications](./2018-05-29-Dropout-as-a-Bayesian-Approximation-Insights-and-Appl
 请参考[文献阅读：Deep Learning#Maximum A Posterior (MAP) Estimation（最大后验概率估计）](./2018-06-02-deep-learning-goodfellow2016.html#maximum-a-posteriori-map-estimation最大后验概率估计)。
 
 ## 高斯分布的广泛应用的缘由
+
+请参考[文献阅读：Deep Learning#Gaussian Distribution](./2018-06-02-deep-learning-goodfellow2016.html#gaussian-distribution)。
+
+## 稀疏表示，低维表示和独立表示
+
+请参考[文献阅读：Deep Learning#非监督学习算法](./2018-06-02-deep-learning-goodfellow2016.html#非监督学习算法)。
+
+## 列举一些无法基于梯度优化的代价函数及其具有的特点
+
+请参考[文献阅读：Deep Learning#构建一个机器学习算法](./2018-06-02-deep-learning-goodfellow2016.html#构建一个机器学习算法)。

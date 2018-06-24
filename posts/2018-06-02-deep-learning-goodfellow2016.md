@@ -57,6 +57,11 @@ $$\mathcal{N}(x;\mu, \sigma^2) = \sqrt{\frac{1}{2\pi\sigma^2}}\exp\left(-\frac{1
 为了计算的简便，也可以用 $\beta^{-1} = \sigma^2$ 替代 $\sigma^2$ 作为参数，其中
 $\beta \in (0, \infty)$，表示精度。
 
+Gaussian 分布应用广泛的原因：
+
+- 中心极限定理表明许多独立随机变量的和接近于正态分布；
+- 同方差的所有分布里，正态分布的不确定性最大，意味着向模型插入了最少的先验知识。
+
 $$\mathcal{N}(\bm{x};\bm{\mu},\bm{\Sigma}) = \sqrt{\frac{1}{(2\pi)^n\det(\bm{\Sigma})}}\exp\left(-\frac{1}{2}(\bm{x}-\bm{\mu})^\mathsf{T}\bm{\Sigma}^{-1}(\bm{x}-\bm{\mu})\right)$$ {#eq:gaussianDistributionMulti}
 
 ### 混合分布
@@ -204,6 +209,21 @@ $$
 $$ {#eq:map}
 先验分布为 $\mathcal{N}(\bm{w}; \bm{0}, \frac{1}{\lambda}\bm{I}^2)$ 时，先验项对
 应于最大似然估计里的权重衰减。
+
+### 非监督学习算法
+
+低维表示
+: 用小的表示压缩尽可能多的信息。
+
+稀疏表示
+: 大部分元素为 0。
+
+独立表示
+: 解耦数据分布的协方差以使各个维度统计独立。
+
+### 构建一个机器学习算法
+
+决策树和 k 平均不适用梯度优化，因为它们的损失函数有平坦区域。
 
 ## 训练深度模型的优化
 
