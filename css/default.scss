@@ -130,7 +130,6 @@ article {
 
     a {
         font-size: 1.3rem;
-        border-bottom: 1px solid black;
     }
 
     a::after {
@@ -316,21 +315,21 @@ aside {
         display: none;
         background: #eee;
         border-radius: 5px;
-        padding: 0.8em 1em;
+        padding-top: 2.8rem;
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
         position: fixed;
-        margin: 0 1rem;
-        max-height: 90vh;
+        margin-right: 1rem;
+        max-height: 80vh;
         overflow: auto;
 
         h1 {
-            margin-top: 1rem;
             font-size: larger;
         }
 
         ul {
             list-style-type: none;
             padding-left: 1.5em;
-            margin-bottom: 0;
         }
 
         li {
@@ -339,6 +338,10 @@ aside {
 
         #toc > ul {
             padding-left: 0;
+        }
+
+        #toc > ul:last-child {
+            padding-bottom: 0.2rem;
         }
 
         counter-reset: chapter;

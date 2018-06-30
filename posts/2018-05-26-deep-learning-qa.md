@@ -104,3 +104,13 @@ Applications](./2018-05-29-Dropout-as-a-Bayesian-Approximation-Insights-and-Appl
 ## 列举一些无法基于梯度优化的代价函数及其具有的特点
 
 请参考[文献阅读：Deep Learning#构建一个机器学习算法](./2018-06-02-deep-learning-goodfellow2016.html#构建一个机器学习算法)。
+
+## 梯度爆炸的一些解决办法
+
+请参考[文献阅读：Deep Learning#参数初始化策略](./2018-06-02-deep-learning-goodfellow2016.html#参数初始化策略)。
+
+## 万能近似定理
+
+请参考[文献阅读：Deep Learning#架构设计](./2018-06-02-deep-learning-goodfellow2016.html#架构设计)。
+
+## 在前馈网络中，深度与宽度的关系及表示能力的差异
