@@ -126,3 +126,7 @@ tags: deep-learning
 1. 表示学习发展的初衷？并介绍其典型例子：自编码器
 
    请参考[文献阅读：Deep Learning#介绍](./2018-06-02-deep-learning-goodfellow2016.html#介绍)。
+
+1. 在做正则化过程中，为什么只对权重做正则惩罚，而不对偏置做权重惩罚？
+
+   请参考[文献阅读：Deep Learning#参数范数惩罚](./2018-06-02-deep-learning-goodfellow2016.html#参数范数惩罚)。
