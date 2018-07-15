@@ -2,7 +2,7 @@
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 22d3741fa15996fc2f5ca886da72e3ffafeef948f12062112715c6ae3a07e650
+-- hash: 5ed13ed1a82f8d00a60d0d67cb13ccfeebdf89f1bf33468eebeb04bb989d1c03
 
 name:           blog
 version:        1.3.0
@@ -35,7 +35,7 @@ library
       base >=4.7 && <5
     , hakyll >=4.12
     , hakyll-sass >=0.2
-    , pandoc >=2.1
+    , pandoc >=2.2
     , pandoc-citeproc >=0.14
     , pandoc-crossref >=0.3
     , pandoc-types >=1.17
@@ -53,7 +53,7 @@ executable blog
     , blog
     , hakyll >=4.12
     , hakyll-sass >=0.2
-    , pandoc >=2.1
+    , pandoc >=2.2
     , pandoc-citeproc >=0.14
     , pandoc-crossref >=0.3
     , pandoc-types >=1.17
@@ -72,7 +72,7 @@ test-suite blog-test
     , blog
     , hakyll >=4.12
     , hakyll-sass >=0.2
-    , pandoc >=2.1
+    , pandoc >=2.2
     , pandoc-citeproc >=0.14
     , pandoc-crossref >=0.3
     , pandoc-types >=1.17
