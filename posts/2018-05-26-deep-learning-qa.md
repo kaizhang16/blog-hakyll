@@ -130,3 +130,7 @@ tags: deep-learning
 1. 在做正则化过程中，为什么只对权重做正则惩罚，而不对偏置做权重惩罚？
 
    请参考[文献阅读：Deep Learning#参数范数惩罚](./2018-06-02-deep-learning-goodfellow2016.html#参数范数惩罚)。
+
+1. 在深度学习神经网络中，所有的层中使用相同权重的利弊
+
+   请参考[文献阅读：Deep Learning#参数范数惩罚](./2018-06-02-deep-learning-goodfellow2016.html#参数范数惩罚)。
