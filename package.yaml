@@ -23,7 +23,7 @@ dependencies:
 - base >= 4.7 && < 5
 - hakyll >= 4.12
 - hakyll-sass >= 0.2
-- pandoc >= 2.1
+- pandoc >= 2.2
 - pandoc-citeproc >= 0.14
 - pandoc-crossref >= 0.3
 - pandoc-types >= 1.17

@@ -173,6 +173,13 @@ KKT 条件（有约束优化的最优点的必要条件）
 
 ## Machine Learning Basics
 
+### 学习算法
+
+#### 例子：线性回归
+
+均方误差
+: $$\textrm{MSE}_{\textrm{test}} = \frac{1}{m}\sum_i (\hat{\bm{y}}^{(\textrm{test})} - \bm{y}^{(\textrm{test})})_i^2$$ {#eq:mse}
+
 ### 容量、过拟合和欠拟合
 
 模型容量
@@ -193,10 +200,13 @@ $$
 \begin{align*}
 \bm{\theta}_{\textrm{ML}} &= \arg\max_{\bm{\theta}}p_{\textrm{model}}(\mathbb{X;\bm{\theta}}) \\
 &= \arg\max_{\bm{\theta}}\prod_{i=1}^m p_{\textrm{model}}(\bm{x}^{(i)};\bm{\theta}) \\
-&= \arg\max_{\bm{\theta}}\sum_{i=1}^m \log p_{\textrm{model}}(\bm{x}^{(i)};\bm{\theta})
+&= \arg\max_{\bm{\theta}}\sum_{i=1}^m \log p_{\textrm{model}}(\bm{x}^{(i)};\bm{\theta}) \\
+&= \arg\max_{\bm{\theta}}\mathbb{E}_{\textrm{x} \sim \hat{p}_{\textrm{data}}} \log p_{\textrm{model}}(\bm{x};\bm{\theta})
 \end{align*}
 $$ {#eq:mle}
 其中，$\mathbb{X} = \{\bm{x}^{(1)},\dots,\bm{x}^{(m)}\}$
+
+最大似然估计等价于最小化交叉信息熵 $H(\hat{P}_{\textrm{data}},P_{\textrm{model}})$。
 
 ### Maximum A Posteriori (MAP) Estimation（最大后验概率估计）
 
@@ -227,12 +237,26 @@ $$ {#eq:map}
 
 ## 深度前馈网络
 
+MLPs
+: Multilayer Perceptrons。
+
 ### 架构设计
 
 万能近似定理
 : 有一层线性输出层和至少一层任意激活函数的隐藏层的前馈网络，如果有足够多的隐藏单
   元，就可以以任意小的非零误差近似从一个有限维空间到另一个有限维空间的 Borel 可
   测函数。
+
+深度矫正网络（ReLU？）表示的函数在单隐藏层网络里可能需要指数次隐藏单元。具体地，
+深度矫正网络可以表示的线性区域数量为：
+$$O\left(\binom{n}{d}^{d(l-1)}n^d\right)$$ {#eq:deepNetworkCapacity}
+其中，$d$ 为输入层单元数量，$l$ 为深度，$n$ 为隐藏层单元数量。
+
+### 历史说明
+
+均方误差容易饱和，学习速度慢。
+
+分段线性函数在某些点不可微，但学习速度快。
 
 ## 训练深度模型的优化
 
