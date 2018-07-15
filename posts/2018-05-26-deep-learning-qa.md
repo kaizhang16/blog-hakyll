@@ -122,3 +122,7 @@ tags: deep-learning
    用均方误差损失则会存在很多问题？分段线性隐藏层代替 Sigmoid 的利弊。
 
    请参考[文献阅读：Deep Learning#历史说明](./2018-06-02-deep-learning-goodfellow2016.html#历史说明)。
+
+1. 表示学习发展的初衷？并介绍其典型例子：自编码器
+
+   请参考[文献阅读：Deep Learning#介绍](./2018-06-02-deep-learning-goodfellow2016.html#介绍)。
