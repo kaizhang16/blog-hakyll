@@ -275,6 +275,33 @@ $$O\left(\binom{n}{d}^{d(l-1)}n^d\right)$$ {#eq:deepNetworkCapacity}
 每一层使用单独的惩罚系数 $\alpha$ 更精确，但搜索空间更大。所有层使用相同的
 $\alpha$ 会减少搜索空间。
 
+#### $L^2$ 参数正则化
+
+当目标函数是二次函数时，可以近似为：
+$$\hat{J}(\bm{\theta}) = J(\bm{w}^{\ast}) + \frac{1}{2}(\bm{w}-\bm{w}^{\ast})^{\mathsf{T}}\bm{H}(\bm{w}-\bm{w}^{\ast})$$ {#eq:JHat}
+其中，$\bm{H}$ 是 $J$ 关于 $\bm{w}$ 在 $\bm{w}^{\ast}$ 处的 Hessian 矩阵。对[@eq:JHat]
+两边同时求导，可得：
+$$\nabla_{\bm{w}}\hat{J}(\bm{w}) = \bm{H}(\bm{w}-\bm{w}^{\ast})$$ {#eq:gradientJHat}
+在让 $\hat{J}$ 取得最小值的 $\bm{w}^{\ast}$ 处，$\nabla_{\bm{w}}\hat{J}(\bm{w})
+= \bm{H}(\bm{w}-\bm{w}^{\ast})=\bm{0}$。加入惩罚项后，目标函数变为：
+$$\tilde{J}(\bm{w};\bm{X},\bm{y}) = \frac{\alpha}{2}\bm{w}^{\mathsf{T}}\bm{w} + J(\bm{w};\bm{X},\bm{y})$$ {#eq:JTilde}
+由新梯度为 $0$ 可得：
+$$\alpha\tilde{\bm{w}} + \bm{H}(\tilde{\bm{w}} - \bm{w}^{\ast}) = 0 $$
+即：
+$$\tilde{\bm{w}} = (\bm{H} + \alpha\bm{I})^{-1}\bm{H}\bm{w}^{\ast}$$ {#eq:tildeW}
+因为 $\bm{H}$ 是实对称矩阵，所以存在正交基组成的矩阵 $\bm{Q}$ 和对角矩阵
+$\bm{\Lambda}$，使得 $\bm{H} = \bm{Q}\bm{\Lambda}\bm{Q}^{\mathsf{T}}$。可得，
+$$
+\begin{align*}
+\tilde{\bm{w}} &= (\bm{Q}\bm{\Lambda}\bm{Q}^{\mathsf{T}} + \alpha\bm{I})^{-1}\bm{Q}\bm{\Lambda}\bm{Q}^{\mathsf{T}}\bm{w}^{\ast} \\
+&= \left[\bm{Q}(\bm{\Lambda} + \alpha\bm{I})\bm{Q}^{\mathsf{T}}\right]^{-1}\bm{Q}\bm{\Lambda}\bm{Q}^{\mathsf{T}}\bm{w}^{\ast} \\
+&= \bm{Q}(\bm{\Lambda}+\alpha\bm{I})^{-1}\bm{\Lambda}\bm{Q}^{\mathsf{T}}\bm{w}^{\ast}
+\end{align*}
+$$ {#eq:tildeW1}
+即与 $\bm{H}$ 第 $i$ 个特征向量平行的分量会缩减为原来的
+$\frac{\lambda_i}{\lambda_i + \alpha}$。$\bm{H}$ 特征值大的方向受影响小，特征值
+小的方向会被缩减为 $0$。
+
 ## 训练深度模型的优化
 
 ### 长期依赖

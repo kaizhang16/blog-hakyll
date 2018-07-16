@@ -52,7 +52,8 @@ crossRef p =
     let meta =
           CR.figureTitle (str "图") <> CR.figPrefix (str "图.") <>
           CR.tableTitle (str "表") <>
-          CR.tblPrefix (str "表.")
+          CR.tblPrefix (str "表.") <>
+          CR.eqnPrefix (str "式.")
     CR.runCrossRefIO meta Nothing CR.defaultCrossRefAction p
 
 processCites' :: P.Pandoc -> Compiler P.Pandoc
