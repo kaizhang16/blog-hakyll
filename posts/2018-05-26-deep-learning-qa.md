@@ -138,3 +138,7 @@ tags: deep-learning
 1. 正则化过程中，权重衰减与 Hessian 矩阵中特征值的关系
 
    请参考[文献阅读：Deep Learning#参数范数惩罚](./2018-06-02-deep-learning-goodfellow2016.html#参数范数惩罚)。
+
+1. $L^1$/$L^2$ 正则化与高斯先验/对数先验的 MAP 贝叶斯推断的关系
+
+   请参考[文献阅读：Deep Learning#参数范数惩罚](./2018-06-02-deep-learning-goodfellow2016.html#参数范数惩罚)。

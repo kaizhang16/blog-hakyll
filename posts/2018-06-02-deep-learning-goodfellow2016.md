@@ -58,7 +58,9 @@ $$\bm{x}^T\bm{y} = ||\bm{x}||_2 ||\bm{y}||_2 \cos\theta$$ {#eq:dotProduct}
 
 $$P(\textrm{x}|\textrm{y}) = \frac{P(\textrm{x})P(\textrm{y}|\textrm{x})}{P(\textrm{y})}$$ {#eq:bayesRule}
 
-### Gaussian Distribution
+### 常见概率分布
+
+#### Gaussian Distribution
 
 $$\mathcal{N}(x;\mu, \sigma^2) = \sqrt{\frac{1}{2\pi\sigma^2}}\exp\left(-\frac{1}{2\sigma^2}(x-\mu)^2\right)$$ {#eq:gaussianDistribution}
 为了计算的简便，也可以用 $\beta^{-1} = \sigma^2$ 替代 $\sigma^2$ 作为参数，其中
@@ -70,6 +72,11 @@ Gaussian 分布应用广泛的原因：
 - 同方差的所有分布里，正态分布的不确定性最大，意味着向模型插入了最少的先验知识。
 
 $$\mathcal{N}(\bm{x};\bm{\mu},\bm{\Sigma}) = \sqrt{\frac{1}{(2\pi)^n\det(\bm{\Sigma})}}\exp\left(-\frac{1}{2}(\bm{x}-\bm{\mu})^\mathsf{T}\bm{\Sigma}^{-1}(\bm{x}-\bm{\mu})\right)$$ {#eq:gaussianDistributionMulti}
+
+#### 指数和 Laplace 分布
+
+Laplace 分布
+: $$\textrm{Laplace}(x;\mu,\gamma) = \frac{1}{2\gamma}\exp\left(-\frac{|x-\mu|}{\gamma}\right)$$ {#eq:laplaceDistribution}
 
 ### 混合分布
 
@@ -301,6 +308,11 @@ $$ {#eq:tildeW1}
 即与 $\bm{H}$ 第 $i$ 个特征向量平行的分量会缩减为原来的
 $\frac{\lambda_i}{\lambda_i + \alpha}$。$\bm{H}$ 特征值大的方向受影响小，特征值
 小的方向会被缩减为 $0$。
+
+#### $L^1$ 参数正则化
+
+$L^2$ 正则化等价于使用权重为 Gaussian 先验分布的最大后验 Bayesian 推断；$L^{1}$
+正则化等价于使用权重为各向同性 Laplace 分布的最大后验 Bayesian 推断。
 
 ## 训练深度模型的优化
 
