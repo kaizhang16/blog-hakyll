@@ -142,3 +142,7 @@ tags: deep-learning
 1. $L^1$/$L^2$ 正则化与高斯先验/对数先验的 MAP 贝叶斯推断的关系
 
    请参考[文献阅读：Deep Learning#参数范数惩罚](./2018-06-02-deep-learning-goodfellow2016.html#参数范数惩罚)。
+
+1. 什么是欠约束？为什么大多数的正则化可以使欠约束下的欠定问题在迭代过程中收敛？
+
+   请参考[文献阅读：Deep Learning#正则化和欠约束问题](./2018-06-02-deep-learning-goodfellow2016.html#正则化和欠约束问题)。
