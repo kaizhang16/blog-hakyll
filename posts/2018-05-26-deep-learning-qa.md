@@ -151,3 +151,8 @@ tags: deep-learning
 
    请参考[文献阅读：Deep Learning#数据集扩充](./2018-06-02-deep-learning-goodfellow2016.html#数据集扩充)
    和[文献阅读：Deep Learning#噪声健壮性](./2018-06-02-deep-learning-goodfellow2016.html#噪声健壮性)。
+
+1. 共享参数的概念及在深度学习中的广泛影响
+
+   请参考[文献阅读：Deep Learning#多任务学习](./2018-06-02-deep-learning-goodfellow2016.html#多任务学习)
+   和[文献阅读：Deep Learning#参数类型和参数共享](./2018-06-02-deep-learning-goodfellow2016.html#参数类型和参数共享)。
