@@ -146,3 +146,8 @@ tags: deep-learning
 1. 什么是欠约束？为什么大多数的正则化可以使欠约束下的欠定问题在迭代过程中收敛？
 
    请参考[文献阅读：Deep Learning#正则化和欠约束问题](./2018-06-02-deep-learning-goodfellow2016.html#正则化和欠约束问题)。
+
+1. 为什么考虑在模型训练时对输入（隐藏单元/权重）添加方差较小的噪声，与正则化的关系
+
+   请参考[文献阅读：Deep Learning#数据集扩充](./2018-06-02-deep-learning-goodfellow2016.html#数据集扩充)
+   和[文献阅读：Deep Learning#噪声健壮性](./2018-06-02-deep-learning-goodfellow2016.html#噪声健壮性)。
