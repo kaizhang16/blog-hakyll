@@ -156,3 +156,7 @@ tags: deep-learning
 
    请参考[文献阅读：Deep Learning#多任务学习](./2018-06-02-deep-learning-goodfellow2016.html#多任务学习)
    和[文献阅读：Deep Learning#参数类型和参数共享](./2018-06-02-deep-learning-goodfellow2016.html#参数类型和参数共享)。
+
+1. Dropout 与 Bagging 集成方法的关系，以及 Dropout 带来的意义与其强大的原因
+
+   请参考[文献阅读：Deep Learning#dropout](./2018-06-02-deep-learning-goodfellow2016.html#dropout)

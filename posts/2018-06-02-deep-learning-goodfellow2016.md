@@ -340,6 +340,22 @@ $\bm{X}^{\mathsf{T}}\bm{X} + \alpha\bm{I}$ 求逆，这个矩阵一定是非奇�
 
 参数共享只需要存储共享的参数，占用内存较小。
 
+### Dropout
+
+Bagging 与 Dropout 的异同点：
+
+- Bagging 训练时，所有模型都是独立的；Dropout 里，不同模型共享参数，占用内存少；
+- Bagging 用各自的样本集训练每个模型；Dropout 不显式训练每个模型，每一步只训练某
+  个子网络的一部分；
+- 除此之外，Bagging 和 Dropout 很像。
+
+Dropout 的优点：
+
+- Dropout 计算成本很低；
+- Dropout 不怎么限制模型类型和训练过程。
+
+Dropout 需要更大的模型和更多的迭代次数。
+
 ## 训练深度模型的优化
 
 ### 长期依赖
