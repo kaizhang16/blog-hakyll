@@ -160,3 +160,7 @@ tags: deep-learning
 1. Dropout 与 Bagging 集成方法的关系，以及 Dropout 带来的意义与其强大的原因
 
    请参考[文献阅读：Deep Learning#dropout](./2018-06-02-deep-learning-goodfellow2016.html#dropout)
+
+1. 批量梯度下降法更新过程中，批量的大小与各种更新的稳定性关系
+
+   请参考[文献阅读：Deep Learning#学习与纯优化有何不同](./2018-06-02-deep-learning-goodfellow2016.html#学习与纯优化有何不同)
