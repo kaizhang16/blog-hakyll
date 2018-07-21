@@ -172,3 +172,7 @@ tags: deep-learning
 1. SGD 预计学习率的选择方法，带动量的 SGD 对于 Hessian 矩阵病态条件数及随机梯度方差的影响
 
    请参考[文献阅读：Deep Learning#基本算法](./2018-06-02-deep-learning-goodfellow2016.html#基本算法)。
+
+1. 初始化权重过程中，权重大小在各种网络结构中的影响，以及一些初始化的方法；偏置的初始化
+
+   请参考[文献阅读：Deep Learning#参数初始化策略](./2018-06-02-deep-learning-goodfellow2016.html#参数初始化策略)。
