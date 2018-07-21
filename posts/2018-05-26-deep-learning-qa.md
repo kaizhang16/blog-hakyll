@@ -168,3 +168,7 @@ tags: deep-learning
 1. 如何避免深度学习中的病态、鞍点、梯度爆炸和梯度弥散？
 
    请参考[文献阅读：Deep Learning#神经网络优化中的挑战](./2018-06-02-deep-learning-goodfellow2016.html#神经网络优化中的挑战)。
+
+1. SGD 预计学习率的选择方法，带动量的 SGD 对于 Hessian 矩阵病态条件数及随机梯度方差的影响
+
+   请参考[文献阅读：Deep Learning#基本算法](./2018-06-02-deep-learning-goodfellow2016.html#基本算法)。
