@@ -493,4 +493,52 @@ RMSProp 算法：
 
 Adam 算法对超参数的选择很健壮。
 
+### 二阶近似方法
+
+#### Newton 法
+
+$$J(\bm{\theta})\approx J(\bm{\theta}_0) + (\bm{\theta}-\bm{\theta}_0)^{\mathsf{T}}\nabla_{\bm{\theta}}J(\bm{\theta}_0) + \frac{1}{2}(\bm{\theta}-\bm{\theta}_0)^{\mathsf{T}}\bm{H}(\bm{\theta}-\bm{\theta}_0)$$
+$$\bm{\theta}^{\ast} = \bm{\theta}_0 - \bm{H}^{-1}\nabla_{\bm{\theta}}J(\bm{\theta}_0)$$
+
+在深度学习里，目标函数不一定正定，因此要加正则项：
+
+$$\bm{\theta}^{\ast} = \bm{\theta}_0 - (\bm{H} + \alpha\bm{I})^{-1}\nabla_{\bm{\theta}}J(\bm{\theta}_0)$$
+
+深度学习里 Newton 法的缺点：
+
+- $\alpha$ 要能够抵消负的特征值，但太大的话 Hessian 矩阵的作用会变小，学习率可能
+  会比梯度下降法还小。
+- 计算 Hessian 矩阵的逆矩阵需要 $O(k^3)$ 复杂度。
+
+#### 共轭梯度法
+
+假如 $\bm{d}_t^{\mathsf{T}}\bm{H}\bm{d}_{t-1} = 0$，则称 $\bm{d}_t$ 和
+$\bm{d}_{t-1}$ 共轭。
+
+$$\bm{d}_t = \nabla_{\bm{\theta}}J(\bm{\theta}) + \beta_t\bm{d}_{t-1}$$
+
+Fletcher-Reeves 方法：
+
+$$\beta_t = \frac{\nabla_{\bm{\theta}}J(\bm{\theta_t})^{\mathsf{T}}\nabla_{\bm{\theta}}J(\bm{\theta_t})}{\nabla_{\bm{\theta}}J(\bm{\theta_{t-1}})^{\mathsf{T}}\nabla_{\bm{\theta}}J(\bm{\theta_{t-1}})}$$
+
+Polak-Ribiere 方法：
+
+$$\beta_t = \frac{(\nabla_{\bm{\theta}}J(\bm{\theta_t})-\nabla_{\bm{\theta}}J(\bm{\theta}_{t-1}))^{\mathsf{T}}\nabla_{\bm{\theta}}J(\bm{\theta_t})}{\nabla_{\bm{\theta}}J(\bm{\theta_{t-1}})^{\mathsf{T}}\nabla_{\bm{\theta}}J(\bm{\theta_{t-1}})}$$
+
+共轭梯度法：
+
+- 求梯度：$\bm{g}_t \gets \frac{1}{m}\nabla_{\bm{\theta}}\sum_i L(f(\bm{x}^{(i)};\bm{\theta}),\bm{y}^{(i)})$
+- 计算 $\beta_t$：$\beta_t = \frac{(\bm{g}_t - \bm{g}_{t-1})^{\mathsf{T}}\bm{g}_t}{\bm{g}_{t-1}^{\mathsf{T}}\bm{g}_{t-1}}$（Polak-Ribiere）
+- 计算搜索方向：$\bm{\rho}_t = -\bm{g}_t + \beta_t\bm{\rho}_{t-1}$
+- 在线上搜索找到 $\epsilon^{\ast}$：$\epsilon^{\ast} = \textrm{argmin}_{\epsilon}\frac{1}{m}\sum_i^m L(f(\bm{x}^{(i)};\bm{\theta}_t+\epsilon\bm{\beta}_t),\bm{y}^{(i)})$
+- 更新：$\bm{\theta}_{t+1} = \bm{\theta}_t + \epsilon^{\ast}\bm{\rho}_t$
+
+非线性共轭梯度在未变化的梯度方向上会重置。
+
+#### BFGS
+
+用 $\bm{M}_t$ 近似 $\bm{H}^{-1}$。减少了计算复杂度，但需要存储 $\bm{M}_t$。
+
+Limited Memory BFGS (L-BFGS) 假定 $\bm{M}_{t-1} = \bm{I}$，而不是存储它。
+
 ## 参考文献

@@ -180,3 +180,7 @@ tags: deep-learning
 1. 自适应学习率算法 AdaGrad、RMSProp 和 Adam 等算法的做法
 
    请参考[文献阅读：Deep Learning#自适应学习率算法](./2018-06-02-deep-learning-goodfellow2016.html#自适应学习率算法)。
+
+1. 二阶近似方法牛顿法、共轭梯度和 BGFS 等的做法
+
+   请参考[文献阅读：Deep Learning#二阶近似方法](./2018-06-02-deep-learning-goodfellow2016.html#二阶近似方法)。
