@@ -184,3 +184,9 @@ tags: deep-learning
 1. 二阶近似方法牛顿法、共轭梯度和 BGFS 等的做法
 
    请参考[文献阅读：Deep Learning#二阶近似方法](./2018-06-02-deep-learning-goodfellow2016.html#二阶近似方法)。
+
+1. Hessian 矩阵的标准化对于高阶优化算法的意义。
+
+   请参考[文献阅读：Deep Learning#优化策略和元算法](./2018-06-02-deep-learning-goodfellow2016.html#优化策略和元算法)。
+
+1. 卷积网络中的平移等变性的原因，常见的一些卷积形式

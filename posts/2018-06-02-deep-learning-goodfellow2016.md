@@ -541,4 +541,21 @@ $$\beta_t = \frac{(\nabla_{\bm{\theta}}J(\bm{\theta_t})-\nabla_{\bm{\theta}}J(\b
 
 Limited Memory BFGS (L-BFGS) 假定 $\bm{M}_{t-1} = \bm{I}$，而不是存储它。
 
+### 优化策略和元算法
+
+#### 批量初始化
+
+批量初始化：
+
+$$\bm{H}' = \frac{\bm{H}-\bm{\mu}}{\bm{\sigma}}$$
+其中，
+$$\bm{\mu} = \frac{1}{m}\sum_i\bm{H}_{i, :}$$
+$$\bm{\sigma}=\sqrt{\delta + \frac{1}{m}\sum_i(\bm{H} - \bm{\mu})_i^2}$$
+$\delta$ 用来防止数值溢出。
+
+批量初始化让低层层失效了，从而减小了高阶近似的影响。
+
+为了保留模型的表达力，通常使用 $\bm{\gamma}\bm{H}' + \bm{\beta}$ 而不是
+$\bm{H}'$（这里取消了不同层之间的耦合）。
+
 ## 参考文献
