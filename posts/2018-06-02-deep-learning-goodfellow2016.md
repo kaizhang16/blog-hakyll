@@ -451,4 +451,46 @@ $$\bm{\theta} \gets \bm{\theta} + \bm{v}$$ {#eq:updateTheta}
 - 避免饱和；
 - 逻辑门可能需要设成 $1$。
 
+### 自适应学习率算法
+
+#### AdaGrad
+
+- 求梯度：$\bm{g} \gets \frac{1}{m}\nabla_{\bm{\theta}}\sum_i L(f(\bm{x}^{(i)};\bm{\theta}),\bm{y}^{(i)})$
+- 累计平方梯度：$\bm{r} \gets \bm{r} + \bm{g}\odot\bm{g}$
+- 计算更新：$\Delta\bm{\theta} \gets -\frac{\epsilon}{\delta+\sqrt{\bm{r}}}\odot\bm{g}$
+- 更新：$\bm{\theta} \gets \bm{\theta} + \Delta\bm{\theta}$
+
+AdaGrad 适用于部分深度学习模型，但不是全部。
+
+#### RMSProp
+
+RMSProp 算法：
+
+- 求梯度：$\bm{g} \gets \frac{1}{m}\nabla_{\bm{\theta}}\sum_i L(f(\bm{x}^{(i)};\bm{\theta}),\bm{y}^{(i)})$
+- 累计平方梯度：$\bm{r} \gets \rho\bm{r} + (1-\rho)\bm{g}\odot\bm{g}$
+- 计算更新：$\Delta\bm{\theta} \gets -\frac{\epsilon}{\sqrt{\delta+\bm{r}}}\odot\bm{g}$
+- 更新：$\bm{\theta} \gets \bm{\theta} + \Delta\bm{\theta}$
+
+带 Nesterov 动量的 RMSProp 算法：
+
+- 临时更新：$\tilde{\bm{\theta}} \gets \bm{\theta} + \alpha\bm{v}$
+- 求梯度：$\bm{g} \gets \frac{1}{m}\nabla_{\tilde{\bm{\theta}}}\sum_i L(f(\bm{x}^{(i)};\tilde{\bm{\theta}}),\bm{y}^{(i)})$
+- 累计平方梯度：$\bm{r} \gets \rho\bm{r} + (1-\rho)\bm{g}\odot\bm{g}$
+- 计算速度更新：$\bm{v} \gets \alpha\bm{v}-\frac{\epsilon}{\sqrt{\bm{r}}}\odot\bm{g}$
+- 更新：$\bm{\theta} \gets \bm{\theta} + \bm{v}$
+
+经验上，RMSProp 算法有效且实用。
+
+#### Adam
+
+- 求梯度：$\bm{g} \gets \frac{1}{m}\nabla_{\bm{\theta}}\sum_i L(f(\bm{x}^{(i)};\bm{\theta}),\bm{y}^{(i)})$
+- 更新有偏一阶动量估计：$\bm{s} \gets \rho_1\bm{s} + (1-\rho_1)\bm{g}$
+- 更新有偏二阶动量估计：$\bm{r} \gets \rho_2\bm{r} + (1-\rho_2)\bm{g}\odot\bm{g}$
+- 纠正一阶动量：$\hat{\bm{s}} \gets \frac{\bm{s}}{1-\rho_1^t}$
+- 纠正二阶动量：$\hat{\bm{r}} \gets \frac{\bm{r}}{1-\rho_2^t}$
+- 计算更新：$\Delta\bm{\theta} \gets -\frac{\epsilon}{\delta+\sqrt{\hat{\bm{r}}}}\hat{\bm{s}}$
+- 更新：$\bm{\theta} \gets \bm{\theta} + \Delta\bm{\theta}$
+
+Adam 算法对超参数的选择很健壮。
+
 ## 参考文献

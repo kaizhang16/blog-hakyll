@@ -176,3 +176,7 @@ tags: deep-learning
 1. 初始化权重过程中，权重大小在各种网络结构中的影响，以及一些初始化的方法；偏置的初始化
 
    请参考[文献阅读：Deep Learning#参数初始化策略](./2018-06-02-deep-learning-goodfellow2016.html#参数初始化策略)。
+
+1. 自适应学习率算法 AdaGrad、RMSProp 和 Adam 等算法的做法
+
+   请参考[文献阅读：Deep Learning#自适应学习率算法](./2018-06-02-deep-learning-goodfellow2016.html#自适应学习率算法)。
