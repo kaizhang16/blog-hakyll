@@ -190,3 +190,5 @@ tags: deep-learning
    请参考[文献阅读：Deep Learning#优化策略和元算法](./2018-06-02-deep-learning-goodfellow2016.html#优化策略和元算法)。
 
 1. 卷积网络中的平移等变性的原因，常见的一些卷积形式
+
+   请参考[文献阅读：Deep Learning#基本卷积函数的变体](./2018-06-02-deep-learning-goodfellow2016.html#基本卷积函数的变体)。
