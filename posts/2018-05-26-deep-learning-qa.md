@@ -205,3 +205,7 @@ tags: deep-learning
 
    请参考[文献阅读：Deep Learning#encoder-decoder-sequence-to-sequence-architectures](./2018-06-02-deep-learning-goodfellow2016.html#encoder-decoder-sequence-to-sequence-architectures)
    和[文献阅读：Understanding LSTM networks](./2018-07-29-Understanding-LSTMs.html)。
+
+1. 采样在深度学习中的意义
+
+   请参考[文献阅读：Deep Learning#自然语言处理](./2018-06-02-deep-learning-goodfellow2016.html#自然语言处理)。
