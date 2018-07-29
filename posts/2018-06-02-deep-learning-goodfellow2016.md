@@ -651,4 +651,15 @@ RNN 2 严格地不如 RNN 1 强大，但是可以通过 Teacher forcing 解耦�
 
 ![双向 RNN](../images/bidirectional-rnn.png){#fig:bidirectionalRNN}
 
+### Encoder-Decoder Sequence-to-Sequence Architectures
+
+![Sequence to sequence RNN 架构](../images/sequence-to-sequence-rnn.png){#fig:sequenceToSequenceRNN}
+
+最大化平均 $\log
+P(\bm{y}^{(1)},\dots,\bm{y}^{(n_y)}|\bm{x}^{(1)},\dots,\bm{x}^{(n_x)})$ 。
+
+### 深度循环网络
+
+![深度 RNN](../images/deep-rnn.png){#fig:deepRNN}
+
 ## 参考文献

@@ -200,3 +200,8 @@ tags: deep-learning
 1. 循环神经网络常见的一些依赖循环关系，常见的一些输入输出，以及对应的应用场景
 
    请参考[文献阅读：Deep Learning#序列模型循环和递归网络](./2018-06-02-deep-learning-goodfellow2016.html#序列模型循环和递归网络)。
+
+1. seq2seq, gru, lstm 等相关的原理
+
+   请参考[文献阅读：Deep Learning#encoder-decoder-sequence-to-sequence-architectures](./2018-06-02-deep-learning-goodfellow2016.html#encoder-decoder-sequence-to-sequence-architectures)
+   和[文献阅读：Understanding LSTM networks](./2018-07-29-Understanding-LSTMs.html)。
