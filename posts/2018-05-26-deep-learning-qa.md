@@ -196,3 +196,7 @@ tags: deep-learning
 1. pooling 的做法的意义
 
    请参考[文献阅读：Deep Learning#pooling](./2018-06-02-deep-learning-goodfellow2016.html#pooling)。
+
+1. 循环神经网络常见的一些依赖循环关系，常见的一些输入输出，以及对应的应用场景
+
+   请参考[文献阅读：Deep Learning#序列模型循环和递归网络](./2018-06-02-deep-learning-goodfellow2016.html#序列模型循环和递归网络)。

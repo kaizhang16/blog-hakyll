@@ -599,4 +599,56 @@ $$Z_{i,j,k} = c(\bm{K}, \bm{V}, s)_{i,j,k} = \sum_{l,m,n} [V_{l,(j-1)\times s+m,
 平铺卷积
 : $Z_{i,j,k} = \sum_{l,m,n} V_{l,j+m-1,k+n-1}K_{i,l,m,n,j\%t+1,k\%t+1}$
 
+## 序列模型：循环和递归网络
+
+### 展开计算图
+
+$$\bm{h}^{(t)} = f(\bm{h}^{(t-1)}, \bm{x}^{(t)};\bm{\theta})$$
+
+### 循环神经网络
+
+![RNN 1](../images/rnn-1.png){#fig:rnn1}
+
+$$\bm{a}^{(t)} = \bm{b} + \bm{W}\bm{h}^{(t-1)} + \bm{U}\bm{x}^{(t)}$$
+$$\bm{h}^{(t)} = \tanh(\bm{a}^{(t)})$$
+$$\bm{o}^{(t)} = \bm{c} + \bm{V}\bm{h}^{(t)}$$
+$$\hat{\bm{y}}^{(t)} = \textrm{softmax}(\bm{o}^{(t)})$$
+$$
+\begin{align*}
+& L\left(\{\bm{x}^{(1)},\dots,\bm{x}^{(\tau)}\}, \{\bm{y}^{(1)},\dots,\bm{y}^{(\tau)}\}\right) \\
+=& \sum_t L^{(t)} \\
+=& - \sum_t\log p_{\textrm{model}}\left(\bm{y}^{(t)}|\{\bm{x}^{(1)},\dots,\bm{x}^{(t)}\}\right)
+\end{align*}
+$$
+
+RNN 1 是图灵完备的。向后传播需要 $O(\tau)$ 的时间复杂度和空间复杂度，称作
+back-propagation through time (BPTT)。它很强大，但训练代价也高。
+
+![RNN 2](../images/rnn-2.png){#fig:rnn2}
+
+![RNN 3](../images/rnn-3.png){#fig:rnn3}
+
+#### Teacher Forcing and Networks with Output Recurrence
+
+![Teacher Forcing](../images/teacher-forcing.png){#fig:teacherForcing}
+
+RNN 2 严格地不如 RNN 1 强大，但是可以通过 Teacher forcing 解耦不同时刻的计算，从
+而并行计算。
+
+#### 循环网络作为离散图模型
+
+![RNN 的状态变量](../images/rnn-state-variable.png){#fig:rnnStateVariable}
+
+循环网络减少了参数，但不好优化。
+
+#### Modeling Sequences Conditioned on Context with RNNs
+
+![映射固定长度 $\bm{x}$ 的 RNN](../images/rnn-fixed-length-x.png){#fig:rnnFixedLengthX}
+
+![映射可变长度 $\bm{x}$ 的 RNN](../images/rnn-variable-length-x.png){#fig:rnnVariableLengthX}
+
+### 双向 RNNs
+
+![双向 RNN](../images/bidirectional-rnn.png){#fig:bidirectionalRNN}
+
 ## 参考文献
