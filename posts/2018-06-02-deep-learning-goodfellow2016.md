@@ -670,4 +670,30 @@ P(\bm{y}^{(1)},\dots,\bm{y}^{(n_y)}|\bm{x}^{(1)},\dots,\bm{x}^{(n_x)})$ 。
 
 重要度采样不仅加速高维 softmax 输出的计算，也可以加速稀疏输出层的计算。
 
+## 线性因子模型
+
+先采样解释因子 $\bm{h}$：
+$$\bm{h} \sim p(\bm{h})$$
+其中，$p(\bm{h}) = \prod_i p(h_i)$。接着采样观察变量：
+$$\bm{x} = \bm{W}\bm{h} + \bm{b} + \textrm{noise}$$
+其中噪声通常是 Gaussian 分布且为对角的（不同维度间独立）。
+
+### 概率主成分分析与因子分析
+
+因子分析
+: $$\bm{h} \sim \mathcal{N}(\bm{h};\bm{0},\bm{I})$$
+  观察变量 $x_i$ 在给定 $\bm{h}$ 的情况下条件独立。特别地，噪声的协方差矩阵
+  $\bm{\psi} = \textrm{diag}(\bm{\sigma}^2)$。
+
+  $$\bm{x} \sim \mathcal{N}(\bm{x};\bm{b},\bm{W}\bm{W}^{\mathsf{T}} + \bm{\psi})$$
+
+概率主成分分析
+: $$\bm{x} \sim \mathcal{N}(\bm{x};\bm{b},\bm{W}\bm{W}^{\mathsf{T}} + \sigma^2\bm{I})$$
+  或者等价的，$$\bm{x} = \bm{W}\bm{h} + \bm{b} + \sigma\bm{z}$$
+  其中 $\bm{z} \sim \mathcal{N}(\bm{z};\bm{0},\bm{I})$。
+
+### Independent Component Analysis (ICA)
+
+选择 $p(\bm{h})$，使其互相独立。
+
 ## 参考文献

@@ -209,3 +209,7 @@ tags: deep-learning
 1. 采样在深度学习中的意义
 
    请参考[文献阅读：Deep Learning#自然语言处理](./2018-06-02-deep-learning-goodfellow2016.html#自然语言处理)。
+
+1. 自编码器与线性因子模型、PCA 和 ICA 等的关系
+
+   请参考[文献阅读：Deep Learning#线性因子模型](./2018-06-02-deep-learning-goodfellow2016.html#线性因子模型)。
