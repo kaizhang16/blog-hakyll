@@ -782,6 +782,13 @@ $$\Omega(\bm{h}, \bm{x}) = \lambda\sum_i\lVert \nabla_{\bm{x}}h_i\rVert^2$$
 
 自动编码器成功地应用在了降维和信息提取任务上。
 
+## 表示学习
+
+### Semi-Supervised Disentangling of Causal Factors
+
+如果表示 $\bm{h}$ 表示了观察 $\bm{x}$ 的许多原因，且输出 $\bm{y}$ 是最显著的原因，
+那么很容易从 $\bm{h}$ 预测 $\bm{y}$。
+
 ## Monte Carlo 方法
 
 ### Markov 链 Monte Carlo 方法
