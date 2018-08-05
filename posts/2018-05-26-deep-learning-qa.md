@@ -213,3 +213,11 @@ tags: deep-learning
 1. 自编码器与线性因子模型、PCA 和 ICA 等的关系
 
    请参考[文献阅读：Deep Learning#线性因子模型](./2018-06-02-deep-learning-goodfellow2016.html#线性因子模型)。
+
+1. 自编码器在深度学习中的意义，以及一些常见的变形与应用
+
+   请参考[文献阅读：Deep Learning#autoencoders](./2018-06-02-deep-learning-goodfellow2016.html#autoencoders)。
+
+1. 稳定分布与马尔科夫链
+
+   请参考[文献阅读：Deep Learning#markov-链-monte-carlo-方法](./2018-06-02-deep-learning-goodfellow2016.html#markov-链-monte-carlo-方法)。

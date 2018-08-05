@@ -696,4 +696,81 @@ $$\bm{x} = \bm{W}\bm{h} + \bm{b} + \textrm{noise}$$
 
 选择 $p(\bm{h})$，使其互相独立。
 
+## Autoencoders
+
+传统上，autoencoders 用于降维或者特征学习；最近，autoencoders 与隐藏变量理论上的
+联系把它带进了生成模型的前沿。
+
+### Undercomplete Autoencoders
+
+Undercomplete
+: 编码维度小于输入维度的自动编码器。
+
+损失函数：
+$$L(\bm{x}, g(f(\bm{x})))$$
+
+当解码器为线性且 $L$ 为均方误差时，欠完成自动编码器等价于 PCA。当编码函数 $f$ 为
+非线性时，欠完成自动编码器是 PCA 的非线性推广。
+
+### Regularized Autoencoders
+
+可以通过要求表示稀疏、表示的导数小和对噪声或丢失输入的健壮性来惩罚自动编码器，从
+而避免产生无效的自动编码器。
+
+#### Sparse Autoencoders
+
+损失函数：
+$$L(\bm{x}, g(f(\bm{x}))) + \Omega(\bm{h})$$
+典型地，$\bm{h} = f(\bm{x})$。
+
+稀疏自动编码器主要为另一个任务，比如分类，学习特征。
+
+$$\log p_{\textrm{model}}(\bm{h}, \bm{x}) = \log p_{\textrm{model}}(\bm{h}) + \log p_{\textrm{model}}(\bm{x}|\bm{h})$$
+假如隐藏变量的先验分布为 Laplace 分布：
+$$p_{\textrm{model}}(h_i) = \frac{\lambda}{2}e^{-\lambda|h_i|}$$
+则
+$$-\log p_{\textrm{model}}(\bm{h}) = \sum_i \left(\lambda|h_i| - \log\frac{\lambda}{2}\right)$$
+$$\Omega(\bm{h}) = \lambda\sum_i|h_i|$$
+
+#### Denoising Autoencoders
+
+Denoising Autoencoders（DAE）的损失函数：
+$$L(\bm{x}, g(f(\tilde{\bm{x}})))$$
+其中 $\tilde{\bm{x}}$ 是加了噪声的 $\bm{x}$。
+
+#### 惩罚导数
+
+损失函数：
+$$L(\bm{x}, g(f(\bm{x}))) + \Omega(\bm{h}, \bm{x})$$
+$$\Omega(\bm{h}, \bm{x}) = \lambda\sum_i\lVert \nabla_{\bm{x}}h_i\rVert^2$$
+
+又称 contractive autoencoder (CAE)，与降噪自动编码器、manifold 学习和概率模型有
+理论上的联系。
+
+### 用自动编码器学习流形
+
+### 自动编码器的应用
+
+自动编码器成功地应用在了降维和信息提取任务上。
+
+## Monte Carlo 方法
+
+### Markov 链 Monte Carlo 方法
+
+转移分布：
+$$T(\bm{x}'|\bm{x})$$
+表示从状态 $\bm{x}$ 转移到状态 $\bm{x}'$ 的概率。
+转移矩阵：
+$$A_{i, j} = T(\bm{x}'=i|\bm{x}=j)$$
+则
+$$\bm{v}^{(t)} = \bm{A}\bm{v}^{(t-1)}$$
+那么
+$$\bm{v}^{(t)} = \bm{A}^{t}\bm{v}^{(0)} = \bm{V}\textrm{diag}(\bm{\lambda})^{t}\bm{V}^{-1}\bm{v}^{(0)}$$
+收敛时，
+$$\bm{v}' = \bm{A}\bm{v} = \bm{v}$$
+达到了稳态分布，或称平衡分布。
+
+$x$ 连续时，平衡状态为：
+$$q'(\bm{x'}) = \mathbb{E}_{\bm{x}\sim q}T(\bm{x'}|\bm{x})$$
+
 ## 参考文献
