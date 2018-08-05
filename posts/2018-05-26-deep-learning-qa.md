@@ -245,3 +245,12 @@ tags: deep-learning
 1. 核回归与 RBF 网络的关系
 
    请参考[文献阅读：Deep Learning#支持向量机](./2018-06-02-deep-learning-goodfellow2016.html#支持向量机)。
+
+1. 过拟合在深度学习中的常见的一些解决方案或结构设计
+
+    - 参数范数惩罚
+    - 数据集增强
+    - 提前终止
+    - 参数共享
+    - Bagging
+    - Dropout
