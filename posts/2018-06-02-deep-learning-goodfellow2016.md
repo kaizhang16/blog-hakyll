@@ -222,7 +222,36 @@ $$ {#eq:mle}
 
 最大似然估计等价于最小化交叉信息熵 $H(\hat{P}_{\textrm{data}},P_{\textrm{model}})$。
 
-### Maximum A Posteriori (MAP) Estimation（最大后验概率估计）
+#### 最大似然估计的性质
+
+当样本数 $m \to \infty$ 时，最大似然估计渐进趋近于最好的估计。
+
+当：
+
+- 真实分布 $p_{\textrm{data}}$ 在模型家族 $p_{\textrm{model}}(\cdot;\bm{\theta})$
+  之内；否则，没有估计可以恢复 $p_{\textrm{data}}$
+- 真实分布 $p_{\textrm{data}}$ 只对应一个参数值 $\bm{\theta}$
+
+时，最大似然估计拥有一致性，即 $m \to \infty$ 时，最大似然估计收敛于参数的真实值。
+对一致性来说，最大似然估计的统计效率最高。
+
+### Bayesian 统计
+
+最大似然估计的频率统计；最大后验估计是 Bayesian 统计。
+
+Bayesian 估计把不确定性计入预测：
+$$p(x^{(m+1)}|x^{(1)},\dots,x^{(m)}) = \int p(x^{(m+1)}|\bm{\theta})p(\bm{\theta}|x^{(1)},\dots,x^{(m)})d\bm{\theta}$$
+
+最大似然估计通过方差来估计不确定性。
+
+Bayesian 估计里的先验分布常常倾向于更简单或更光滑的模型。
+
+数据少时，Bayesian 估计泛化误差更小；数据大时，Bayesian 估计计算代价高。
+
+#### Maximum A Posteriori (MAP) Estimation（最大后验概率估计）
+
+最大后验概率估计用满足最大后验概率的参数点 $\bm{\theta}_{\textrm{MAP}}$ 估计全
+Bayesian 后验分布。
 
 $$
 \begin{align*}
@@ -778,5 +807,11 @@ $$q'(\bm{x'}) = \mathbb{E}_{\bm{x}\sim q}T(\bm{x'}|\bm{x})$$
 Gibbs 采样
 : 选择一个变量 $x_i$, 在给定无向图（定义了基于能量模型的结构）里的邻居的条件下从
   $p_{\textrm{model}}$ 采样，即可采样 $T(\bm{x'}|\bm{x})$。
+
+## Confronting the Partition Function
+
+对 $\tilde{p}(\bm{x};\bm{\theta})$ 归一化时
+$$p(\bm{x};\bm{\theta}) = \frac{1}{Z(\bm{\theta})}\tilde{p}(\bm{x};\bm{\theta})$$
+$Z(\bm{\theta})$ 为配分函数。
 
 ## 参考文献

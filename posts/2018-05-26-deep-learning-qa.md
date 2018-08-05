@@ -225,3 +225,9 @@ tags: deep-learning
 1. Gibbs 采样的原理
 
    请参考[文献阅读：Deep Learning#gibbs-采样](./2018-06-02-deep-learning-goodfellow2016.html#gibbs-采样)。
+
+1. 几种参数估计的联系与区别：MLE/MAP/贝叶斯
+
+   请参考[文献阅读：Deep Learning#machine-learning-basics](./2018-06-02-deep-learning-goodfellow2016.html#machine-learning-basics)。
+
+1. 半监督学习的思想以及在深度学习中的应用
