@@ -221,3 +221,7 @@ tags: deep-learning
 1. 稳定分布与马尔科夫链
 
    请参考[文献阅读：Deep Learning#markov-链-monte-carlo-方法](./2018-06-02-deep-learning-goodfellow2016.html#markov-链-monte-carlo-方法)。
+
+1. Gibbs 采样的原理
+
+   请参考[文献阅读：Deep Learning#gibbs-采样](./2018-06-02-deep-learning-goodfellow2016.html#gibbs-采样)。
