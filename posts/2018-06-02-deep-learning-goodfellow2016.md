@@ -263,6 +263,14 @@ $$ {#eq:map}
 先验分布为 $\mathcal{N}(\bm{w}; \bm{0}, \frac{1}{\lambda}\bm{I}^2)$ 时，先验项对
 应于最大似然估计里的权重衰减。
 
+### 监督学习算法
+
+#### 支持向量机
+
+Gaussian 核：
+$$k(\bm{u}, \bm{v}) = \mathbb{N}(\bm{u}-\bm{v};0,\sigma^2\bm{I})$$
+又称 radial basis function (RBF) 核。
+
 ### 非监督学习算法
 
 低维表示
