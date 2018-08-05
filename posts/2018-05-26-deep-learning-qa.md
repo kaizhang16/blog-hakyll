@@ -233,3 +233,7 @@ tags: deep-learning
 1. 半监督学习的思想以及在深度学习中的应用
 
    请参考[文献阅读：Deep Learning#表示学习](./2018-06-02-deep-learning-goodfellow2016.html#表示学习)。
+
+1. 举例 CNN 中的 channel 在不同数据源中的含义
+
+   请参考[文献阅读：Deep Learning#数据类型](./2018-06-02-deep-learning-goodfellow2016.html#数据类型)。
