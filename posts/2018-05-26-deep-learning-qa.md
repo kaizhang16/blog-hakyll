@@ -237,3 +237,7 @@ tags: deep-learning
 1. 举例 CNN 中的 channel 在不同数据源中的含义
 
    请参考[文献阅读：Deep Learning#数据类型](./2018-06-02-deep-learning-goodfellow2016.html#数据类型)。
+
+1. 注意力机制在深度学习的某些场景中为何会被大量使用，其几种不同的情形
+
+   请参考[文献阅读：Deep Learning#神经机器翻译](./2018-06-02-deep-learning-goodfellow2016.html#神经机器翻译)。
