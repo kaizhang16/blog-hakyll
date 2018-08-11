@@ -369,3 +369,16 @@ aside {
 li {
     text-indent: 0;
 }
+
+ol > li > ol {
+    counter-reset: list;
+
+    li {
+        list-style: none;
+    }
+
+    li:before {
+        counter-increment: list;
+        content: "(" counter(list, lower-alpha) ")\0000a0\0000a0";
+    }
+}
