@@ -16,7 +16,7 @@ tags: machine-learning
 : $$g(D, A) = H(D) - H(D|A)$$
 其中，
 $$H(D) = -\sum_{k=1}^K \frac{|C_k|}{|D|}\log_2\frac{|C_k|}{|D|}$$
-$$H(D|A) = -\sum_{i=1}^n \frac{|D_i|}{|D|}H(D_i)$$
+$$H(D|A) = \sum_{i=1}^n \frac{|D_i|}{|D|}H(D_i)$$
 
 ### C4.5
 
