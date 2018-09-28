@@ -17,4 +17,6 @@ gpg --gen-key  # 生成新密钥对
 gpg --list-secret-keys --keyid-format LONG  # 列出私钥
 gpg --armor --output ${filename} --export-secret-keys ${私钥 ID}  # 导出私钥
 gpg --armor --export ${私钥 ID}  # 导出公钥
+
+gpg --import ${filename}  # 导入私钥
 ```
