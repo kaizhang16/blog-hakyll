@@ -13,6 +13,18 @@ tags: Linux, Arch Linux
 ### yay
 
 ```
+sudo pacman -S base-devel
+git clone https://aur.archlinux.org/yay.git
+cd yay
+makepkg -si
+```
+
+## Virtual Box
+
+```
+sudo pacman -S virtualbox-guest-utils  # 选择 virtualbox-guest-modules-arch
+sudo systemctl enable vboxservice
+sudo systemctl start vboxservice
 ```
 
 ## 编辑
