@@ -8,34 +8,76 @@ tags: Linux, Arch Linux
 
 <!--more-->
 
-## AUR
+## 安装
+
+### 时区
+
+```
+ln -sh /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+```
+
+### boot
+
+```
+pacman -S grub
+grub-install /dev/sda
+grub-mkconfig -o /boot/grub/grub.cfg
+```
+
+## 基础
+
+### 工具
+
+```
+systemctl start dhcpcd
+systemctl enable dhcpcd
+pacman -S adobe-source-han-sans-cn-fonts adobe-source-han-serif-cn-fonts
+pacman -S adobe-source-code-pro-fonts
+pacman -S base-devel dmenu emacs
+pacman -S fcitx fcitx-cloudpinyin fcitx-googlepinyin
+pacman -S fd feh fish fzf
+pacman -S git go gopass openssh parcellite python stack sudo
+pacman -S ripgrep rust rxvt-unicode tmux trayer
+pacman -S ttf-dejavu ttf-font-awesome ttf-inconsolata ttf-roboto
+pacman -S variety vim wqy-microhei wqy-zenhei
+pacman -S xclip xmobar xmonad xorg-server xorg-xinit
+pacman -S xsel z
+```
+
+### 用户
+
+```
+useradd --create-home kai
+passwd kai
+gpasswd -a kai wheel
+visudo  # 让 wheel 拥有 sudo 权限
+chsh -s /usr/bin/fish kai
+```
+
+### Virtual Box
+
+```
+sudo pacman -S virtualbox-guest-utils  # 选择 virtualbox-guest-modules-arch
+sudo gpasswd --add kai vboxsf
+sudo systemctl start vboxservice
+sudo systemctl enable vboxservice
+```
 
 ### yay
 
 ```
-sudo pacman -S base-devel
 git clone https://aur.archlinux.org/yay.git
 cd yay
 makepkg -si
 ```
 
-## Virtual Box
+### 常用 AUR 软件
 
 ```
-sudo pacman -S virtualbox-guest-utils  # 选择 virtualbox-guest-modules-arch
-sudo systemctl enable vboxservice
-sudo systemctl start vboxservice
+yay google-chrome
 ```
 
-## 编辑
-
-### Fonts
-
-```
-sudo pacman -S adobe-source-han-sans-cn-fonts adobe-source-han-serif-cn-fonts
-sudo pacman -S adobe-source-code-pro-fonts wqy-zenhei 
-sudo pacman -S ttf-dejavu ttf-inconsolata ttf-roboto
-```
+## 配置
 
 ### Spacemacs
 
@@ -56,7 +98,7 @@ sudo pacman -S texlive-most
 sudo pacman -S texlive-lang
 ```
 
-## Haskell
+### Haskell
 
 ```
 sudo pacman -S haskell-hakyll
