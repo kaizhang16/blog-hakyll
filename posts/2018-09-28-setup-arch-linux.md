@@ -51,12 +51,13 @@ pacman -S base-devel deepin-screenshot dmenu emacs
 pacman -S fcitx fcitx-cloudpinyin fcitx-googlepinyin
 pacman -S fcitx-im  # 选择全部
 pacman -S fd feh fish fzf
-pacman -S git go gopass net-tools openssh parcellite python stack sudo
+pacman -S git go gopass mplayer pavucontrol net-tools
+pacman -S openssh parcellite python stack sudo
 pacman -S ripgrep rust rxvt-unicode tmux trayer
 pacman -S ttf-dejavu ttf-font-awesome ttf-inconsolata ttf-roboto
 pacman -S variety vim wqy-microhei wqy-zenhei
 pacman -S xclip xmobar xmonad xorg-server xorg-xinit
-pacman -S xsel z
+pacman -S xsel z zsh
 ```
 
 ### 用户
@@ -66,7 +67,7 @@ useradd --create-home kai
 passwd kai
 gpasswd -a kai wheel
 visudo  # 让 wheel 拥有 sudo 权限
-chsh -s /usr/bin/fish kai
+chsh -s /usr/bin/zsh kai
 ```
 
 ### Virtual Box
@@ -90,6 +91,15 @@ makepkg -si
 
 ```
 yay google-chrome
+```
+
+### zsh
+
+```
+git clone https://github.com/Tarrasch/antigen-hs.git ~/.zsh/antigen-hs/
+# 修改 stack.yaml 里的 resolver 版本
+zsh  # Yes, Yes ...
+# 更新 MyAntigen.hs 后，请 antigen-hs-setup
 ```
 
 ## 配置
