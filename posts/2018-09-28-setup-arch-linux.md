@@ -1,5 +1,5 @@
 ---
-title: 初始化 Arch Linux
+title: 配置 Arch Linux
 author: 张凯
 tags: Linux, Arch Linux
 ---
@@ -9,6 +9,20 @@ tags: Linux, Arch Linux
 <!--more-->
 
 ## 安装
+
+### 分区
+
+分区方案：
+
+- `/`: 20 GB
+- `/var`: 15 GB
+- `/home`: 45 GB
+
+```
+fdisk /dev/sda  # 选 dos 分区表
+
+mkfs.ext4 /dev/sda1
+```
 
 ### 时区
 
@@ -33,10 +47,11 @@ systemctl start dhcpcd
 systemctl enable dhcpcd
 pacman -S adobe-source-han-sans-cn-fonts adobe-source-han-serif-cn-fonts
 pacman -S adobe-source-code-pro-fonts
-pacman -S base-devel dmenu emacs
+pacman -S base-devel deepin-screenshot dmenu emacs
 pacman -S fcitx fcitx-cloudpinyin fcitx-googlepinyin
+pacman -S fcitx-im  # 选择全部
 pacman -S fd feh fish fzf
-pacman -S git go gopass openssh parcellite python stack sudo
+pacman -S git go gopass net-tools openssh parcellite python stack sudo
 pacman -S ripgrep rust rxvt-unicode tmux trayer
 pacman -S ttf-dejavu ttf-font-awesome ttf-inconsolata ttf-roboto
 pacman -S variety vim wqy-microhei wqy-zenhei
@@ -102,4 +117,9 @@ sudo pacman -S texlive-lang
 
 ```
 sudo pacman -S haskell-hakyll
+```
+
+```
+sudo pacman -S uget
+sudo pacman -S goldendict
 ```

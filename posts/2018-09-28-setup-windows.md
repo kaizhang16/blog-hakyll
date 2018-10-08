@@ -1,5 +1,5 @@
 ---
-title: 初始化 Windows
+title: 配置 Windows
 author: 张凯
 tags: Windows, Operating System
 ---
@@ -20,4 +20,5 @@ tags: Windows, Operating System
 - Syncthing
 - TIM
 - QQ 音乐
-- Clover
+- Total Commander
+- [zhongyang219/TrafficMonitor](https://github.com/zhongyang219/TrafficMonitor)
