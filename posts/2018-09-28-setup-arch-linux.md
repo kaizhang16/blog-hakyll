@@ -55,7 +55,7 @@ pacman -S git go gopass mplayer pavucontrol net-tools
 pacman -S openssh parcellite python stack sudo
 pacman -S ripgrep rust rxvt-unicode tmux trayer
 pacman -S ttf-dejavu ttf-font-awesome ttf-inconsolata ttf-roboto
-pacman -S variety vim wqy-microhei wqy-zenhei
+pacman -S variety tcpdump vim wqy-microhei wqy-zenhei
 pacman -S xclip xmobar xmonad xorg-server xorg-xinit
 pacman -S xsel z zsh
 ```
@@ -112,6 +112,12 @@ zsh  # Yes, Yes ...
 sudo pacman -S hlint stylish-haskell hasktags hoogle
 yay haskell-apply-refactor
 stack install intero
+```
+
+#### Python
+
+```
+sudo pacman -S yapf
 ```
 
 ### Pandoc
