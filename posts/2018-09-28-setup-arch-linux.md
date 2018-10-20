@@ -53,9 +53,9 @@ pacman -S fcitx-im  # 选择全部
 pacman -S fd feh fish fzf
 pacman -S git go gopass mplayer pavucontrol net-tools
 pacman -S openssh parcellite python stack sudo
-pacman -S ripgrep rust rxvt-unicode tmux trayer
+pacman -S ranger ripgrep rust rxvt-unicode tmux trayer
 pacman -S ttf-dejavu ttf-font-awesome ttf-inconsolata ttf-roboto
-pacman -S variety tcpdump vim wqy-microhei wqy-zenhei
+pacman -S variety tcpdump vim w3m wqy-microhei wqy-zenhei
 pacman -S xclip xmobar xmonad xorg-server xorg-xinit
 pacman -S xsel z zsh
 ```
