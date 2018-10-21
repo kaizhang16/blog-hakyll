@@ -57,7 +57,7 @@ pacman -S ranger ripgrep rust rxvt-unicode tmux trayer
 pacman -S ttf-dejavu ttf-font-awesome ttf-inconsolata ttf-roboto
 pacman -S variety tcpdump vim w3m wqy-microhei wqy-zenhei
 pacman -S xclip xmobar xmonad xorg-server xorg-xinit
-pacman -S xsel z zsh
+pacman -S xsel yarn z zsh
 ```
 
 ### 用户
@@ -138,4 +138,11 @@ sudo pacman -S haskell-hakyll
 ```
 sudo pacman -S uget
 sudo pacman -S goldendict
+```
+
+### 前端
+
+```
+yarn config set registry https://registry.npm.taobao.org --global
+yarn global add elm
 ```
