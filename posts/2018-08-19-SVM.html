@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="zh">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>张凯的博客 - SVM 介绍</title>
+    <link rel="shortcut icon" type="image/x-icon" href="../images/favicon.ico" />
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.min.css"> -->
+    <!-- <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"> -->
+    <!-- <link rel="stylesheet" href="/css/default.css" /> -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/material-components-web@0.37.1/dist/material-components-web.css" rel="stylesheet">
+    <!-- <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+</head>
+
+<body class="mdc-typography">
+    <script src="elm-mdc.js"></script>
+    <script src="main.js"></script>
+    <div id="elm"></div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md">
+                <aside id="leftAside"></aside>
+            </div>
+
+            <div class="col-8">
+                <header>
+                    <div class="logo">
+                        <a href="../">
+                            <h1>
+                                张凯的博客
+                            </h1>
+                        </a>
+                    </div>
+
+                    <nav>
+                        <a href="https://github.com/kaizhang91/blog">
+                            <span class="icon">
+                                <i class="fa fa-github"></i>
+                            </span>
+                        </a>
+                    </nav>
+                </header>
+
+                <main role="main">
+                    <article>
+    <section>
+        <h1>SVM 介绍</h1>
+    </section>
+
+    <section class="header">
+        <div class="container">
+            <div class="row no-gutters align-items-center">
+                <div class="col-sm">
+                    <h2>
+                        张凯 更新于 2018-08-19
+                    </h2>
+                </div>
+
+                <div class="col-sm">
+                    <div class="tags">
+                        标签：<a href="../tags/machine-learning.html">machine-learning</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="content">
+        <p>本文介绍了 SVM (Support Vector Machine)<span class="citation" data-cites="friedman2001elements">(Friedman, Hastie, and Tibshirani 2001)</span>。</p>
+<!--more-->
+<h2 id="优化目标">优化目标</h2>
+<p>支持向量机用于二分类问题，优化目标是找一个超平面把两个类分开，且此超平面到两个分类的距离越大越好。即找一个超平面： <span class="math display">\[{\bm{x}: f(\bm{x}) = \bm{x}^{\mathsf{T}}\bm{\beta} + \beta_0}\]</span> 分类标准为： <span class="math display">\[G(\bm{x}) = \textrm{sign}(\bm{x}^{\mathsf{T}}\bm{\beta} + \beta_0)\]</span></p>
+<p>我们先看线性可分的情况。</p>
+<h3 id="线性可分">线性可分</h3>
+<p>优化目标： <span class="math display">\[\min_{\bm{\beta}, \beta_0} \lVert\bm{\beta}\rVert\]</span> <span class="math display">\[y_i(\bm{x_i}^{\mathsf{T}}\bm{\beta} + \beta_0) \ge 1, i = 1, 2, \dots, N\]</span></p>
+<h3 id="线性不可分">线性不可分</h3>
+<p>优化目标： <span class="math display">\[\min_{\bm{\beta}, \beta_0} \lVert\bm{\beta}\rVert\]</span> <span class="math display">\[y_i(\bm{x_i}^{\mathsf{T}}\bm{\beta} + \beta_0) \ge 1 - \xi_i, \forall i\]</span> <span class="math display">\[\xi_i \ge 0\]</span> <span class="math display">\[\sum \xi_i \le \textrm{constant}\]</span></p>
+<p>优化目标如图. 1 所示。</p>
+<figure>
+<img src="../images/svm.png" alt="图 1: 支持向量机示意图" id="fig:svm" /><figcaption>图 1: 支持向量机示意图</figcaption>
+</figure>
+<h2 id="计算">计算</h2>
+<p>优化目标等价于： <span class="math display">\[\min_{\bm{\beta}, \beta_0} \frac{1}{2}\lVert\bm{\beta}\rVert^2 + C\sum_{i=1}^M \xi_i\]</span> <span class="math display">\[y_i(\bm{x_i}^{\mathsf{T}}\bm{\beta} + \beta_0) \ge 1 - \xi_i, \forall i\]</span> <span class="math display">\[\xi_i \ge 0\]</span></p>
+<p>相应的 Lagrange 函数为： <span class="math display">\[L_P = \frac{1}{2}\lVert\bm{\beta}\rVert^2 + C\sum_{i=1}^M \xi_i - \sum_{i=1}^N\alpha_i[y_i(\bm{x_i}^{\mathsf{T}}\bm{\beta} + \beta_0) - (1 - \xi_i)] - \sum_{i=1}^N\mu_i\xi_i\]</span></p>
+<p>让导数为 <span class="math inline">\(0\)</span>，可得： <span class="math display">\[\bm{\beta} = \sum_{i=1}^N \alpha_i y_i\bm{x_i}\]</span> <span class="math display">\[\sum_{i=1}^N \alpha_i y_i = 0\]</span> <span class="math display">\[\alpha_i = C - \mu_i\]</span></p>
+<p>同时，需要满足的 KKT 条件为： <span class="math display">\[\alpha_i[y_i(\bm{x_i}^{\mathsf{T}}\bm{\beta} + \beta_0) - (1 - \xi_i)] = 0\]</span> <span class="math display">\[\mu_i\xi_i = 0\]</span> <span class="math display">\[y_i(\bm{x_i}^{\mathsf{T}}\bm{\beta} + \beta_0) - (1 - \xi_i)] \ge 0\]</span></p>
+<p>解为： <span class="math display">\[\hat{\bm{\beta}} = \sum_{i=1}^N \hat{\alpha}_i y_i \bm{x}_i\]</span></p>
+<p>只有满足 <span class="math inline">\(y_i(\bm{x_i}^{\mathsf{T}}\bm{\beta} + \beta_0) - (1 - \xi_i) = 0\)</span> 的点对应的 <span class="math inline">\(\hat{\alpha}_i \ne 0\)</span>，称为支持向量。分 2 种情况：</p>
+<ul>
+<li>分界线上：<span class="math inline">\(\hat{\xi_i} = 0 \Rightarrow 0 &lt; \hat{\alpha} &lt; C\)</span></li>
+<li>分界线内：<span class="math inline">\(\hat{\xi_i} &gt; 0 \Rightarrow \hat{\alpha} = C\)</span></li>
+</ul>
+<p>其中 <span class="math inline">\(\hat{\alpha}_i\)</span> 由下式求得： <span class="math display">\[\max \left(\sum_{i=1}^N\alpha_i - \frac{1}{2}\sum_{i=1}^N\sum_{i'=1}^N \alpha_i\alpha_{i'}y_i y_{i'}\bm{x}_i^{\mathsf{T}}\bm{x}_{i'}\right)\]</span> <span class="math display">\[0 \le \alpha_i \le C\]</span> <span class="math display">\[\sum_{i=1}^N \alpha_i y_i = 0\]</span></p>
+<h2 id="核技巧">核技巧</h2>
+<p>求解 <span class="math inline">\(\hat{\alpha}_i\)</span> 的方程可重写为： <span class="math display">\[L_D = \sum_{i=1}^N\alpha_i - \frac{1}{2}\sum_{i=1}^N\sum_{i'=1}^N \alpha_i\alpha_{i'}y_i y_{i'}\langle h(\bm{x}_i), h(\bm{x}_{i'})\rangle\]</span></p>
+<p>分割超平面可重写为： <span class="math display">\[
+\begin{align*}
+f(\bm{x}) &amp;= h(\bm{x})^{\mathsf{T}}\bm{\beta} + \beta_0 \\
+          &amp;= \sum_{i=1}^N \alpha_i y_i\langle h(\bm{x}), h(\bm{x}_i)\rangle + \beta_0
+\end{align*}
+\]</span></p>
+<p>因此，只要指定核函数： <span class="math display">\[K(\bm{x}, \bm{x'}) = \langle h(\bm{x}), h(\bm{x'})\rangle\]</span> 即可在一个变换后的空间使用 SVM。</p>
+<p>流行的核函数：</p>
+<ul>
+<li><span class="math inline">\(d\)</span> 次多项式：<span class="math inline">\(K(\bm{x}, \bm{x'}) = (1 + \langle\bm{x}, \bm{x'}\rangle)^d\)</span></li>
+<li>径向基：<span class="math inline">\(K(\bm{x}, \bm{x'}) = \exp(-\gamma\lVert\bm{x} - \bm{x'}\rVert^2)\)</span></li>
+<li>神经网络：<span class="math inline">\(K(\bm{x}, \bm{x'}) = \tanh(\kappa_1\langle\bm{x}, \bm{x'}\rangle + \kappa_2)\)</span></li>
+</ul>
+<h2 id="优缺点">优缺点</h2>
+<h3 id="优点">优点</h3>
+<ul>
+<li>可以在小样本下工作</li>
+<li>可以解决非线性问题</li>
+<li>可以处理高维数据集</li>
+<li>泛化能力比较强</li>
+</ul>
+<h3 id="缺点">缺点</h3>
+<ul>
+<li>对核函数的高维解释能力不强，尤其是径向基函数</li>
+<li>对缺失数据敏感</li>
+</ul>
+<h2 id="参考文献" class="unnumbered">参考文献</h2>
+<div id="refs" class="references">
+<div id="ref-friedman2001elements">
+<p>Friedman, Jerome, Trevor Hastie, and Robert Tibshirani. 2001. <em>The Elements of Statistical Learning</em>. Vol. 1. 10. Springer series in statistics New York, NY, USA:</p>
+</div>
+</div>
+<div id="toc"><ul>
+<li><a href="#优化目标">优化目标</a><ul>
+<li><a href="#线性可分">线性可分</a></li>
+<li><a href="#线性不可分">线性不可分</a></li>
+</ul></li>
+<li><a href="#计算">计算</a></li>
+<li><a href="#核技巧">核技巧</a></li>
+<li><a href="#优缺点">优缺点</a><ul>
+<li><a href="#优点">优点</a></li>
+<li><a href="#缺点">缺点</a></li>
+</ul></li>
+<li><a href="#参考文献">参考文献</a></li>
+</ul></div>
+    </section>
+
+    <section>
+        <div id="disqus_thread"></div>
+    </section>
+</article>
+
+<script>
+    /**
+     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+    var disqus_config = function() {
+        this.page.url = 'https://kaizhang91.github.io/blog/'; // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = 'kai-blog'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document,
+            s = d.createElement('script');
+        s.src = 'https://kai-blog.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+<noscript>
+    Please enable JavaScript to view the
+    <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+</noscript>
+
+                </main>
+
+                <footer>
+                    <p>
+                        Site proudly generated by
+                        <a href="http://jaspervdj.be/hakyll">Hakyll</a>
+                    </p>
+                </footer>
+            </div>
+
+            <div class="col-md">
+                <aside>
+                    <div id="newTOC"></div>
+                </aside>
+            </div>
+        </div>
+    </div>
+
+    <script>
+     var app = Elm.Main.init({
+         node: document.getElementById("elm")
+     });
+    </script>
+    <!-- <script src="/js/main.js"></script> -->
+    <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script> -->
+    <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script> -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script> -->
+    <!-- <script type="text/x-mathjax-config"> -->
+    <!-- MathJax.Hub.Config({ TeX: { Macros: { bm: ["\\boldsymbol{#1}", 1] } } } ) -->
+    <!-- </script> -->
+    <!-- <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML' async></script> -->
+    <!-- <script> -->
+    <!-- hljs.initHighlightingOnLoad(); -->
+    <!-- </script> -->
+</body>
+
+</html>

@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="zh">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>张凯的博客 - Cabal vs Stack vs Nix</title>
+    <link rel="shortcut icon" type="image/x-icon" href="../images/favicon.ico" />
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.min.css"> -->
+    <!-- <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"> -->
+    <!-- <link rel="stylesheet" href="/css/default.css" /> -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/material-components-web@0.37.1/dist/material-components-web.css" rel="stylesheet">
+    <!-- <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+</head>
+
+<body class="mdc-typography">
+    <script src="elm-mdc.js"></script>
+    <script src="main.js"></script>
+    <div id="elm"></div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md">
+                <aside id="leftAside"></aside>
+            </div>
+
+            <div class="col-8">
+                <header>
+                    <div class="logo">
+                        <a href="../">
+                            <h1>
+                                张凯的博客
+                            </h1>
+                        </a>
+                    </div>
+
+                    <nav>
+                        <a href="https://github.com/kaizhang91/blog">
+                            <span class="icon">
+                                <i class="fa fa-github"></i>
+                            </span>
+                        </a>
+                    </nav>
+                </header>
+
+                <main role="main">
+                    <article>
+    <section>
+        <h1>Cabal vs Stack vs Nix</h1>
+    </section>
+
+    <section class="header">
+        <div class="container">
+            <div class="row no-gutters align-items-center">
+                <div class="col-sm">
+                    <h2>
+                        张凯 更新于 2018-05-20
+                    </h2>
+                </div>
+
+                <div class="col-sm">
+                    <div class="tags">
+                        标签：<a href="../tags/haskell.html">haskell</a>, <a href="../tags/cabal.html">cabal</a>, <a href="../tags/stack.html">stack</a>, <a href="../tags/nix.html">nix</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="content">
+        <p><code>Cabal</code>、<code>Stack</code> 与 <code>Nix</code> 的优缺点比较。</p>
+<!--more-->
+<div id="tbl:cabalStackNix">
+<table>
+<caption>表 1: <code>cabal</code> vs <code>stack</code> vs <code>nix</code></caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">指标</th>
+<th style="text-align: left;">cabal</th>
+<th style="text-align: left;">stack</th>
+<th style="text-align: left;">nix</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">隔离性</td>
+<td style="text-align: left;">✘</td>
+<td style="text-align: left;">✔️</td>
+<td style="text-align: left;">✔️</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">免编译依赖</td>
+<td style="text-align: left;">✘</td>
+<td style="text-align: left;">✘</td>
+<td style="text-align: left;">✔️</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">支持静态链接库</td>
+<td style="text-align: left;">✔️</td>
+<td style="text-align: left;">✔️</td>
+<td style="text-align: left;">✘</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">占用空间少</td>
+<td style="text-align: left;">✔️</td>
+<td style="text-align: left;">✘</td>
+<td style="text-align: left;">✔️</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">支持系统依赖</td>
+<td style="text-align: left;">✘</td>
+<td style="text-align: left;">✘</td>
+<td style="text-align: left;">✔️</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">支持镜像源</td>
+<td style="text-align: left;">✔️</td>
+<td style="text-align: left;">✔️</td>
+<td style="text-align: left;">✘</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="toc"></div>
+    </section>
+
+    <section>
+        <div id="disqus_thread"></div>
+    </section>
+</article>
+
+<script>
+    /**
+     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+    var disqus_config = function() {
+        this.page.url = 'https://kaizhang91.github.io/blog/'; // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = 'kai-blog'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document,
+            s = d.createElement('script');
+        s.src = 'https://kai-blog.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+<noscript>
+    Please enable JavaScript to view the
+    <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+</noscript>
+
+                </main>
+
+                <footer>
+                    <p>
+                        Site proudly generated by
+                        <a href="http://jaspervdj.be/hakyll">Hakyll</a>
+                    </p>
+                </footer>
+            </div>
+
+            <div class="col-md">
+                <aside>
+                    <div id="newTOC"></div>
+                </aside>
+            </div>
+        </div>
+    </div>
+
+    <script>
+     var app = Elm.Main.init({
+         node: document.getElementById("elm")
+     });
+    </script>
+    <!-- <script src="/js/main.js"></script> -->
+    <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script> -->
+    <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script> -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script> -->
+    <!-- <script type="text/x-mathjax-config"> -->
+    <!-- MathJax.Hub.Config({ TeX: { Macros: { bm: ["\\boldsymbol{#1}", 1] } } } ) -->
+    <!-- </script> -->
+    <!-- <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML' async></script> -->
+    <!-- <script> -->
+    <!-- hljs.initHighlightingOnLoad(); -->
+    <!-- </script> -->
+</body>
+
+</html>

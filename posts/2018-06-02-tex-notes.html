@@ -1,0 +1,456 @@
+<!doctype html>
+<html lang="zh">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>张凯的博客 - TeX 使用笔记</title>
+    <link rel="shortcut icon" type="image/x-icon" href="../images/favicon.ico" />
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.min.css"> -->
+    <!-- <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"> -->
+    <!-- <link rel="stylesheet" href="/css/default.css" /> -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/material-components-web@0.37.1/dist/material-components-web.css" rel="stylesheet">
+    <!-- <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+</head>
+
+<body class="mdc-typography">
+    <script src="elm-mdc.js"></script>
+    <script src="main.js"></script>
+    <div id="elm"></div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md">
+                <aside id="leftAside"></aside>
+            </div>
+
+            <div class="col-8">
+                <header>
+                    <div class="logo">
+                        <a href="../">
+                            <h1>
+                                张凯的博客
+                            </h1>
+                        </a>
+                    </div>
+
+                    <nav>
+                        <a href="https://github.com/kaizhang91/blog">
+                            <span class="icon">
+                                <i class="fa fa-github"></i>
+                            </span>
+                        </a>
+                    </nav>
+                </header>
+
+                <main role="main">
+                    <article>
+    <section>
+        <h1>TeX 使用笔记</h1>
+    </section>
+
+    <section class="header">
+        <div class="container">
+            <div class="row no-gutters align-items-center">
+                <div class="col-sm">
+                    <h2>
+                        张凯 更新于 2018-06-02
+                    </h2>
+                </div>
+
+                <div class="col-sm">
+                    <div class="tags">
+                        标签：<a href="../tags/TeX.html">TeX</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="content">
+        <p>本文记录了 <span class="math inline">\(\TeX\)</span> 的使用笔记。</p>
+<!--more-->
+<h2 id="数学">数学</h2>
+<div id="tbl:mathFonts">
+<table>
+<caption>表 1: 数学字体</caption>
+<thead>
+<tr class="header">
+<th>数学符号</th>
+<th>含义</th>
+<th><span class="math inline">\(\TeX\)</span> 表示</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(a\)</span></td>
+<td>标量</td>
+<td>a</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\bm{a}\)</span></td>
+<td>向量</td>
+<td>\bm{a}</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\bm{A}\)</span></td>
+<td>矩阵</td>
+<td>\bm{A}</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\bm{A}^\mathsf{T}\)</span></td>
+<td>矩阵转置</td>
+<td>\bm{A}^\mathsf{T}</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\textrm{a}\)</span></td>
+<td>随机变量</td>
+<td>\textrm{a}</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\mathbb{A}\)</span></td>
+<td>集合</td>
+<td>\mathbb{A}</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\mathbb{E}\)</span></td>
+<td>期望</td>
+<td>\mathbb{E}</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\mathcal{N}\)</span></td>
+<td>高斯分布</td>
+<td>\mathcal{N}</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="tbl:binaryRelationSymbols">
+<table>
+<caption>表 2: 二元关系符</caption>
+<thead>
+<tr class="header">
+<th>数学符号</th>
+<th>含义</th>
+<th><span class="math inline">\(\TeX\)</span> 表示</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(\ge\)</span></td>
+<td>大于等于</td>
+<td>\ge</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\in\)</span></td>
+<td>属于</td>
+<td>\in</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\textrm{a} \sim P\)</span></td>
+<td>随机变量 a 的概率分布为 P</td>
+<td>\textrm{a} \sim P</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\times\)</span></td>
+<td>乘</td>
+<td>\times</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\frac{x}{y}\)</span></td>
+<td>除</td>
+<td>\frac{x}{y}</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\odot\)</span></td>
+<td>矩阵按元素相乘</td>
+<td>\odot</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="tbl:bigOperators">
+<table>
+<caption>表 3: 巨算符</caption>
+<thead>
+<tr class="header">
+<th>数学符号</th>
+<th>含义</th>
+<th><span class="math inline">\(\TeX\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(\prod\)</span></td>
+<td>求积</td>
+<td>\prod</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\sum\)</span></td>
+<td>求和</td>
+<td>\sum</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="tbl:arrows">
+<table>
+<caption>表 4: 箭头</caption>
+<thead>
+<tr class="header">
+<th>数学符号</th>
+<th>含义</th>
+<th><span class="math inline">\(\TeX\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(\Rightarrow\)</span></td>
+<td>推导出</td>
+<td>\Rightarrow</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\to\)</span></td>
+<td>向右箭头</td>
+<td>\to</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="tbl:greekLetters">
+<table>
+<caption>表 5: 希腊字母</caption>
+<thead>
+<tr class="header">
+<th>字母</th>
+<th><span class="math inline">\(\TeX\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(\alpha\)</span></td>
+<td>\alpha</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\beta\)</span></td>
+<td>\beta</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\kappa\)</span></td>
+<td>\kappa</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\mu\)</span></td>
+<td>\mu</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\phi\)</span></td>
+<td>\phi</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\pi\)</span></td>
+<td>\pi</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\sigma\)</span></td>
+<td>\sigma</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\Sigma\)</span></td>
+<td>\Sigma</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\theta\)</span></td>
+<td>\theta</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\zeta\)</span></td>
+<td>\zeta</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="tbl:functions">
+<table>
+<caption>表 6: 函数</caption>
+<thead>
+<tr class="header">
+<th>函数</th>
+<th><span class="math inline">\(\TeX\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(\arg\)</span></td>
+<td>\arg</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\cos\)</span></td>
+<td>\cos</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\det\)</span></td>
+<td>\det</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\exp\)</span></td>
+<td>\exp</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\log\)</span></td>
+<td>\log</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\max\)</span></td>
+<td>\max</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\sqrt{x}\)</span></td>
+<td>\sqrt{x}</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\tanh\)</span></td>
+<td>\tanh</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="tbl:otherSymbols">
+<table>
+<caption>表 7: 其他</caption>
+<thead>
+<tr class="header">
+<th>数学符号</th>
+<th>含义</th>
+<th><span class="math inline">\(\TeX\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(\forall\)</span></td>
+<td>任意</td>
+<td>\forall</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\infty\)</span></td>
+<td>无穷</td>
+<td>\infty</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\left(\frac{x}{y}\right)\)</span></td>
+<td>定界符</td>
+<td>\left(\frac{x}{y}\right)</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\lVert\)</span></td>
+<td>左范数定界符</td>
+<td>\lVert</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\rVert\)</span></td>
+<td>右范数定界符</td>
+<td>\rVert</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(P(\textrm{a} \mid \textrm{b})\)</span></td>
+<td>条件概率</td>
+<td>P(\textrm{a} \mid \textrm{b})</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\mathbb{E}_{\textrm{x} \sim P} [f(x)]\)</span></td>
+<td><span class="math inline">\(f(x)\)</span> 关于 <span class="math inline">\(P(\textrm{x})\)</span> 的期望</td>
+<td></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\partial\)</span></td>
+<td>偏导数</td>
+<td>\partial</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\ast\)</span></td>
+<td>星号</td>
+<td>\ast</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\nabla\)</span></td>
+<td>梯度</td>
+<td>\nabla</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="参考文献">参考文献</h2>
+<div id="toc"><ul>
+<li><a href="#数学">数学</a></li>
+<li><a href="#参考文献">参考文献</a></li>
+</ul></div>
+    </section>
+
+    <section>
+        <div id="disqus_thread"></div>
+    </section>
+</article>
+
+<script>
+    /**
+     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+    var disqus_config = function() {
+        this.page.url = 'https://kaizhang91.github.io/blog/'; // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = 'kai-blog'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document,
+            s = d.createElement('script');
+        s.src = 'https://kai-blog.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+<noscript>
+    Please enable JavaScript to view the
+    <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+</noscript>
+
+                </main>
+
+                <footer>
+                    <p>
+                        Site proudly generated by
+                        <a href="http://jaspervdj.be/hakyll">Hakyll</a>
+                    </p>
+                </footer>
+            </div>
+
+            <div class="col-md">
+                <aside>
+                    <div id="newTOC"></div>
+                </aside>
+            </div>
+        </div>
+    </div>
+
+    <script>
+     var app = Elm.Main.init({
+         node: document.getElementById("elm")
+     });
+    </script>
+    <!-- <script src="/js/main.js"></script> -->
+    <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script> -->
+    <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script> -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script> -->
+    <!-- <script type="text/x-mathjax-config"> -->
+    <!-- MathJax.Hub.Config({ TeX: { Macros: { bm: ["\\boldsymbol{#1}", 1] } } } ) -->
+    <!-- </script> -->
+    <!-- <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML' async></script> -->
+    <!-- <script> -->
+    <!-- hljs.initHighlightingOnLoad(); -->
+    <!-- </script> -->
+</body>
+
+</html>

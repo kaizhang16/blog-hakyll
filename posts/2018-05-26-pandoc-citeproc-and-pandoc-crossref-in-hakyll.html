@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="zh">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>张凯的博客 - 在 Hakyll 里使用 pandoc-citeproc 和 pandoc-crossref</title>
+    <link rel="shortcut icon" type="image/x-icon" href="../images/favicon.ico" />
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.min.css"> -->
+    <!-- <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"> -->
+    <!-- <link rel="stylesheet" href="/css/default.css" /> -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/material-components-web@0.37.1/dist/material-components-web.css" rel="stylesheet">
+    <!-- <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+</head>
+
+<body class="mdc-typography">
+    <script src="elm-mdc.js"></script>
+    <script src="main.js"></script>
+    <div id="elm"></div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md">
+                <aside id="leftAside"></aside>
+            </div>
+
+            <div class="col-8">
+                <header>
+                    <div class="logo">
+                        <a href="../">
+                            <h1>
+                                张凯的博客
+                            </h1>
+                        </a>
+                    </div>
+
+                    <nav>
+                        <a href="https://github.com/kaizhang91/blog">
+                            <span class="icon">
+                                <i class="fa fa-github"></i>
+                            </span>
+                        </a>
+                    </nav>
+                </header>
+
+                <main role="main">
+                    <article>
+    <section>
+        <h1>在 Hakyll 里使用 pandoc-citeproc 和 pandoc-crossref</h1>
+    </section>
+
+    <section class="header">
+        <div class="container">
+            <div class="row no-gutters align-items-center">
+                <div class="col-sm">
+                    <h2>
+                        张凯 更新于 2018-05-26
+                    </h2>
+                </div>
+
+                <div class="col-sm">
+                    <div class="tags">
+                        标签：<a href="../tags/hakyll.html">hakyll</a>, <a href="../tags/pandoc.html">pandoc</a>, <a href="../tags/pandoc-citeproc.html">pandoc-citeproc</a>, <a href="../tags/pandoc-crossref.html">pandoc-crossref</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="content">
+        <p>本文介绍在 <code>Hakyll</code> 里使用 <code>pandoc-citeproc</code> 和 <code>pandoc-crossref</code> 的方法，这 2 款插件让 <code>Hakyll</code> 比其他静态网站生成软件更加强大。</p>
+<!--more-->
+<h2 id="pandoc-citeproc"><code>pandoc-citeproc</code></h2>
+<p><code>pandoc-citeproc</code> 支持参考文献的引用，如图. 1 所示。</p>
+<figure>
+<img src="../images/pandoc-citeproc-demo.png" alt="图 1: pandoc-citeproc 示意" id="fig:pandocCiteprocDemo" /><figcaption>图 1: <code>pandoc-citeproc</code> 示意</figcaption>
+</figure>
+<h2 id="pandoc-crossref"><code>pandoc-crossref</code></h2>
+<p><code>pandoc-crossref</code> 支持图、表和公式等的交叉引用，如图. 2 所示。</p>
+<figure>
+<img src="../images/pandoc-crossref-demo.png" alt="图 2: pandoc-crossref 示意" id="fig:pandocCrossrefDemo" /><figcaption>图 2: <code>pandoc-crossref</code> 示意</figcaption>
+</figure>
+<h2 id="在-hakyll-中使用-pandoc-citeproc-和-pandoc-crossref">在 <code>Hakyll</code> 中使用 <code>pandoc-citeproc</code> 和 <code>pandoc-crossref</code></h2>
+<div class="sourceCode" id="cb1"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb1-1" title="1"><span class="kw">import</span>           <span class="dt">Hakyll</span></a>
+<a class="sourceLine" id="cb1-2" title="2"><span class="kw">import</span> <span class="kw">qualified</span> <span class="dt">Text.CSL</span>                 <span class="kw">as</span> <span class="dt">CSL</span></a>
+<a class="sourceLine" id="cb1-3" title="3"><span class="kw">import</span>           <span class="dt">Text.CSL.Pandoc</span>          (processCites)</a>
+<a class="sourceLine" id="cb1-4" title="4"><span class="kw">import</span> <span class="kw">qualified</span> <span class="dt">Text.Pandoc</span>              <span class="kw">as</span> <span class="dt">P</span></a>
+<a class="sourceLine" id="cb1-5" title="5"><span class="kw">import</span>           <span class="dt">Text.Pandoc.Builder</span>      (str)</a>
+<a class="sourceLine" id="cb1-6" title="6"><span class="kw">import</span> <span class="kw">qualified</span> <span class="dt">Text.Pandoc.CrossRef</span>     <span class="kw">as</span> <span class="dt">CR</span></a>
+<a class="sourceLine" id="cb1-7" title="7"></a>
+<a class="sourceLine" id="cb1-8" title="8"><span class="ot">myPandocCompiler ::</span> <span class="dt">Compiler</span> (<span class="dt">Item</span> <span class="dt">String</span>)</a>
+<a class="sourceLine" id="cb1-9" title="9">myPandocCompiler <span class="fu">=</span></a>
+<a class="sourceLine" id="cb1-10" title="10">  pandocCompilerWithTransformM defaultHakyllReaderOptions defaultHakyllWriterOptions transformM</a>
+<a class="sourceLine" id="cb1-11" title="11"></a>
+<a class="sourceLine" id="cb1-12" title="12"><span class="ot">transformM ::</span> <span class="dt">P.Pandoc</span> <span class="ot">-&gt;</span> <span class="dt">Compiler</span> <span class="dt">P.Pandoc</span></a>
+<a class="sourceLine" id="cb1-13" title="13">transformM p <span class="fu">=</span> unsafeCompiler <span class="fu">$</span> <span class="kw">do</span></a>
+<a class="sourceLine" id="cb1-14" title="14">  p' <span class="ot">&lt;-</span> crossRef p</a>
+<a class="sourceLine" id="cb1-15" title="15">  processCites' p'</a>
+<a class="sourceLine" id="cb1-16" title="16"></a>
+<a class="sourceLine" id="cb1-17" title="17"><span class="ot">crossRef ::</span> <span class="dt">P.Pandoc</span> <span class="ot">-&gt;</span> <span class="dt">IO</span> <span class="dt">P.Pandoc</span></a>
+<a class="sourceLine" id="cb1-18" title="18">crossRef <span class="fu">=</span> CR.runCrossRefIO meta <span class="dt">Nothing</span> CR.defaultCrossRefAction</a>
+<a class="sourceLine" id="cb1-19" title="19">  <span class="kw">where</span></a>
+<a class="sourceLine" id="cb1-20" title="20">    meta <span class="fu">=</span></a>
+<a class="sourceLine" id="cb1-21" title="21">      CR.figureTitle (str <span class="st">&quot;图&quot;</span>) <span class="fu">&lt;&gt;</span> CR.figPrefix (str <span class="st">&quot;图.&quot;</span>) <span class="fu">&lt;&gt;</span></a>
+<a class="sourceLine" id="cb1-22" title="22">      CR.tableTitle (str <span class="st">&quot;表&quot;</span>) <span class="fu">&lt;&gt;</span></a>
+<a class="sourceLine" id="cb1-23" title="23">      CR.tblPrefix (str <span class="st">&quot;表.&quot;</span>)</a>
+<a class="sourceLine" id="cb1-24" title="24"></a>
+<a class="sourceLine" id="cb1-25" title="25"><span class="ot">processCites' ::</span> <span class="dt">P.Pandoc</span> <span class="ot">-&gt;</span> <span class="dt">IO</span> <span class="dt">P.Pandoc</span></a>
+<a class="sourceLine" id="cb1-26" title="26">processCites' p <span class="fu">=</span> <span class="kw">do</span></a>
+<a class="sourceLine" id="cb1-27" title="27">  refs <span class="ot">&lt;-</span> CSL.readBiblioFile <span class="st">&quot;references/all.bib&quot;</span></a>
+<a class="sourceLine" id="cb1-28" title="28">  style <span class="ot">&lt;-</span> CSL.readCSLFile <span class="dt">Nothing</span> <span class="st">&quot;csl/chinese-gb7714-2005-numeric.csl&quot;</span></a>
+<a class="sourceLine" id="cb1-29" title="29">  <span class="fu">return</span> <span class="fu">$</span> processCites style refs p</a></code></pre></div>
+<blockquote>
+<p>完整的 <code>site.hs</code> 在 <a href="https://github.com/kaizhang91/blog/blob/master/site.hs" class="uri">https://github.com/kaizhang91/blog/blob/master/site.hs</a>。</p>
+</blockquote>
+<div id="toc"><ul>
+<li><a href="#pandoc-citeproc"><code>pandoc-citeproc</code></a></li>
+<li><a href="#pandoc-crossref"><code>pandoc-crossref</code></a></li>
+<li><a href="#在-hakyll-中使用-pandoc-citeproc-和-pandoc-crossref">在 <code>Hakyll</code> 中使用 <code>pandoc-citeproc</code> 和 <code>pandoc-crossref</code></a></li>
+</ul></div>
+    </section>
+
+    <section>
+        <div id="disqus_thread"></div>
+    </section>
+</article>
+
+<script>
+    /**
+     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+    var disqus_config = function() {
+        this.page.url = 'https://kaizhang91.github.io/blog/'; // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = 'kai-blog'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document,
+            s = d.createElement('script');
+        s.src = 'https://kai-blog.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+<noscript>
+    Please enable JavaScript to view the
+    <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+</noscript>
+
+                </main>
+
+                <footer>
+                    <p>
+                        Site proudly generated by
+                        <a href="http://jaspervdj.be/hakyll">Hakyll</a>
+                    </p>
+                </footer>
+            </div>
+
+            <div class="col-md">
+                <aside>
+                    <div id="newTOC"></div>
+                </aside>
+            </div>
+        </div>
+    </div>
+
+    <script>
+     var app = Elm.Main.init({
+         node: document.getElementById("elm")
+     });
+    </script>
+    <!-- <script src="/js/main.js"></script> -->
+    <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script> -->
+    <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script> -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script> -->
+    <!-- <script type="text/x-mathjax-config"> -->
+    <!-- MathJax.Hub.Config({ TeX: { Macros: { bm: ["\\boldsymbol{#1}", 1] } } } ) -->
+    <!-- </script> -->
+    <!-- <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML' async></script> -->
+    <!-- <script> -->
+    <!-- hljs.initHighlightingOnLoad(); -->
+    <!-- </script> -->
+</body>
+
+</html>

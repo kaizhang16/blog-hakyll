@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="zh">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>张凯的博客 - 使用 Travis CI 部署 Github Pages</title>
+    <link rel="shortcut icon" type="image/x-icon" href="../images/favicon.ico" />
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.min.css"> -->
+    <!-- <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"> -->
+    <!-- <link rel="stylesheet" href="/css/default.css" /> -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/material-components-web@0.37.1/dist/material-components-web.css" rel="stylesheet">
+    <!-- <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+</head>
+
+<body class="mdc-typography">
+    <script src="elm-mdc.js"></script>
+    <script src="main.js"></script>
+    <div id="elm"></div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md">
+                <aside id="leftAside"></aside>
+            </div>
+
+            <div class="col-8">
+                <header>
+                    <div class="logo">
+                        <a href="../">
+                            <h1>
+                                张凯的博客
+                            </h1>
+                        </a>
+                    </div>
+
+                    <nav>
+                        <a href="https://github.com/kaizhang91/blog">
+                            <span class="icon">
+                                <i class="fa fa-github"></i>
+                            </span>
+                        </a>
+                    </nav>
+                </header>
+
+                <main role="main">
+                    <article>
+    <section>
+        <h1>使用 Travis CI 部署 Github Pages</h1>
+    </section>
+
+    <section class="header">
+        <div class="container">
+            <div class="row no-gutters align-items-center">
+                <div class="col-sm">
+                    <h2>
+                        张凯 更新于 2018-05-21
+                    </h2>
+                </div>
+
+                <div class="col-sm">
+                    <div class="tags">
+                        标签：<a href="../tags/travis-ci.html">travis-ci</a>, <a href="../tags/gh-pages.html">gh-pages</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="content">
+        <p>本文阐述了 <code>Github Pages</code> 的作用，以及如何利用 <code>Travis CI</code> 自动把静态网站部署到其上。</p>
+<!--more-->
+<h2 id="github-pages">Github Pages</h2>
+<p><code>Github Pages</code> 是 <code>Github</code> 免费提供的静态网站托管服务，我们可以在上面部署博客、简历和项目介绍等。</p>
+<h2 id="travis-ci">Travis CI</h2>
+<p><code>Travis CI</code> 为 <code>Github</code> 上的开源项目免费提供自动构建服务。比如，当从本地 <code>git push</code> 代码到 <code>Github</code> 时，会触发在 <code>Travis CI</code> 里定义的构建脚本。特别地，<code>Travis CI</code> 支持部署到 <code>Github Pages</code>。首先，我们需要在 <a href="https://github.com/settings/tokens" class="uri">https://github.com/settings/tokens</a> 生成一个 <code>Personal access token</code>，记为 <code>${githubToken}</code>。接着，将 <code>${githubToken}</code> 加密后写入 <code>.travis.yml</code>：</p>
+<pre><code>travis encrypt GITHUB_TOKEN=${githubToken} --add env.matrix</code></pre>
+<blockquote>
+<p>如果没有安装 <code>travis</code>，请先通过 <code>gem install travis</code> 安装。</p>
+</blockquote>
+<p>然后在 <code>.travis.yml</code> 里添加如下内容：</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode yaml"><code class="sourceCode yaml"><a class="sourceLine" id="cb2-1" title="1"><span class="fu">deploy:</span></a>
+<a class="sourceLine" id="cb2-2" title="2">  <span class="fu">provider:</span><span class="at"> pages  </span><span class="co"># 表示 Github Pages</span></a>
+<a class="sourceLine" id="cb2-3" title="3">  <span class="fu">local-dir:</span><span class="at"> _site  </span><span class="co"># 要上传的文件夹</span></a>
+<a class="sourceLine" id="cb2-4" title="4">  <span class="fu">skip-cleanup:</span><span class="at"> </span><span class="ch">true</span><span class="at">  </span><span class="co"># 必填，以免 Travis CI 删除要上传的文件</span></a>
+<a class="sourceLine" id="cb2-5" title="5">  <span class="fu">github-token:</span><span class="at"> $GITHUB_TOKEN  </span><span class="co"># Github 的访问令牌</span></a>
+<a class="sourceLine" id="cb2-6" title="6">  <span class="fu">on:</span></a>
+<a class="sourceLine" id="cb2-7" title="7">    <span class="fu">branch:</span><span class="at"> master  </span><span class="co"># master 分支有变化时触发部署</span></a></code></pre></div>
+<p>当然，还需要在 <code>.travis.yml</code> 填写 <code>language</code>、<code>install</code> 和 <code>script</code> 等字段指定如何生成静态文件，例如：</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode yaml"><code class="sourceCode yaml"><a class="sourceLine" id="cb3-1" title="1"><span class="fu">language:</span><span class="at"> nix</span></a>
+<a class="sourceLine" id="cb3-2" title="2"><span class="fu">install:</span></a>
+<a class="sourceLine" id="cb3-3" title="3"><span class="kw">-</span> nix-channel --add https://nixos.org/channels/nixos-18.03 nixpkgs</a>
+<a class="sourceLine" id="cb3-4" title="4"><span class="kw">-</span> nix-channel --update</a>
+<a class="sourceLine" id="cb3-5" title="5"><span class="fu">script:</span></a>
+<a class="sourceLine" id="cb3-6" title="6"><span class="kw">-</span> nix-build</a>
+<a class="sourceLine" id="cb3-7" title="7"><span class="kw">-</span> ./result/bin/site clean</a>
+<a class="sourceLine" id="cb3-8" title="8"><span class="kw">-</span> ./result/bin/site build</a></code></pre></div>
+<blockquote>
+<p>完整版 <code>.travis.yml</code> 参见 <a href="https://github.com/kaizhang91/blog/blob/master/.travis.yml" class="uri">https://github.com/kaizhang91/blog/blob/master/.travis.yml</a>。</p>
+</blockquote>
+<p>最后，在 <a href="https://travis-ci.org/" class="uri">https://travis-ci.org/</a> 上关联 <code>Github</code> 工程。这样，当我们从本地 <code>git push</code> 代码到 <code>Github</code> 上的 <code>master</code> 分支后，就会触发 <code>Travis CI</code> 的构建任务；构建成功后，<code>Travis CI</code> 自动把构建成果（本例中为 <code>_site</code> 文件夹）推送到 <code>Github</code> 的 <code>gh-pages</code> 分支，我们就可以在 <a href="https://$%7Busername%7D.github.io/$%7BprojectName%7D" class="uri">https://${username}.github.io/${projectName}</a> 看到生成的静态网站了！</p>
+<div id="toc"><ul>
+<li><a href="#github-pages">Github Pages</a></li>
+<li><a href="#travis-ci">Travis CI</a></li>
+</ul></div>
+    </section>
+
+    <section>
+        <div id="disqus_thread"></div>
+    </section>
+</article>
+
+<script>
+    /**
+     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+    var disqus_config = function() {
+        this.page.url = 'https://kaizhang91.github.io/blog/'; // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = 'kai-blog'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document,
+            s = d.createElement('script');
+        s.src = 'https://kai-blog.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+<noscript>
+    Please enable JavaScript to view the
+    <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+</noscript>
+
+                </main>
+
+                <footer>
+                    <p>
+                        Site proudly generated by
+                        <a href="http://jaspervdj.be/hakyll">Hakyll</a>
+                    </p>
+                </footer>
+            </div>
+
+            <div class="col-md">
+                <aside>
+                    <div id="newTOC"></div>
+                </aside>
+            </div>
+        </div>
+    </div>
+
+    <script>
+     var app = Elm.Main.init({
+         node: document.getElementById("elm")
+     });
+    </script>
+    <!-- <script src="/js/main.js"></script> -->
+    <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script> -->
+    <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script> -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script> -->
+    <!-- <script type="text/x-mathjax-config"> -->
+    <!-- MathJax.Hub.Config({ TeX: { Macros: { bm: ["\\boldsymbol{#1}", 1] } } } ) -->
+    <!-- </script> -->
+    <!-- <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML' async></script> -->
+    <!-- <script> -->
+    <!-- hljs.initHighlightingOnLoad(); -->
+    <!-- </script> -->
+</body>
+
+</html>

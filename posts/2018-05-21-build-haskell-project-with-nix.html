@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="zh">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>张凯的博客 - 使用 Nix 编译 Haskell 工程</title>
+    <link rel="shortcut icon" type="image/x-icon" href="../images/favicon.ico" />
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.min.css"> -->
+    <!-- <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"> -->
+    <!-- <link rel="stylesheet" href="/css/default.css" /> -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/material-components-web@0.37.1/dist/material-components-web.css" rel="stylesheet">
+    <!-- <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+</head>
+
+<body class="mdc-typography">
+    <script src="elm-mdc.js"></script>
+    <script src="main.js"></script>
+    <div id="elm"></div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md">
+                <aside id="leftAside"></aside>
+            </div>
+
+            <div class="col-8">
+                <header>
+                    <div class="logo">
+                        <a href="../">
+                            <h1>
+                                张凯的博客
+                            </h1>
+                        </a>
+                    </div>
+
+                    <nav>
+                        <a href="https://github.com/kaizhang91/blog">
+                            <span class="icon">
+                                <i class="fa fa-github"></i>
+                            </span>
+                        </a>
+                    </nav>
+                </header>
+
+                <main role="main">
+                    <article>
+    <section>
+        <h1>使用 Nix 编译 Haskell 工程</h1>
+    </section>
+
+    <section class="header">
+        <div class="container">
+            <div class="row no-gutters align-items-center">
+                <div class="col-sm">
+                    <h2>
+                        张凯 更新于 2018-05-21
+                    </h2>
+                </div>
+
+                <div class="col-sm">
+                    <div class="tags">
+                        标签：<a href="../tags/haskell.html">haskell</a>, <a href="../tags/nix.html">nix</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="content">
+        <p>本文介绍如何使用 <code>Nix</code> 来编译 <code>Haskell</code> 工程。</p>
+<!--more-->
+<h2 id="什么是-nix">什么是 <code>Nix</code>？</h2>
+<p><code>Nix</code> 是一个通用的包管理工具，对 <code>Haskell</code> 提供了特别好的支持<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>。</p>
+<h2 id="为什么要使用-nix">为什么要使用 <code>Nix</code>？</h2>
+<p>目前 <code>Stack</code> 是非常流行的 <code>Haskell</code> 包管理工具，很好地实现了编译的隔离性和可复现性。那为什么还要学习和使用 <code>Nix</code> 呢？因为 <code>Stack</code> 需要在本地编译依赖，这导致了 2 个问题：</p>
+<ul>
+<li>第一次编译速度较慢</li>
+<li>需要较大内存<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a></li>
+<li><code>resolver</code> 版本更新频繁，共存多个版本的话占用较大硬盘空间</li>
+</ul>
+<p>而 <code>Travis CI</code> 有如下限制：</p>
+<ul>
+<li>编译时间不能超过 50 分钟</li>
+<li>容器提供 4 GB 内存，虚拟机提供 8 GB 内存，对 <code>Stack</code> 来说资源较紧张</li>
+</ul>
+<p>对于一些依赖较多的工程来说，在 <code>Travis CI</code> 里编译就变得不可行了。而 <code>Nix</code> 恰恰克服了 <code>Stack</code> 的上述缺点：</p>
+<ul>
+<li>不需要本地编译，直接从 <a href="https://cache.nixos.org" class="uri">https://cache.nixos.org</a> 下载二进制缓存</li>
+</ul>
+<p>而 <code>Travis CI</code> 的下载速度特别快，可以达到几十 MB 乃至百 MB。因此对于不需要静态链接的 <code>Haskell</code> 工程，在 <code>Travis CI</code> 里用 <code>Nix</code> 编译是一个很好的选择。</p>
+<h2 id="如何使用-nix-编译-haskell-工程">如何使用 <code>Nix</code> 编译 <code>Haskell</code> 工程？</h2>
+<p>首先，安装 <code>Nix</code>：</p>
+<pre><code>bash &lt;(curl https://nixos.org/nix/install)</code></pre>
+<p>接着，安装 <code>cabal2nix</code>：</p>
+<pre><code>nix-env -i cabal2nix</code></pre>
+<p>然后借助 <code>cabal2nix</code> 生成编译配置:</p>
+<pre><code>cd $project
+cabal2nix . &gt; foo.nix</code></pre>
+<p>再配置 <code>default.nix</code>：</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode nix"><code class="sourceCode bash"><a class="sourceLine" id="cb4-1" title="1"><span class="bu">let</span></a>
+<a class="sourceLine" id="cb4-2" title="2">  <span class="ex">pkgs</span> = import <span class="op">&lt;</span>nixpkgs<span class="op">&gt;</span> { };</a>
+<a class="sourceLine" id="cb4-3" title="3"></a>
+<a class="sourceLine" id="cb4-4" title="4"><span class="kw">in</span></a>
+<a class="sourceLine" id="cb4-5" title="5">  <span class="ex">rec</span> {</a>
+<a class="sourceLine" id="cb4-6" title="6">    <span class="ex">foo</span> = pkgs.haskellPackages.callPackage ./foo.nix { };</a>
+<a class="sourceLine" id="cb4-7" title="7">  }</a></code></pre></div>
+<p>现在可以编译了！</p>
+<pre><code>nix-build</code></pre>
+<section class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>提供了所有在 <code>Hackage</code> 上注册的 <code>Haskell</code> 库<a href="#fnref1" class="footnote-back">↩</a></p></li>
+<li id="fn2"><p>较大的项目需要 8 GB。<a href="#fnref2" class="footnote-back">↩</a></p></li>
+</ol>
+</section>
+<div id="toc"><ul>
+<li><a href="#什么是-nix">什么是 <code>Nix</code>？</a></li>
+<li><a href="#为什么要使用-nix">为什么要使用 <code>Nix</code>？</a></li>
+<li><a href="#如何使用-nix-编译-haskell-工程">如何使用 <code>Nix</code> 编译 <code>Haskell</code> 工程？</a></li>
+</ul></div>
+    </section>
+
+    <section>
+        <div id="disqus_thread"></div>
+    </section>
+</article>
+
+<script>
+    /**
+     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+    var disqus_config = function() {
+        this.page.url = 'https://kaizhang91.github.io/blog/'; // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = 'kai-blog'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document,
+            s = d.createElement('script');
+        s.src = 'https://kai-blog.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+<noscript>
+    Please enable JavaScript to view the
+    <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+</noscript>
+
+                </main>
+
+                <footer>
+                    <p>
+                        Site proudly generated by
+                        <a href="http://jaspervdj.be/hakyll">Hakyll</a>
+                    </p>
+                </footer>
+            </div>
+
+            <div class="col-md">
+                <aside>
+                    <div id="newTOC"></div>
+                </aside>
+            </div>
+        </div>
+    </div>
+
+    <script>
+     var app = Elm.Main.init({
+         node: document.getElementById("elm")
+     });
+    </script>
+    <!-- <script src="/js/main.js"></script> -->
+    <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script> -->
+    <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script> -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script> -->
+    <!-- <script type="text/x-mathjax-config"> -->
+    <!-- MathJax.Hub.Config({ TeX: { Macros: { bm: ["\\boldsymbol{#1}", 1] } } } ) -->
+    <!-- </script> -->
+    <!-- <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML' async></script> -->
+    <!-- <script> -->
+    <!-- hljs.initHighlightingOnLoad(); -->
+    <!-- </script> -->
+</body>
+
+</html>

@@ -1,0 +1,761 @@
+<!doctype html>
+<html lang="zh">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>张凯的博客 - 文献阅读：Deep Learning</title>
+    <link rel="shortcut icon" type="image/x-icon" href="../images/favicon.ico" />
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.min.css"> -->
+    <!-- <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"> -->
+    <!-- <link rel="stylesheet" href="/css/default.css" /> -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/material-components-web@0.37.1/dist/material-components-web.css" rel="stylesheet">
+    <!-- <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+</head>
+
+<body class="mdc-typography">
+    <script src="elm-mdc.js"></script>
+    <script src="main.js"></script>
+    <div id="elm"></div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md">
+                <aside id="leftAside"></aside>
+            </div>
+
+            <div class="col-8">
+                <header>
+                    <div class="logo">
+                        <a href="../">
+                            <h1>
+                                张凯的博客
+                            </h1>
+                        </a>
+                    </div>
+
+                    <nav>
+                        <a href="https://github.com/kaizhang91/blog">
+                            <span class="icon">
+                                <i class="fa fa-github"></i>
+                            </span>
+                        </a>
+                    </nav>
+                </header>
+
+                <main role="main">
+                    <article>
+    <section>
+        <h1>文献阅读：Deep Learning</h1>
+    </section>
+
+    <section class="header">
+        <div class="container">
+            <div class="row no-gutters align-items-center">
+                <div class="col-sm">
+                    <h2>
+                        张凯 更新于 2018-06-02
+                    </h2>
+                </div>
+
+                <div class="col-sm">
+                    <div class="tags">
+                        标签：<a href="../tags/%E6%96%87%E7%8C%AE%E9%98%85%E8%AF%BB.html">文献阅读</a>, <a href="../tags/deep-learning.html">deep-learning</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="content">
+        <p>本文记录了《Deep Learning》<span class="citation" data-cites="goodfellow2016deep">(Goodfellow et al. 2016)</span>的读后感。</p>
+<!--more-->
+<h2 id="介绍">介绍</h2>
+<p>许多人工智能任务依赖于正确的特征集，即表示。但很多情况下，人们不知道该选取哪些特征。所以需要使用机器学习发现表示（特征集）。</p>
+<p>自编码器组合编码函数，在保留尽可能多的信息的同时让新表示满足一些特性。</p>
+<h2 id="linear-algebra">Linear Algebra</h2>
+<h3 id="范数">范数</h3>
+<dl>
+<dt>范数</dt>
+<dd>满足以下性质的任意函数 <span class="math inline">\(f\)</span>
+</dd>
+</dl>
+<ul>
+<li><span class="math inline">\(f(\bm{x}) = 0 \Rightarrow \bm{x} = \bm{0}\)</span></li>
+<li><span class="math inline">\(f(\bm{x} + \bm{y}) \le f(\bm{x}) + f(\bm{y})\)</span> （三角不等式）</li>
+<li><span class="math inline">\(\forall \alpha \in \mathbb{R}, f(\alpha\bm{x}) = |\alpha|f(\bm{x})\)</span></li>
+</ul>
+<p><span class="math inline">\(L^p\)</span> 范数： <span id="eq:Lp"><span class="math display">\[||\bm{x}||_p = \left(\sum_i |x_i|^p\right)^{\frac{1}{p}}\qquad(1)\]</span></span> 其中 <span class="math inline">\(p \in \mathbb{R}, p \ge 1\)</span>。</p>
+<p><span class="math inline">\(L^2\)</span> 范数为 Euclidean 距离。</p>
+<ul>
+<li><span class="math inline">\(L^2\)</span> 范数平方的优点
+<ul>
+<li>计算简单
+<ul>
+<li>偏微分只取决于 <span class="math inline">\(x_i\)</span>，与其他 <span class="math inline">\(x_j\)</span> 没有关系</li>
+</ul></li>
+</ul></li>
+<li><span class="math inline">\(L^2\)</span> 范数平方的缺点
+<ul>
+<li>在原点附近变化缓慢</li>
+</ul></li>
+<li><span class="math inline">\(L^1\)</span> 范数的优点
+<ul>
+<li>在原点附近变化较快，可以区分 <span class="math inline">\(0\)</span> 和接近于 <span class="math inline">\(0\)</span> 的值</li>
+</ul></li>
+</ul>
+<p>“<span class="math inline">\(L^0\)</span>” 范数表示向量里非零元素的个数。（叫法不正确）</p>
+<p><span class="math inline">\(L^\infty\)</span> 范数或者最大范数： <span id="eq:LInfty"><span class="math display">\[||\bm{x}||_\infty = \max_i|x_i|\qquad(2)\]</span></span></p>
+<p>Frobenius 范数为： <span id="eq:frobeniusNorm"><span class="math display">\[||\bm{A}|| = \sqrt{\sum_{i, j}A_{i, j}^2}\qquad(3)\]</span></span></p>
+<p>点积可以用范数表示： <span id="eq:dotProduct"><span class="math display">\[\bm{x}^T\bm{y} = ||\bm{x}||_2 ||\bm{y}||_2 \cos\theta\qquad(4)\]</span></span></p>
+<h2 id="probability-and-information-theory">Probability and Information Theory</h2>
+<h3 id="bayes-rule">Bayes’ Rule</h3>
+<p><span id="eq:bayesRule"><span class="math display">\[P(\textrm{x}|\textrm{y}) = \frac{P(\textrm{x})P(\textrm{y}|\textrm{x})}{P(\textrm{y})}\qquad(5)\]</span></span></p>
+<h3 id="常见概率分布">常见概率分布</h3>
+<h4 id="gaussian-distribution">Gaussian Distribution</h4>
+<p><span id="eq:gaussianDistribution"><span class="math display">\[\mathcal{N}(x;\mu, \sigma^2) = \sqrt{\frac{1}{2\pi\sigma^2}}\exp\left(-\frac{1}{2\sigma^2}(x-\mu)^2\right)\qquad(6)\]</span></span> 为了计算的简便，也可以用 <span class="math inline">\(\beta^{-1} = \sigma^2\)</span> 替代 <span class="math inline">\(\sigma^2\)</span> 作为参数，其中 <span class="math inline">\(\beta \in (0, \infty)\)</span>，表示精度。</p>
+<p>Gaussian 分布应用广泛的原因：</p>
+<ul>
+<li>中心极限定理表明许多独立随机变量的和接近于正态分布；</li>
+<li>同方差的所有分布里，正态分布的不确定性最大，意味着向模型插入了最少的先验知识。</li>
+</ul>
+<p><span id="eq:gaussianDistributionMulti"><span class="math display">\[\mathcal{N}(\bm{x};\bm{\mu},\bm{\Sigma}) = \sqrt{\frac{1}{(2\pi)^n\det(\bm{\Sigma})}}\exp\left(-\frac{1}{2}(\bm{x}-\bm{\mu})^\mathsf{T}\bm{\Sigma}^{-1}(\bm{x}-\bm{\mu})\right)\qquad(7)\]</span></span></p>
+<h4 id="指数和-laplace-分布">指数和 Laplace 分布</h4>
+<dl>
+<dt>Laplace 分布</dt>
+<dd><span id="eq:laplaceDistribution"><span class="math display">\[\textrm{Laplace}(x;\mu,\gamma) = \frac{1}{2\gamma}\exp\left(-\frac{|x-\mu|}{\gamma}\right)\qquad(8)\]</span></span>
+</dd>
+</dl>
+<h3 id="混合分布">混合分布</h3>
+<p><span id="eq:distributionMixture"><span class="math display">\[P(\bm{\textrm{x}}) = \sum_{i}P(\textrm{c}=i)P(\bm{\textrm{x}} \mid \textrm{c}=i)\qquad(9)\]</span></span></p>
+<dl>
+<dt>Gaussian 混合</dt>
+<dd><span class="math inline">\(P(\bm{\textrm{x}} \mid \textrm{c}=i)\)</span> 为 Gaussian 分布。
+</dd>
+<dt>万能近似器</dt>
+<dd>Gaussian 混合。
+</dd>
+</dl>
+<h3 id="常见函数">常见函数</h3>
+<p>logistic sigmoid: <span id="eq:sigmoid"><span class="math display">\[\sigma(x) = \frac{1}{1 + \exp(-x)}\qquad(10)\]</span></span> 因为取值范围是 <span class="math inline">\((0, 1)\)</span>，所以用来产生 Bernoulli 分布的 <span class="math inline">\(\phi\)</span> 参数。</p>
+<p>softplus: <span id="eq:softplus"><span class="math display">\[\zeta(x) = \log(1 + \exp(x))\qquad(11)\]</span></span> 因为取值范围是 <span class="math inline">\((0, \infty)\)</span>，所以用来产生正态分布的 <span class="math inline">\(\beta\)</span> 或 <span class="math inline">\(\sigma\)</span> 参数。之所以叫 softplus 是因为它是 <span id="eq:plus"><span class="math display">\[x^+ = \max(0, x)\qquad(12)\]</span></span> 的光滑版。</p>
+<p>Rectified Linear Unit(ReLU): <span id="eq:relu"><span class="math display">\[g(z) = \max(0, z)\qquad(13)\]</span></span> 只要激活，梯度即为 <span class="math inline">\(1\)</span>，相比于 sigmoid 更加容易学习。</p>
+<p>tanh: <span id="eq:tanh"><span class="math display">\[\tanh(x) = \frac{e^x - e^{-x}}{e^x + e^{-x}}\qquad(14)\]</span></span> <span class="math inline">\(\tanh(0) = 0\)</span>，更类似于单位函数。</p>
+<p>Radial basis function (RBF): <span id="eq:rbf"><span class="math display">\[h_i = \exp\left(-\frac{1}{\sigma_i^2}\left\lVert\bm{W}_{:,i} - \bm{x}\right\rVert^2\right)\qquad(15)\]</span></span> 当 <span class="math inline">\(\bm{x}\)</span> 接近模板 <span class="math inline">\(\bm{W}_{:,i}\)</span> 时，函数激活；此外大部分情况不激活，所以难于优化。</p>
+<h3 id="信息论">信息论</h3>
+<p>Kullback-Leibler (KL) 散度： <span id="eq:klDivergence"><span class="math display">\[D_{\textrm{KL}}(P||Q) = \mathbb{E}_{\textrm{x} \sim P}\left[\log\frac{P(x)}{Q(x)}\right] = \mathbb{E}_{\textrm{x} \sim P}[\log P(x)-\log Q(x)]\qquad(16)\]</span></span> 描述了概率分布 <span class="math inline">\(P(\textrm{x})\)</span> 和 <span class="math inline">\(Q(\textrm{x})\)</span> 的区别有多大。KL 散度非负，当且仅当 <span class="math inline">\(P(\textrm{x})\)</span> 和 <span class="math inline">\(Q(\textrm{x})\)</span> 处处相等<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>时 <span class="math inline">\(D_{\textrm{KL}}(P||Q) = 0\)</span>。但 KL 散度不对称：对于某些 <span class="math inline">\(P\)</span> 和 <span class="math inline">\(Q\)</span>， <span class="math inline">\(D_{\textrm{KL}}(P||Q) \neq D_{\textrm{KL}}(Q||P)\)</span>。</p>
+<p>交叉信息熵： <span id="eq:crossEntropy"><span class="math display">\[H(P, Q) = -\mathbb{E}_{\textrm{x} \sim P} \log Q(x)\qquad(17)\]</span></span> KL 散度和交叉信息熵之间的关系：<span class="math inline">\(H(P, Q) = H(P) + D_{\textrm{KL}}(P||Q)\)</span>。</p>
+<h2 id="数值计算">数值计算</h2>
+<h3 id="上溢和下溢">上溢和下溢</h3>
+<dl>
+<dt>下溢</dt>
+<dd>接近于 <span class="math inline">\(0\)</span> 的数取整为 <span class="math inline">\(0\)</span>。
+</dd>
+<dt>下溢</dt>
+<dd>大数近似成 <span class="math inline">\(\infty\)</span> 或者 <span class="math inline">\(-\infty\)</span>。
+</dd>
+</dl>
+<p>为了使数值计算稳定，需要把 softmax 里的 <span class="math inline">\(x\)</span> 换成 <span class="math inline">\(x - \max_i x_i\)</span>。</p>
+<h3 id="病态条件">病态条件</h3>
+<dl>
+<dt>矩阵条件数</dt>
+<dd><p><span class="math inline">\(\kappa(\bm{A}) = \lVert \bm{A}^{-1}\rVert \cdot \lVert\bm{A}\rVert\)</span>。当范数选 <span class="math inline">\(L^2\)</span> 范数，且 <span class="math inline">\(\bm{A}\)</span> 为正规矩阵时，<span class="math inline">\(\kappa(\bm{A}) =  \left\lvert\frac{\lambda_{max}(\bm{A})}{\lambda_{min}(\bm{A})}\right\rvert\)</span>。其中，<span class="math inline">\(\lambda_{max}(\bm{A})\)</span> 和 <span class="math inline">\(\lambda_{min}(\bm{A})\)</span> 分别为 <span class="math inline">\(\bm{A}\)</span> 的极大和极小（根据模数）特征值。当条件数较大时，矩阵求逆对输入错误非常敏感，此时称矩阵为病态条件的矩阵。</p>
+</dd>
+</dl>
+<h3 id="梯度之外jacobian-和-hessian-矩阵">梯度之外：Jacobian 和 Hessian 矩阵</h3>
+<dl>
+<dt>Jacobian 矩阵</dt>
+<dd>对一个函数 <span class="math inline">\(\bm{f}:\mathbb{R}^m \to \mathbb{R}^n\)</span> 来说， <span id="eq:jacobianMatrix"><span class="math display">\[\bm{J}_{i, j} = \frac{\partial}{\partial x_j} f(\bm{x})_i\qquad(18)\]</span></span> 为其 Jacobian 矩阵，<span class="math inline">\(\bm{J} \in \mathbb{R}^{n\times m}\)</span>。
+</dd>
+<dt>Hessian 矩阵</dt>
+<dd>对一个函数 <span class="math inline">\(f: \mathbb{R}^n \to \mathbb{R}\)</span> 来说， <span id="eq:hessianMatrix"><span class="math display">\[\bm{H}(f)(\bm{x})_{i, j} = \frac{\partial^2}{\partial x_i\partial x_j}f(\bm{x})\qquad(19)\]</span></span> 为其 Hessian 矩阵。
+</dd>
+</dl>
+<p>Hessian 矩阵的条件数描述了二阶导数有多大区别。</p>
+<figure>
+<img src="../images/hessian-matrix-condition-number.png" alt="图 1: Hessian 矩阵的条件数示意图" id="fig:hessianMatrixConditionNumber" /><figcaption>图 1: Hessian 矩阵的条件数示意图</figcaption>
+</figure>
+<h3 id="有约束的优化">有约束的优化</h3>
+<dl>
+<dt>扩展 Lagrange 函数</dt>
+<dd><span id="eq:generalizedLagrange"><span class="math display">\[L(\bm{x}, \bm{\lambda}, \bm{\alpha}) = f(\bm{x}) + \sum_i \lambda_i g^{(i)}(\bm{x}) + \sum_j \alpha_j h^{(j)}(\bm{x})\qquad(20)\]</span></span>
+</dd>
+<dt>有约束的最小化</dt>
+<dd><span id="eq:constrainedMin"><span class="math display">\[\min_{\bm{x}}\max_{\bm{\lambda}}\max_{\bm{\alpha}, \bm{\alpha} \le 0}L(\bm{x}, \bm{\lambda}, \bm{\alpha})\qquad(21)\]</span></span>
+</dd>
+<dt>KKT 条件（有约束优化的最优点的必要条件）</dt>
+<dd><ul>
+<li>扩展 Lagrange 函数的梯度为 <span class="math inline">\(0\)</span>；</li>
+<li>满足 <span class="math inline">\(\bm{x}\)</span> 和 KKT 乘子（<span class="math inline">\(\bm{\lambda}, \bm{\alpha}\)</span>）的约束；</li>
+<li><span class="math inline">\(\bm{\alpha} \odot \bm{h}(\bm{x}) = \bm{0}\)</span>。</li>
+</ul>
+</dd>
+<dt>活跃约束</dt>
+<dd><span class="math inline">\(h^{(i)}(\bm{x}^*) = 0\)</span> 时称 <span class="math inline">\(h^{(i)}(\bm{x})\)</span> 为活跃的约束。
+</dd>
+</dl>
+<h2 id="machine-learning-basics">Machine Learning Basics</h2>
+<h3 id="学习算法">学习算法</h3>
+<h4 id="例子线性回归">例子：线性回归</h4>
+<dl>
+<dt>均方误差</dt>
+<dd><span id="eq:mse"><span class="math display">\[\textrm{MSE}_{\textrm{test}} = \frac{1}{m}\sum_i (\hat{\bm{y}}^{(\textrm{test})} - \bm{y}^{(\textrm{test})})_i^2\qquad(22)\]</span></span>
+</dd>
+</dl>
+<h3 id="容量过拟合和欠拟合">容量、过拟合和欠拟合</h3>
+<dl>
+<dt>模型容量</dt>
+<dd>（非正式）拟合各类函数的能力。
+</dd>
+<dt>表示容量</dt>
+<dd>学习算法可以选择的函数家族。
+</dd>
+<dt>有效容量</dt>
+<dd>实际容量，小于表示容量。
+</dd>
+<dt>最优容量</dt>
+<dd>泛化误差最小时的模型容量。
+</dd>
+</dl>
+<h3 id="maximum-likelihood-estimation最大似然估计">Maximum Likelihood Estimation（最大似然估计）</h3>
+<p><span id="eq:mle"><span class="math display">\[
+\begin{align*}
+\bm{\theta}_{\textrm{ML}} &amp;= \arg\max_{\bm{\theta}}p_{\textrm{model}}(\mathbb{X;\bm{\theta}}) \\
+&amp;= \arg\max_{\bm{\theta}}\prod_{i=1}^m p_{\textrm{model}}(\bm{x}^{(i)};\bm{\theta}) \\
+&amp;= \arg\max_{\bm{\theta}}\sum_{i=1}^m \log p_{\textrm{model}}(\bm{x}^{(i)};\bm{\theta}) \\
+&amp;= \arg\max_{\bm{\theta}}\mathbb{E}_{\textrm{x} \sim \hat{p}_{\textrm{data}}} \log p_{\textrm{model}}(\bm{x};\bm{\theta})
+\end{align*}
+\qquad(23)\]</span></span> 其中，<span class="math inline">\(\mathbb{X} = \{\bm{x}^{(1)},\dots,\bm{x}^{(m)}\}\)</span></p>
+<p>最大似然估计等价于最小化交叉信息熵 <span class="math inline">\(H(\hat{P}_{\textrm{data}},P_{\textrm{model}})\)</span>。</p>
+<h4 id="最大似然估计的性质">最大似然估计的性质</h4>
+<p>当样本数 <span class="math inline">\(m \to \infty\)</span> 时，最大似然估计渐进趋近于最好的估计。</p>
+<p>当：</p>
+<ul>
+<li>真实分布 <span class="math inline">\(p_{\textrm{data}}\)</span> 在模型家族 <span class="math inline">\(p_{\textrm{model}}(\cdot;\bm{\theta})\)</span> 之内；否则，没有估计可以恢复 <span class="math inline">\(p_{\textrm{data}}\)</span></li>
+<li>真实分布 <span class="math inline">\(p_{\textrm{data}}\)</span> 只对应一个参数值 <span class="math inline">\(\bm{\theta}\)</span></li>
+</ul>
+<p>时，最大似然估计拥有一致性，即 <span class="math inline">\(m \to \infty\)</span> 时，最大似然估计收敛于参数的真实值。对一致性来说，最大似然估计的统计效率最高。</p>
+<h3 id="bayesian-统计">Bayesian 统计</h3>
+<p>最大似然估计的频率统计；最大后验估计是 Bayesian 统计。</p>
+<p>Bayesian 估计把不确定性计入预测： <span class="math display">\[p(x^{(m+1)}|x^{(1)},\dots,x^{(m)}) = \int p(x^{(m+1)}|\bm{\theta})p(\bm{\theta}|x^{(1)},\dots,x^{(m)})d\bm{\theta}\]</span></p>
+<p>最大似然估计通过方差来估计不确定性。</p>
+<p>Bayesian 估计里的先验分布常常倾向于更简单或更光滑的模型。</p>
+<p>数据少时，Bayesian 估计泛化误差更小；数据大时，Bayesian 估计计算代价高。</p>
+<h4 id="maximum-a-posteriori-map-estimation最大后验概率估计">Maximum A Posteriori (MAP) Estimation（最大后验概率估计）</h4>
+<p>最大后验概率估计用满足最大后验概率的参数点 <span class="math inline">\(\bm{\theta}_{\textrm{MAP}}\)</span> 估计全 Bayesian 后验分布。</p>
+<p><span id="eq:map"><span class="math display">\[
+\begin{align*}
+\bm{\theta}_{\textrm{MAP}} &amp;= \arg\max_{\bm{\theta}}p(\bm{\theta}|\mathbb{X}) \\
+&amp;= \arg\max_{\bm{\theta}}\log p(\mathbb{X}|\bm{\theta})p(\bm{\theta}) \\
+&amp;= \arg\max_{\bm{\theta}}\left[\sum_{i=1}^m\log p(\bm{x}^{(i)}|\bm{\theta}) + \log p(\bm{\theta})\right]
+\end{align*}
+\qquad(24)\]</span></span> 先验分布为 <span class="math inline">\(\mathcal{N}(\bm{w}; \bm{0}, \frac{1}{\lambda}\bm{I}^2)\)</span> 时，先验项对应于最大似然估计里的权重衰减。</p>
+<h3 id="监督学习算法">监督学习算法</h3>
+<h4 id="支持向量机">支持向量机</h4>
+<p>Gaussian 核： <span class="math display">\[k(\bm{u}, \bm{v}) = \mathbb{N}(\bm{u}-\bm{v};0,\sigma^2\bm{I})\]</span> 又称 radial basis function (RBF) 核。</p>
+<h3 id="非监督学习算法">非监督学习算法</h3>
+<dl>
+<dt>低维表示</dt>
+<dd>用小的表示压缩尽可能多的信息。
+</dd>
+<dt>稀疏表示</dt>
+<dd>大部分元素为 0。
+</dd>
+<dt>独立表示</dt>
+<dd>解耦数据分布的协方差以使各个维度统计独立。
+</dd>
+</dl>
+<h3 id="构建一个机器学习算法">构建一个机器学习算法</h3>
+<p>决策树和 k 平均不适用梯度优化，因为它们的损失函数有平坦区域。</p>
+<h2 id="深度前馈网络">深度前馈网络</h2>
+<dl>
+<dt>MLPs</dt>
+<dd>Multilayer Perceptrons。
+</dd>
+</dl>
+<h3 id="架构设计">架构设计</h3>
+<dl>
+<dt>万能近似定理</dt>
+<dd>有一层线性输出层和至少一层任意激活函数的隐藏层的前馈网络，如果有足够多的隐藏单元，就可以以任意小的非零误差近似从一个有限维空间到另一个有限维空间的 Borel 可测函数。
+</dd>
+</dl>
+<p>深度矫正网络（ReLU？）表示的函数在单隐藏层网络里可能需要指数次隐藏单元。具体地，深度矫正网络可以表示的线性区域数量为： <span id="eq:deepNetworkCapacity"><span class="math display">\[O\left(\binom{n}{d}^{d(l-1)}n^d\right)\qquad(25)\]</span></span> 其中，<span class="math inline">\(d\)</span> 为输入层单元数量，<span class="math inline">\(l\)</span> 为深度，<span class="math inline">\(n\)</span> 为隐藏层单元数量。</p>
+<h3 id="历史说明">历史说明</h3>
+<p>均方误差容易饱和，学习速度慢。</p>
+<p>分段线性函数在某些点不可微，但学习速度快。</p>
+<h2 id="深度学习的正则化">深度学习的正则化</h2>
+<h3 id="参数范数惩罚">参数范数惩罚</h3>
+<p>我们只惩罚权重项，不惩罚偏置项。因为偏置项不会导致过拟合，而惩罚偏置项会导致欠拟合。</p>
+<p>每一层使用单独的惩罚系数 <span class="math inline">\(\alpha\)</span> 更精确，但搜索空间更大。所有层使用相同的 <span class="math inline">\(\alpha\)</span> 会减少搜索空间。</p>
+<h4 id="l2-参数正则化"><span class="math inline">\(L^2\)</span> 参数正则化</h4>
+<p>当目标函数是二次函数时，可以近似为： <span id="eq:JHat"><span class="math display">\[\hat{J}(\bm{\theta}) = J(\bm{w}^{\ast}) + \frac{1}{2}(\bm{w}-\bm{w}^{\ast})^{\mathsf{T}}\bm{H}(\bm{w}-\bm{w}^{\ast})\qquad(26)\]</span></span> 其中，<span class="math inline">\(\bm{H}\)</span> 是 <span class="math inline">\(J\)</span> 关于 <span class="math inline">\(\bm{w}\)</span> 在 <span class="math inline">\(\bm{w}^{\ast}\)</span> 处的 Hessian 矩阵。对式. 26 两边同时求导，可得： <span id="eq:gradientJHat"><span class="math display">\[\nabla_{\bm{w}}\hat{J}(\bm{w}) = \bm{H}(\bm{w}-\bm{w}^{\ast})\qquad(27)\]</span></span> 在让 <span class="math inline">\(\hat{J}\)</span> 取得最小值的 <span class="math inline">\(\bm{w}^{\ast}\)</span> 处，<span class="math inline">\(\nabla_{\bm{w}}\hat{J}(\bm{w}) = \bm{H}(\bm{w}-\bm{w}^{\ast})=\bm{0}\)</span>。加入惩罚项后，目标函数变为： <span id="eq:JTilde"><span class="math display">\[\tilde{J}(\bm{w};\bm{X},\bm{y}) = \frac{\alpha}{2}\bm{w}^{\mathsf{T}}\bm{w} + J(\bm{w};\bm{X},\bm{y})\qquad(28)\]</span></span> 由新梯度为 <span class="math inline">\(0\)</span> 可得： <span class="math display">\[\alpha\tilde{\bm{w}} + \bm{H}(\tilde{\bm{w}} - \bm{w}^{\ast}) = 0 \]</span> 即： <span id="eq:tildeW"><span class="math display">\[\tilde{\bm{w}} = (\bm{H} + \alpha\bm{I})^{-1}\bm{H}\bm{w}^{\ast}\qquad(29)\]</span></span> 因为 <span class="math inline">\(\bm{H}\)</span> 是实对称矩阵，所以存在正交基组成的矩阵 <span class="math inline">\(\bm{Q}\)</span> 和对角矩阵 <span class="math inline">\(\bm{\Lambda}\)</span>，使得 <span class="math inline">\(\bm{H} = \bm{Q}\bm{\Lambda}\bm{Q}^{\mathsf{T}}\)</span>。可得， <span id="eq:tildeW1"><span class="math display">\[
+\begin{align*}
+\tilde{\bm{w}} &amp;= (\bm{Q}\bm{\Lambda}\bm{Q}^{\mathsf{T}} + \alpha\bm{I})^{-1}\bm{Q}\bm{\Lambda}\bm{Q}^{\mathsf{T}}\bm{w}^{\ast} \\
+&amp;= \left[\bm{Q}(\bm{\Lambda} + \alpha\bm{I})\bm{Q}^{\mathsf{T}}\right]^{-1}\bm{Q}\bm{\Lambda}\bm{Q}^{\mathsf{T}}\bm{w}^{\ast} \\
+&amp;= \bm{Q}(\bm{\Lambda}+\alpha\bm{I})^{-1}\bm{\Lambda}\bm{Q}^{\mathsf{T}}\bm{w}^{\ast}
+\end{align*}
+\qquad(30)\]</span></span> 即与 <span class="math inline">\(\bm{H}\)</span> 第 <span class="math inline">\(i\)</span> 个特征向量平行的分量会缩减为原来的 <span class="math inline">\(\frac{\lambda_i}{\lambda_i + \alpha}\)</span>。<span class="math inline">\(\bm{H}\)</span> 特征值大的方向受影响小，特征值小的方向会被缩减为 <span class="math inline">\(0\)</span>。</p>
+<h4 id="l1-参数正则化"><span class="math inline">\(L^1\)</span> 参数正则化</h4>
+<p><span class="math inline">\(L^2\)</span> 正则化等价于使用权重为 Gaussian 先验分布的最大后验 Bayesian 推断；<span class="math inline">\(L^{1}\)</span> 正则化等价于使用权重为各向同性 Laplace 分布的最大后验 Bayesian 推断。</p>
+<h3 id="正则化和欠约束问题">正则化和欠约束问题</h3>
+<p><span class="math inline">\(\bm{X}^{\mathsf{T}}\bm{X}\)</span> 有可能是奇异矩阵。比如样本分布在某些方向没有变化，或者因为样本数少于特征数而没有可观察到的变化。而正则化后变为对 <span class="math inline">\(\bm{X}^{\mathsf{T}}\bm{X} + \alpha\bm{I}\)</span> 求逆，这个矩阵一定是非奇异的。</p>
+<p>还有一些问题没有闭合解。正则化会阻止 <span class="math inline">\(\bm{w}\)</span> 无限增大。</p>
+<h3 id="数据集扩充">数据集扩充</h3>
+<p>在神经网络的输入里加入噪声可以看成扩充数据。在隐藏单元里加入噪声可以看成在多级别的抽象里扩充数据。Dropout 可以看成通过乘噪声来构建新输入。</p>
+<h3 id="噪声健壮性">噪声健壮性</h3>
+<p>权重上加噪声可以解释成传统的正则化。</p>
+<h3 id="多任务学习">多任务学习</h3>
+<ol type="1">
+<li>神经网络后面的层是任务相关的参数；</li>
+<li>前面的层共享参数。</li>
+</ol>
+<h3 id="参数类型和参数共享">参数类型和参数共享</h3>
+<p>参数共享只需要存储共享的参数，占用内存较小。</p>
+<h3 id="dropout">Dropout</h3>
+<p>Bagging 与 Dropout 的异同点：</p>
+<ul>
+<li>Bagging 训练时，所有模型都是独立的；Dropout 里，不同模型共享参数，占用内存少；</li>
+<li>Bagging 用各自的样本集训练每个模型；Dropout 不显式训练每个模型，每一步只训练某个子网络的一部分；</li>
+<li>除此之外，Bagging 和 Dropout 很像。</li>
+</ul>
+<p>Dropout 的优点：</p>
+<ul>
+<li>Dropout 计算成本很低；</li>
+<li>Dropout 不怎么限制模型类型和训练过程。</li>
+</ul>
+<p>Dropout 需要更大的模型和更多的迭代次数。</p>
+<h2 id="训练深度模型的优化">训练深度模型的优化</h2>
+<h3 id="学习与纯优化有何不同">学习与纯优化有何不同</h3>
+<h4 id="批处理和迷你批处理算法">批处理和迷你批处理算法</h4>
+<p>迷你批处理的大小受以下因素驱动：</p>
+<ul>
+<li>数量越大，对梯度的估计越准确，但线性收益越少；</li>
+<li>数量太小无法充分利用多核架构，所以有绝对最小批处理数量；</li>
+<li>同一批次的样本并行处理的话占用内存与批处理数量成正比，内存资源限制批处理数量的大小；</li>
+<li>一些硬件架构对特定长度的数组性能更好，比如 GPU，对 2 的幂次的批处理数量性能更好；</li>
+<li>小的批处理有正则化效果，但需要更小的学习速率和更多迭代次数，因此时间更长。</li>
+</ul>
+<h3 id="神经网络优化中的挑战">神经网络优化中的挑战</h3>
+<h4 id="病态条件-1">病态条件</h4>
+<p>Hessian 矩阵有可能为病态条件的矩阵。Newton 法在 Hessian 矩阵病态的情况下也可以最小化凸函数，但在运用于神经网络之前需要做大量修改。</p>
+<h4 id="局部最小值">局部最小值</h4>
+<p>可以画梯度范数随时间变化的曲线，如果梯度范数不随时间减小，就不是局部最小值或任何关键点。</p>
+<h4 id="平顶鞍点或其他平坦区域">平顶、鞍点或其他平坦区域</h4>
+<p>经验上，梯度下降常常能逃离鞍点。如果是大范围的常数值，即退化区域，所有的数值优化都无能为力。</p>
+<h4 id="悬崖和爆炸梯度">悬崖和爆炸梯度</h4>
+<p>梯度悬崖可以用梯度裁剪改善。</p>
+<h4 id="长期依赖">长期依赖</h4>
+<p>假设 <span class="math inline">\(\bm{W}\)</span> 有特征值分解 <span class="math inline">\(\bm{W} = \bm{V}\textrm{diag}(\bm{\lambda})\bm{V}^{-1}\)</span>，那么有 <span id="eq:gradientMultiply"><span class="math display">\[\bm{W}^t = (\bm{V}\textrm{diag}(\bm{\lambda})\bm{V}^{-1})^t = \bm{V}\textrm{diag}(\bm{\lambda})^t\bm{V}^{-1}\qquad(31)\]</span></span> 当 <span class="math inline">\(\lvert\lambda_i\rvert &gt; 1\)</span> 时，梯度会爆炸，导致学习不稳定；当 <span class="math inline">\(\lvert\lambda_i\rvert &lt; 1\)</span> 时，梯度会消失，导致不好判断向哪个方向优化。</p>
+<p>前馈网络不同层的权重矩阵不一样，很大程度上可以避免这个问题。</p>
+<h3 id="基本算法">基本算法</h3>
+<h4 id="随机梯度下降">随机梯度下降</h4>
+<p>通过画目标函数随时间变化的曲线来选择学习速率。如果学习速率太大，学习曲线会猛烈震荡；如果学习速率太小，学习会很慢，并有可能停在高费用值上。一般地，初始学习速率要高于在 100 来次迭代后产生最好效果的学习速率。</p>
+<h4 id="动量">动量</h4>
+<p>动量法更新规则：</p>
+<p><span id="eq:updateV"><span class="math display">\[\bm{v} \gets \alpha\bm{v} - \epsilon\nabla_{\bm{\theta}}\left(\frac{1}{m}\sum_{i=1}^{m}L(\bm{f}(\bm{x}^{(i)};\bm{\theta}),\bm{y}^{(i)})\right),\qquad(32)\]</span></span> <span id="eq:updateTheta"><span class="math display">\[\bm{\theta} \gets \bm{\theta} + \bm{v}\qquad(33)\]</span></span></p>
+<p>动量法累积了历史梯度，误差方向会抵消，前进方向会加强，因此同时改善了 Hessian 矩阵病态和随机梯度有方差的问题。</p>
+<h3 id="参数初始化策略">参数初始化策略</h3>
+<p>大部分初始化策略基于在初始化后符合某些性质，但我们并不确定在学习开始以后，何种情况下何种性质会被保留。而且，有些初始值有利于优化，但不利于泛化。唯一确定的是，需要打破不同单元间的对称性。</p>
+<p>一般地，我们把偏置设成常数，而随机初始化权重。我们一般从 Gaussian 分布或者均匀分布中随机取值。具体是用 Gaussian 分布还是均匀分布关系不大，重要的是初始值的大小。</p>
+<p>较大的初始值可以更好地打破对称性。但太大了容易造成梯度爆炸、混乱（循环网络）或者饱和。</p>
+<p>梯度裁剪可以减缓梯度爆炸。</p>
+<p>多种初始化策略：</p>
+<ul>
+<li><span class="math inline">\(W_{i, j} \sim U(-\frac{1}{m}, \frac{1}{m})\)</span></li>
+<li><span class="math inline">\(W_{i, j} \sim U(-\sqrt{\frac{6}{m+n}}, \sqrt{\frac{6}{m+n}})\)</span></li>
+<li>随机的正交矩阵，并仔细选取增益 <span class="math inline">\(g\)</span></li>
+<li>稀疏初始化（每个单元初始化成 <span class="math inline">\(k\)</span> 个非零权重）</li>
+<li>超参数搜索算法</li>
+</ul>
+<p>可以根据一次迷你批处理的激活值或者梯度的标准差或者范围来选择初始值的大小。如果权重太小，激活值会减小。</p>
+<p>偏置可以设成 <span class="math inline">\(0\)</span>。但是，</p>
+<ul>
+<li>输出单元的偏置最好设成输出的边缘统计；</li>
+<li>避免饱和；</li>
+<li>逻辑门可能需要设成 <span class="math inline">\(1\)</span>。</li>
+</ul>
+<h3 id="自适应学习率算法">自适应学习率算法</h3>
+<h4 id="adagrad">AdaGrad</h4>
+<ul>
+<li>求梯度：<span class="math inline">\(\bm{g} \gets \frac{1}{m}\nabla_{\bm{\theta}}\sum_i L(f(\bm{x}^{(i)};\bm{\theta}),\bm{y}^{(i)})\)</span></li>
+<li>累计平方梯度：<span class="math inline">\(\bm{r} \gets \bm{r} + \bm{g}\odot\bm{g}\)</span></li>
+<li>计算更新：<span class="math inline">\(\Delta\bm{\theta} \gets -\frac{\epsilon}{\delta+\sqrt{\bm{r}}}\odot\bm{g}\)</span></li>
+<li>更新：<span class="math inline">\(\bm{\theta} \gets \bm{\theta} + \Delta\bm{\theta}\)</span></li>
+</ul>
+<p>AdaGrad 适用于部分深度学习模型，但不是全部。</p>
+<h4 id="rmsprop">RMSProp</h4>
+<p>RMSProp 算法：</p>
+<ul>
+<li>求梯度：<span class="math inline">\(\bm{g} \gets \frac{1}{m}\nabla_{\bm{\theta}}\sum_i L(f(\bm{x}^{(i)};\bm{\theta}),\bm{y}^{(i)})\)</span></li>
+<li>累计平方梯度：<span class="math inline">\(\bm{r} \gets \rho\bm{r} + (1-\rho)\bm{g}\odot\bm{g}\)</span></li>
+<li>计算更新：<span class="math inline">\(\Delta\bm{\theta} \gets -\frac{\epsilon}{\sqrt{\delta+\bm{r}}}\odot\bm{g}\)</span></li>
+<li>更新：<span class="math inline">\(\bm{\theta} \gets \bm{\theta} + \Delta\bm{\theta}\)</span></li>
+</ul>
+<p>带 Nesterov 动量的 RMSProp 算法：</p>
+<ul>
+<li>临时更新：<span class="math inline">\(\tilde{\bm{\theta}} \gets \bm{\theta} + \alpha\bm{v}\)</span></li>
+<li>求梯度：<span class="math inline">\(\bm{g} \gets \frac{1}{m}\nabla_{\tilde{\bm{\theta}}}\sum_i L(f(\bm{x}^{(i)};\tilde{\bm{\theta}}),\bm{y}^{(i)})\)</span></li>
+<li>累计平方梯度：<span class="math inline">\(\bm{r} \gets \rho\bm{r} + (1-\rho)\bm{g}\odot\bm{g}\)</span></li>
+<li>计算速度更新：<span class="math inline">\(\bm{v} \gets \alpha\bm{v}-\frac{\epsilon}{\sqrt{\bm{r}}}\odot\bm{g}\)</span></li>
+<li>更新：<span class="math inline">\(\bm{\theta} \gets \bm{\theta} + \bm{v}\)</span></li>
+</ul>
+<p>经验上，RMSProp 算法有效且实用。</p>
+<h4 id="adam">Adam</h4>
+<ul>
+<li>求梯度：<span class="math inline">\(\bm{g} \gets \frac{1}{m}\nabla_{\bm{\theta}}\sum_i L(f(\bm{x}^{(i)};\bm{\theta}),\bm{y}^{(i)})\)</span></li>
+<li>更新有偏一阶动量估计：<span class="math inline">\(\bm{s} \gets \rho_1\bm{s} + (1-\rho_1)\bm{g}\)</span></li>
+<li>更新有偏二阶动量估计：<span class="math inline">\(\bm{r} \gets \rho_2\bm{r} + (1-\rho_2)\bm{g}\odot\bm{g}\)</span></li>
+<li>纠正一阶动量：<span class="math inline">\(\hat{\bm{s}} \gets \frac{\bm{s}}{1-\rho_1^t}\)</span></li>
+<li>纠正二阶动量：<span class="math inline">\(\hat{\bm{r}} \gets \frac{\bm{r}}{1-\rho_2^t}\)</span></li>
+<li>计算更新：<span class="math inline">\(\Delta\bm{\theta} \gets -\frac{\epsilon}{\delta+\sqrt{\hat{\bm{r}}}}\hat{\bm{s}}\)</span></li>
+<li>更新：<span class="math inline">\(\bm{\theta} \gets \bm{\theta} + \Delta\bm{\theta}\)</span></li>
+</ul>
+<p>Adam 算法对超参数的选择很健壮。</p>
+<h3 id="二阶近似方法">二阶近似方法</h3>
+<h4 id="newton-法">Newton 法</h4>
+<p><span class="math display">\[J(\bm{\theta})\approx J(\bm{\theta}_0) + (\bm{\theta}-\bm{\theta}_0)^{\mathsf{T}}\nabla_{\bm{\theta}}J(\bm{\theta}_0) + \frac{1}{2}(\bm{\theta}-\bm{\theta}_0)^{\mathsf{T}}\bm{H}(\bm{\theta}-\bm{\theta}_0)\]</span> <span class="math display">\[\bm{\theta}^{\ast} = \bm{\theta}_0 - \bm{H}^{-1}\nabla_{\bm{\theta}}J(\bm{\theta}_0)\]</span></p>
+<p>在深度学习里，目标函数不一定正定，因此要加正则项：</p>
+<p><span class="math display">\[\bm{\theta}^{\ast} = \bm{\theta}_0 - (\bm{H} + \alpha\bm{I})^{-1}\nabla_{\bm{\theta}}J(\bm{\theta}_0)\]</span></p>
+<p>深度学习里 Newton 法的缺点：</p>
+<ul>
+<li><span class="math inline">\(\alpha\)</span> 要能够抵消负的特征值，但太大的话 Hessian 矩阵的作用会变小，学习率可能会比梯度下降法还小。</li>
+<li>计算 Hessian 矩阵的逆矩阵需要 <span class="math inline">\(O(k^3)\)</span> 复杂度。</li>
+</ul>
+<h4 id="共轭梯度法">共轭梯度法</h4>
+<p>假如 <span class="math inline">\(\bm{d}_t^{\mathsf{T}}\bm{H}\bm{d}_{t-1} = 0\)</span>，则称 <span class="math inline">\(\bm{d}_t\)</span> 和 <span class="math inline">\(\bm{d}_{t-1}\)</span> 共轭。</p>
+<p><span class="math display">\[\bm{d}_t = \nabla_{\bm{\theta}}J(\bm{\theta}) + \beta_t\bm{d}_{t-1}\]</span></p>
+<p>Fletcher-Reeves 方法：</p>
+<p><span class="math display">\[\beta_t = \frac{\nabla_{\bm{\theta}}J(\bm{\theta_t})^{\mathsf{T}}\nabla_{\bm{\theta}}J(\bm{\theta_t})}{\nabla_{\bm{\theta}}J(\bm{\theta_{t-1}})^{\mathsf{T}}\nabla_{\bm{\theta}}J(\bm{\theta_{t-1}})}\]</span></p>
+<p>Polak-Ribiere 方法：</p>
+<p><span class="math display">\[\beta_t = \frac{(\nabla_{\bm{\theta}}J(\bm{\theta_t})-\nabla_{\bm{\theta}}J(\bm{\theta}_{t-1}))^{\mathsf{T}}\nabla_{\bm{\theta}}J(\bm{\theta_t})}{\nabla_{\bm{\theta}}J(\bm{\theta_{t-1}})^{\mathsf{T}}\nabla_{\bm{\theta}}J(\bm{\theta_{t-1}})}\]</span></p>
+<p>共轭梯度法：</p>
+<ul>
+<li>求梯度：<span class="math inline">\(\bm{g}_t \gets \frac{1}{m}\nabla_{\bm{\theta}}\sum_i L(f(\bm{x}^{(i)};\bm{\theta}),\bm{y}^{(i)})\)</span></li>
+<li>计算 <span class="math inline">\(\beta_t\)</span>：<span class="math inline">\(\beta_t = \frac{(\bm{g}_t - \bm{g}_{t-1})^{\mathsf{T}}\bm{g}_t}{\bm{g}_{t-1}^{\mathsf{T}}\bm{g}_{t-1}}\)</span>（Polak-Ribiere）</li>
+<li>计算搜索方向：<span class="math inline">\(\bm{\rho}_t = -\bm{g}_t + \beta_t\bm{\rho}_{t-1}\)</span></li>
+<li>在线上搜索找到 <span class="math inline">\(\epsilon^{\ast}\)</span>：<span class="math inline">\(\epsilon^{\ast} = \textrm{argmin}_{\epsilon}\frac{1}{m}\sum_i^m L(f(\bm{x}^{(i)};\bm{\theta}_t+\epsilon\bm{\beta}_t),\bm{y}^{(i)})\)</span></li>
+<li>更新：<span class="math inline">\(\bm{\theta}_{t+1} = \bm{\theta}_t + \epsilon^{\ast}\bm{\rho}_t\)</span></li>
+</ul>
+<p>非线性共轭梯度在未变化的梯度方向上会重置。</p>
+<h4 id="bfgs">BFGS</h4>
+<p>用 <span class="math inline">\(\bm{M}_t\)</span> 近似 <span class="math inline">\(\bm{H}^{-1}\)</span>。减少了计算复杂度，但需要存储 <span class="math inline">\(\bm{M}_t\)</span>。</p>
+<p>Limited Memory BFGS (L-BFGS) 假定 <span class="math inline">\(\bm{M}_{t-1} = \bm{I}\)</span>，而不是存储它。</p>
+<h3 id="优化策略和元算法">优化策略和元算法</h3>
+<h4 id="批量初始化">批量初始化</h4>
+<p>批量初始化：</p>
+<p><span class="math display">\[\bm{H}' = \frac{\bm{H}-\bm{\mu}}{\bm{\sigma}}\]</span> 其中， <span class="math display">\[\bm{\mu} = \frac{1}{m}\sum_i\bm{H}_{i, :}\]</span> <span class="math display">\[\bm{\sigma}=\sqrt{\delta + \frac{1}{m}\sum_i(\bm{H} - \bm{\mu})_i^2}\]</span> <span class="math inline">\(\delta\)</span> 用来防止数值溢出。</p>
+<p>批量初始化让低层层失效了，从而减小了高阶近似的影响。</p>
+<p>为了保留模型的表达力，通常使用 <span class="math inline">\(\bm{\gamma}\bm{H}' + \bm{\beta}\)</span> 而不是 <span class="math inline">\(\bm{H}'\)</span>（这里取消了不同层之间的耦合）。</p>
+<h2 id="卷积网络">卷积网络</h2>
+<h3 id="动机">动机</h3>
+<p>如果 <span class="math inline">\(f(g(x)) = g(f(x))\)</span>，则称函数 <span class="math inline">\(f(x)\)</span> 相对于函数 <span class="math inline">\(g\)</span> 等变。卷积函数平移等变。</p>
+<h3 id="pooling">pooling</h3>
+<ul>
+<li>pooling 有助于使表示变为对于较小输入平移的近似不变量，可以极大地提高网络的统计效率；</li>
+<li>如果对不同卷积的输出 pooling，可以学习对变换不变的特征；</li>
+<li>pooling 可以实现降采样，有助于提高统计效率、减少内存占用；</li>
+<li>pooling 可以处理不同大小的输入。</li>
+</ul>
+<h3 id="卷积和-pooling-作为无限强的先验分布">卷积和 pooling 作为无限强的先验分布</h3>
+<h3 id="基本卷积函数的变体">基本卷积函数的变体</h3>
+<p><span class="math display">\[Z_{i,j,k} = \sum_{l,m,n} V_{l,j+m-1,k+n-1}K_{i,l,m,n}\]</span> 其中，<span class="math inline">\(K_{i,j,k,l}\)</span> 表示输出通道 <span class="math inline">\(i\)</span> 与输入通道 <span class="math inline">\(j\)</span> 中，输出单元与输入单元之间偏移量为 <span class="math inline">\(k\)</span> 行、<span class="math inline">\(l\)</span> 列的 2 个单元之间的连接强度；<span class="math inline">\(V_{i,j,k}\)</span> 表示通道 <span class="math inline">\(i\)</span> 在 <span class="math inline">\(j\)</span> 行 <span class="math inline">\(k\)</span> 列的观察数据；<span class="math inline">\(\bm{Z}\)</span> 指输出。</p>
+<p>降采样卷积： <span class="math display">\[Z_{i,j,k} = c(\bm{K}, \bm{V}, s)_{i,j,k} = \sum_{l,m,n} [V_{l,(j-1)\times s+m,(k-1)\times s+n}K_{i,l,m,n}]\]</span></p>
+<dl>
+<dt>有效卷积</dt>
+<dd>不补 0。
+</dd>
+<dt>同体积卷积</dt>
+<dd>补 0，以使体积不变。
+</dd>
+<dt>全卷积</dt>
+<dd>补足够的 0，以使每个输入像素点被访问 k 次。
+</dd>
+<dt>不共享卷积</dt>
+<dd><span class="math inline">\(Z_{i,j,k} = \sum_{l,m,n} [V_{l,j+m-1,k+n-1}w_{i,j,k,l,m,n}]\)</span>
+</dd>
+<dt>平铺卷积</dt>
+<dd><span class="math inline">\(Z_{i,j,k} = \sum_{l,m,n} V_{l,j+m-1,k+n-1}K_{i,l,m,n,j\%t+1,k\%t+1}\)</span>
+</dd>
+</dl>
+<h3 id="数据类型">数据类型</h3>
+<p>在 3-D 动画字符里，channel 表示字符与某个坐标轴的夹角；彩色图片里，channel 表示不同颜色的像素；彩色视频里，一个 channel 对应时间，一个对应高度，一个对应宽度。</p>
+<h2 id="序列模型循环和递归网络">序列模型：循环和递归网络</h2>
+<h3 id="展开计算图">展开计算图</h3>
+<p><span class="math display">\[\bm{h}^{(t)} = f(\bm{h}^{(t-1)}, \bm{x}^{(t)};\bm{\theta})\]</span></p>
+<h3 id="循环神经网络">循环神经网络</h3>
+<figure>
+<img src="../images/rnn-1.png" alt="图 2: RNN 1" id="fig:rnn1" /><figcaption>图 2: RNN 1</figcaption>
+</figure>
+<p><span class="math display">\[\bm{a}^{(t)} = \bm{b} + \bm{W}\bm{h}^{(t-1)} + \bm{U}\bm{x}^{(t)}\]</span> <span class="math display">\[\bm{h}^{(t)} = \tanh(\bm{a}^{(t)})\]</span> <span class="math display">\[\bm{o}^{(t)} = \bm{c} + \bm{V}\bm{h}^{(t)}\]</span> <span class="math display">\[\hat{\bm{y}}^{(t)} = \textrm{softmax}(\bm{o}^{(t)})\]</span> <span class="math display">\[
+\begin{align*}
+&amp; L\left(\{\bm{x}^{(1)},\dots,\bm{x}^{(\tau)}\}, \{\bm{y}^{(1)},\dots,\bm{y}^{(\tau)}\}\right) \\
+=&amp; \sum_t L^{(t)} \\
+=&amp; - \sum_t\log p_{\textrm{model}}\left(\bm{y}^{(t)}|\{\bm{x}^{(1)},\dots,\bm{x}^{(t)}\}\right)
+\end{align*}
+\]</span></p>
+<p>RNN 1 是图灵完备的。向后传播需要 <span class="math inline">\(O(\tau)\)</span> 的时间复杂度和空间复杂度，称作 back-propagation through time (BPTT)。它很强大，但训练代价也高。</p>
+<figure>
+<img src="../images/rnn-2.png" alt="图 3: RNN 2" id="fig:rnn2" /><figcaption>图 3: RNN 2</figcaption>
+</figure>
+<figure>
+<img src="../images/rnn-3.png" alt="图 4: RNN 3" id="fig:rnn3" /><figcaption>图 4: RNN 3</figcaption>
+</figure>
+<h4 id="teacher-forcing-and-networks-with-output-recurrence">Teacher Forcing and Networks with Output Recurrence</h4>
+<figure>
+<img src="../images/teacher-forcing.png" alt="图 5: Teacher Forcing" id="fig:teacherForcing" /><figcaption>图 5: Teacher Forcing</figcaption>
+</figure>
+<p>RNN 2 严格地不如 RNN 1 强大，但是可以通过 Teacher forcing 解耦不同时刻的计算，从而并行计算。</p>
+<h4 id="循环网络作为离散图模型">循环网络作为离散图模型</h4>
+<figure>
+<img src="../images/rnn-state-variable.png" alt="图 6: RNN 的状态变量" id="fig:rnnStateVariable" /><figcaption>图 6: RNN 的状态变量</figcaption>
+</figure>
+<p>循环网络减少了参数，但不好优化。</p>
+<h4 id="modeling-sequences-conditioned-on-context-with-rnns">Modeling Sequences Conditioned on Context with RNNs</h4>
+<figure>
+<img src="../images/rnn-fixed-length-x.png" alt="图 7: 映射固定长度 \bm{x} 的 RNN" id="fig:rnnFixedLengthX" /><figcaption>图 7: 映射固定长度 <span class="math inline">\(\bm{x}\)</span> 的 RNN</figcaption>
+</figure>
+<figure>
+<img src="../images/rnn-variable-length-x.png" alt="图 8: 映射可变长度 \bm{x} 的 RNN" id="fig:rnnVariableLengthX" /><figcaption>图 8: 映射可变长度 <span class="math inline">\(\bm{x}\)</span> 的 RNN</figcaption>
+</figure>
+<h3 id="双向-rnns">双向 RNNs</h3>
+<figure>
+<img src="../images/bidirectional-rnn.png" alt="图 9: 双向 RNN" id="fig:bidirectionalRNN" /><figcaption>图 9: 双向 RNN</figcaption>
+</figure>
+<h3 id="encoder-decoder-sequence-to-sequence-architectures">Encoder-Decoder Sequence-to-Sequence Architectures</h3>
+<figure>
+<img src="../images/sequence-to-sequence-rnn.png" alt="图 10: Sequence to sequence RNN 架构" id="fig:sequenceToSequenceRNN" /><figcaption>图 10: Sequence to sequence RNN 架构</figcaption>
+</figure>
+<p>最大化平均 <span class="math inline">\(\log P(\bm{y}^{(1)},\dots,\bm{y}^{(n_y)}|\bm{x}^{(1)},\dots,\bm{x}^{(n_x)})\)</span> 。</p>
+<h3 id="深度循环网络">深度循环网络</h3>
+<figure>
+<img src="../images/deep-rnn.png" alt="图 11: 深度 RNN" id="fig:deepRNN" /><figcaption>图 11: 深度 RNN</figcaption>
+</figure>
+<h2 id="应用">应用</h2>
+<h3 id="自然语言处理">自然语言处理</h3>
+<h4 id="高维输出">高维输出</h4>
+<p>重要度采样不仅加速高维 softmax 输出的计算，也可以加速稀疏输出层的计算。</p>
+<h4 id="神经机器翻译">神经机器翻译</h4>
+<p>使用固定长度的表示捕获长句的全部语义细节较困难。注意力机制更高效。</p>
+<h2 id="线性因子模型">线性因子模型</h2>
+<p>先采样解释因子 <span class="math inline">\(\bm{h}\)</span>： <span class="math display">\[\bm{h} \sim p(\bm{h})\]</span> 其中，<span class="math inline">\(p(\bm{h}) = \prod_i p(h_i)\)</span>。接着采样观察变量： <span class="math display">\[\bm{x} = \bm{W}\bm{h} + \bm{b} + \textrm{noise}\]</span> 其中噪声通常是 Gaussian 分布且为对角的（不同维度间独立）。</p>
+<h3 id="概率主成分分析与因子分析">概率主成分分析与因子分析</h3>
+<dl>
+<dt>因子分析</dt>
+<dd><span class="math display">\[\bm{h} \sim \mathcal{N}(\bm{h};\bm{0},\bm{I})\]</span> 观察变量 <span class="math inline">\(x_i\)</span> 在给定 <span class="math inline">\(\bm{h}\)</span> 的情况下条件独立。特别地，噪声的协方差矩阵 <span class="math inline">\(\bm{\psi} = \textrm{diag}(\bm{\sigma}^2)\)</span>。
+</dd>
+</dl>
+<p><span class="math display">\[\bm{x} \sim \mathcal{N}(\bm{x};\bm{b},\bm{W}\bm{W}^{\mathsf{T}} + \bm{\psi})\]</span></p>
+<dl>
+<dt>概率主成分分析</dt>
+<dd><span class="math display">\[\bm{x} \sim \mathcal{N}(\bm{x};\bm{b},\bm{W}\bm{W}^{\mathsf{T}} + \sigma^2\bm{I})\]</span> 或者等价的，<span class="math display">\[\bm{x} = \bm{W}\bm{h} + \bm{b} + \sigma\bm{z}\]</span> 其中 <span class="math inline">\(\bm{z} \sim \mathcal{N}(\bm{z};\bm{0},\bm{I})\)</span>。
+</dd>
+</dl>
+<h3 id="independent-component-analysis-ica">Independent Component Analysis (ICA)</h3>
+<p>选择 <span class="math inline">\(p(\bm{h})\)</span>，使其互相独立。</p>
+<h2 id="autoencoders">Autoencoders</h2>
+<p>传统上，autoencoders 用于降维或者特征学习；最近，autoencoders 与隐藏变量理论上的联系把它带进了生成模型的前沿。</p>
+<h3 id="undercomplete-autoencoders">Undercomplete Autoencoders</h3>
+<dl>
+<dt>Undercomplete</dt>
+<dd>编码维度小于输入维度的自动编码器。
+</dd>
+</dl>
+<p>损失函数： <span class="math display">\[L(\bm{x}, g(f(\bm{x})))\]</span></p>
+<p>当解码器为线性且 <span class="math inline">\(L\)</span> 为均方误差时，欠完成自动编码器等价于 PCA。当编码函数 <span class="math inline">\(f\)</span> 为非线性时，欠完成自动编码器是 PCA 的非线性推广。</p>
+<h3 id="regularized-autoencoders">Regularized Autoencoders</h3>
+<p>可以通过要求表示稀疏、表示的导数小和对噪声或丢失输入的健壮性来惩罚自动编码器，从而避免产生无效的自动编码器。</p>
+<h4 id="sparse-autoencoders">Sparse Autoencoders</h4>
+<p>损失函数： <span class="math display">\[L(\bm{x}, g(f(\bm{x}))) + \Omega(\bm{h})\]</span> 典型地，<span class="math inline">\(\bm{h} = f(\bm{x})\)</span>。</p>
+<p>稀疏自动编码器主要为另一个任务，比如分类，学习特征。</p>
+<p><span class="math display">\[\log p_{\textrm{model}}(\bm{h}, \bm{x}) = \log p_{\textrm{model}}(\bm{h}) + \log p_{\textrm{model}}(\bm{x}|\bm{h})\]</span> 假如隐藏变量的先验分布为 Laplace 分布： <span class="math display">\[p_{\textrm{model}}(h_i) = \frac{\lambda}{2}e^{-\lambda|h_i|}\]</span> 则 <span class="math display">\[-\log p_{\textrm{model}}(\bm{h}) = \sum_i \left(\lambda|h_i| - \log\frac{\lambda}{2}\right)\]</span> <span class="math display">\[\Omega(\bm{h}) = \lambda\sum_i|h_i|\]</span></p>
+<h4 id="denoising-autoencoders">Denoising Autoencoders</h4>
+<p>Denoising Autoencoders（DAE）的损失函数： <span class="math display">\[L(\bm{x}, g(f(\tilde{\bm{x}})))\]</span> 其中 <span class="math inline">\(\tilde{\bm{x}}\)</span> 是加了噪声的 <span class="math inline">\(\bm{x}\)</span>。</p>
+<h4 id="惩罚导数">惩罚导数</h4>
+<p>损失函数： <span class="math display">\[L(\bm{x}, g(f(\bm{x}))) + \Omega(\bm{h}, \bm{x})\]</span> <span class="math display">\[\Omega(\bm{h}, \bm{x}) = \lambda\sum_i\lVert \nabla_{\bm{x}}h_i\rVert^2\]</span></p>
+<p>又称 contractive autoencoder (CAE)，与降噪自动编码器、manifold 学习和概率模型有理论上的联系。</p>
+<h3 id="用自动编码器学习流形">用自动编码器学习流形</h3>
+<h3 id="自动编码器的应用">自动编码器的应用</h3>
+<p>自动编码器成功地应用在了降维和信息提取任务上。</p>
+<h2 id="表示学习">表示学习</h2>
+<h3 id="semi-supervised-disentangling-of-causal-factors">Semi-Supervised Disentangling of Causal Factors</h3>
+<p>如果表示 <span class="math inline">\(\bm{h}\)</span> 表示了观察 <span class="math inline">\(\bm{x}\)</span> 的许多原因，且输出 <span class="math inline">\(\bm{y}\)</span> 是最显著的原因，那么很容易从 <span class="math inline">\(\bm{h}\)</span> 预测 <span class="math inline">\(\bm{y}\)</span>。</p>
+<h2 id="monte-carlo-方法">Monte Carlo 方法</h2>
+<h3 id="markov-链-monte-carlo-方法">Markov 链 Monte Carlo 方法</h3>
+<p>转移分布： <span class="math display">\[T(\bm{x}'|\bm{x})\]</span> 表示从状态 <span class="math inline">\(\bm{x}\)</span> 转移到状态 <span class="math inline">\(\bm{x}'\)</span> 的概率。转移矩阵： <span class="math display">\[A_{i, j} = T(\bm{x}'=i|\bm{x}=j)\]</span> 则 <span class="math display">\[\bm{v}^{(t)} = \bm{A}\bm{v}^{(t-1)}\]</span> 那么 <span class="math display">\[\bm{v}^{(t)} = \bm{A}^{t}\bm{v}^{(0)} = \bm{V}\textrm{diag}(\bm{\lambda})^{t}\bm{V}^{-1}\bm{v}^{(0)}\]</span> 收敛时， <span class="math display">\[\bm{v}' = \bm{A}\bm{v} = \bm{v}\]</span> 达到了稳态分布，或称平衡分布。</p>
+<p><span class="math inline">\(x\)</span> 连续时，平衡状态为： <span class="math display">\[q'(\bm{x'}) = \mathbb{E}_{\bm{x}\sim q}T(\bm{x'}|\bm{x})\]</span></p>
+<h3 id="gibbs-采样">Gibbs 采样</h3>
+<dl>
+<dt>Gibbs 采样</dt>
+<dd>选择一个变量 <span class="math inline">\(x_i\)</span>, 在给定无向图（定义了基于能量模型的结构）里的邻居的条件下从 <span class="math inline">\(p_{\textrm{model}}\)</span> 采样，即可采样 <span class="math inline">\(T(\bm{x'}|\bm{x})\)</span>。
+</dd>
+</dl>
+<h2 id="confronting-the-partition-function">Confronting the Partition Function</h2>
+<p>对 <span class="math inline">\(\tilde{p}(\bm{x};\bm{\theta})\)</span> 归一化时 <span class="math display">\[p(\bm{x};\bm{\theta}) = \frac{1}{Z(\bm{\theta})}\tilde{p}(\bm{x};\bm{\theta})\]</span> <span class="math inline">\(Z(\bm{\theta})\)</span> 为配分函数。</p>
+<h2 id="参考文献" class="unnumbered">参考文献</h2>
+<div id="refs" class="references">
+<div id="ref-goodfellow2016deep">
+<p>Goodfellow, Ian, Yoshua Bengio, Aaron Courville, and Yoshua Bengio. 2016. <em>Deep Learning</em>. Vol. 1. MIT press Cambridge.</p>
+</div>
+</div>
+<section class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>当 <span class="math inline">\(\textrm{x}\)</span> 为离散随机变量时，需要处处相等；当 <span class="math inline">\(\textrm{x}\)</span> 为连续随机变量时，需要几乎处处相等。<a href="#fnref1" class="footnote-back">↩</a></p></li>
+</ol>
+</section>
+<div id="toc"><ul>
+<li><a href="#介绍">介绍</a></li>
+<li><a href="#linear-algebra">Linear Algebra</a><ul>
+<li><a href="#范数">范数</a></li>
+</ul></li>
+<li><a href="#probability-and-information-theory">Probability and Information Theory</a><ul>
+<li><a href="#bayes-rule">Bayes’ Rule</a></li>
+<li><a href="#常见概率分布">常见概率分布</a></li>
+<li><a href="#混合分布">混合分布</a></li>
+<li><a href="#常见函数">常见函数</a></li>
+<li><a href="#信息论">信息论</a></li>
+</ul></li>
+<li><a href="#数值计算">数值计算</a><ul>
+<li><a href="#上溢和下溢">上溢和下溢</a></li>
+<li><a href="#病态条件">病态条件</a></li>
+<li><a href="#梯度之外jacobian-和-hessian-矩阵">梯度之外：Jacobian 和 Hessian 矩阵</a></li>
+<li><a href="#有约束的优化">有约束的优化</a></li>
+</ul></li>
+<li><a href="#machine-learning-basics">Machine Learning Basics</a><ul>
+<li><a href="#学习算法">学习算法</a></li>
+<li><a href="#容量过拟合和欠拟合">容量、过拟合和欠拟合</a></li>
+<li><a href="#maximum-likelihood-estimation最大似然估计">Maximum Likelihood Estimation（最大似然估计）</a></li>
+<li><a href="#bayesian-统计">Bayesian 统计</a></li>
+<li><a href="#监督学习算法">监督学习算法</a></li>
+<li><a href="#非监督学习算法">非监督学习算法</a></li>
+<li><a href="#构建一个机器学习算法">构建一个机器学习算法</a></li>
+</ul></li>
+<li><a href="#深度前馈网络">深度前馈网络</a><ul>
+<li><a href="#架构设计">架构设计</a></li>
+<li><a href="#历史说明">历史说明</a></li>
+</ul></li>
+<li><a href="#深度学习的正则化">深度学习的正则化</a><ul>
+<li><a href="#参数范数惩罚">参数范数惩罚</a></li>
+<li><a href="#正则化和欠约束问题">正则化和欠约束问题</a></li>
+<li><a href="#数据集扩充">数据集扩充</a></li>
+<li><a href="#噪声健壮性">噪声健壮性</a></li>
+<li><a href="#多任务学习">多任务学习</a></li>
+<li><a href="#参数类型和参数共享">参数类型和参数共享</a></li>
+<li><a href="#dropout">Dropout</a></li>
+</ul></li>
+<li><a href="#训练深度模型的优化">训练深度模型的优化</a><ul>
+<li><a href="#学习与纯优化有何不同">学习与纯优化有何不同</a></li>
+<li><a href="#神经网络优化中的挑战">神经网络优化中的挑战</a></li>
+<li><a href="#基本算法">基本算法</a></li>
+<li><a href="#参数初始化策略">参数初始化策略</a></li>
+<li><a href="#自适应学习率算法">自适应学习率算法</a></li>
+<li><a href="#二阶近似方法">二阶近似方法</a></li>
+<li><a href="#优化策略和元算法">优化策略和元算法</a></li>
+</ul></li>
+<li><a href="#卷积网络">卷积网络</a><ul>
+<li><a href="#动机">动机</a></li>
+<li><a href="#pooling">pooling</a></li>
+<li><a href="#卷积和-pooling-作为无限强的先验分布">卷积和 pooling 作为无限强的先验分布</a></li>
+<li><a href="#基本卷积函数的变体">基本卷积函数的变体</a></li>
+<li><a href="#数据类型">数据类型</a></li>
+</ul></li>
+<li><a href="#序列模型循环和递归网络">序列模型：循环和递归网络</a><ul>
+<li><a href="#展开计算图">展开计算图</a></li>
+<li><a href="#循环神经网络">循环神经网络</a></li>
+<li><a href="#双向-rnns">双向 RNNs</a></li>
+<li><a href="#encoder-decoder-sequence-to-sequence-architectures">Encoder-Decoder Sequence-to-Sequence Architectures</a></li>
+<li><a href="#深度循环网络">深度循环网络</a></li>
+</ul></li>
+<li><a href="#应用">应用</a><ul>
+<li><a href="#自然语言处理">自然语言处理</a></li>
+</ul></li>
+<li><a href="#线性因子模型">线性因子模型</a><ul>
+<li><a href="#概率主成分分析与因子分析">概率主成分分析与因子分析</a></li>
+<li><a href="#independent-component-analysis-ica">Independent Component Analysis (ICA)</a></li>
+</ul></li>
+<li><a href="#autoencoders">Autoencoders</a><ul>
+<li><a href="#undercomplete-autoencoders">Undercomplete Autoencoders</a></li>
+<li><a href="#regularized-autoencoders">Regularized Autoencoders</a></li>
+<li><a href="#用自动编码器学习流形">用自动编码器学习流形</a></li>
+<li><a href="#自动编码器的应用">自动编码器的应用</a></li>
+</ul></li>
+<li><a href="#表示学习">表示学习</a><ul>
+<li><a href="#semi-supervised-disentangling-of-causal-factors">Semi-Supervised Disentangling of Causal Factors</a></li>
+</ul></li>
+<li><a href="#monte-carlo-方法">Monte Carlo 方法</a><ul>
+<li><a href="#markov-链-monte-carlo-方法">Markov 链 Monte Carlo 方法</a></li>
+<li><a href="#gibbs-采样">Gibbs 采样</a></li>
+</ul></li>
+<li><a href="#confronting-the-partition-function">Confronting the Partition Function</a></li>
+<li><a href="#参考文献">参考文献</a></li>
+</ul></div>
+    </section>
+
+    <section>
+        <div id="disqus_thread"></div>
+    </section>
+</article>
+
+<script>
+    /**
+     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+    var disqus_config = function() {
+        this.page.url = 'https://kaizhang91.github.io/blog/'; // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = 'kai-blog'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document,
+            s = d.createElement('script');
+        s.src = 'https://kai-blog.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+<noscript>
+    Please enable JavaScript to view the
+    <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+</noscript>
+
+                </main>
+
+                <footer>
+                    <p>
+                        Site proudly generated by
+                        <a href="http://jaspervdj.be/hakyll">Hakyll</a>
+                    </p>
+                </footer>
+            </div>
+
+            <div class="col-md">
+                <aside>
+                    <div id="newTOC"></div>
+                </aside>
+            </div>
+        </div>
+    </div>
+
+    <script>
+     var app = Elm.Main.init({
+         node: document.getElementById("elm")
+     });
+    </script>
+    <!-- <script src="/js/main.js"></script> -->
+    <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script> -->
+    <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script> -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script> -->
+    <!-- <script type="text/x-mathjax-config"> -->
+    <!-- MathJax.Hub.Config({ TeX: { Macros: { bm: ["\\boldsymbol{#1}", 1] } } } ) -->
+    <!-- </script> -->
+    <!-- <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML' async></script> -->
+    <!-- <script> -->
+    <!-- hljs.initHighlightingOnLoad(); -->
+    <!-- </script> -->
+</body>
+
+</html>

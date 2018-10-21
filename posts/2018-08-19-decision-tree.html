@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="zh">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>张凯的博客 - 决策树介绍</title>
+    <link rel="shortcut icon" type="image/x-icon" href="../images/favicon.ico" />
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.min.css"> -->
+    <!-- <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"> -->
+    <!-- <link rel="stylesheet" href="/css/default.css" /> -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/material-components-web@0.37.1/dist/material-components-web.css" rel="stylesheet">
+    <!-- <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+</head>
+
+<body class="mdc-typography">
+    <script src="elm-mdc.js"></script>
+    <script src="main.js"></script>
+    <div id="elm"></div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md">
+                <aside id="leftAside"></aside>
+            </div>
+
+            <div class="col-8">
+                <header>
+                    <div class="logo">
+                        <a href="../">
+                            <h1>
+                                张凯的博客
+                            </h1>
+                        </a>
+                    </div>
+
+                    <nav>
+                        <a href="https://github.com/kaizhang91/blog">
+                            <span class="icon">
+                                <i class="fa fa-github"></i>
+                            </span>
+                        </a>
+                    </nav>
+                </header>
+
+                <main role="main">
+                    <article>
+    <section>
+        <h1>决策树介绍</h1>
+    </section>
+
+    <section class="header">
+        <div class="container">
+            <div class="row no-gutters align-items-center">
+                <div class="col-sm">
+                    <h2>
+                        张凯 更新于 2018-08-19
+                    </h2>
+                </div>
+
+                <div class="col-sm">
+                    <div class="tags">
+                        标签：<a href="../tags/machine-learning.html">machine-learning</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="content">
+        <p>本文介绍了决策树。</p>
+<!--more-->
+<h2 id="分类树">分类树</h2>
+<h3 id="id3">ID3</h3>
+<dl>
+<dt>信息增益</dt>
+<dd><span class="math display">\[g(D, A) = H(D) - H(D|A)\]</span> 其中， <span class="math display">\[H(D) = -\sum_{k=1}^K \frac{|C_k|}{|D|}\log_2\frac{|C_k|}{|D|}\]</span> <span class="math display">\[H(D|A) = \sum_{i=1}^n \frac{|D_i|}{|D|}H(D_i)\]</span>
+</dd>
+</dl>
+<h3 id="c4.5">C4.5</h3>
+<p>以信息增益作为划分训练数据集的特征，会倾向于选择取值较多的特征。</p>
+<dl>
+<dt>信息增益比</dt>
+<dd><span class="math display">\[g_R(D, A) = \frac{g(D, A)}{H_A(D)}\]</span> 其中， <span class="math display">\[H_A(D) = -\sum_{i=1}^n\frac{|D_i|}{|D|}\log_2\frac{|D_i|}{|D|}\]</span>
+</dd>
+</dl>
+<h3 id="cart">CART</h3>
+<dl>
+<dt>基尼系数</dt>
+<dd><span class="math display">\[\textrm{Gini}(p) = \sum_{k=1}^K p_k(1-p_k) = 1 - \sum_{k=1}^K p_k^2\]</span>
+</dd>
+</dl>
+<p>在特征 <span class="math inline">\(A\)</span> 下，集合 <span class="math inline">\(D\)</span> 的基尼系数为： <span class="math display">\[\textrm{Gini}(D, A) = \frac{|D_1|}{|D|}\textrm{Gini}(D_1) + \frac{|D_2|}{|D|}\textrm{Gini}(D_2)\]</span> 其中， <span class="math display">\[D_1 = \{(x, y) \in D | A(x) = a\}\]</span> <span class="math display">\[D_2 = D - D_1\]</span></p>
+<h2 id="回归树">回归树</h2>
+<h3 id="最小二乘回归树">最小二乘回归树</h3>
+<ul>
+<li>选择最优切分变量 <span class="math inline">\(j\)</span> 与最优切分点 <span class="math inline">\(s\)</span> <span class="math display">\[\min_{j,s}\left[\min_{c_1}\sum_{x_i \in R_1(j, s)}(y_i - c_1)^2 + \min_{c_2}\sum_{x_i \in R_2(j, s)}(y_i - c_2)^2\right]\]</span> 其中： <span class="math display">\[R_1(j, s) = \{x | x^{(j)} \le s\}\]</span> <span class="math display">\[R_2(j, s) = \{x | x^{(j)} &gt; s\}\]</span></li>
+</ul>
+<h2 id="剪枝">剪枝</h2>
+<p>损失函数为： <span class="math display">\[C_{\alpha}(T) = C(T) + \alpha|T|\]</span> 其中， <span class="math display">\[C(T) = \sum_{t=1}^{|T|}N_t H_t(T)\]</span> <span class="math inline">\(|T|\)</span> 为叶子节点的数量。</p>
+<h2 id="优缺点">优缺点</h2>
+<h3 id="优点">优点</h3>
+<ul>
+<li>可解释性强</li>
+<li>可以处理缺失值</li>
+<li>可以处理非数字类型</li>
+<li>没有参数</li>
+<li>速度快</li>
+</ul>
+<h3 id="缺点">缺点</h3>
+<ul>
+<li>容易过拟合</li>
+<li>不适合处理高维数据</li>
+<li>对异常值敏感</li>
+<li>泛化能力差</li>
+</ul>
+<div id="toc"><ul>
+<li><a href="#分类树">分类树</a><ul>
+<li><a href="#id3">ID3</a></li>
+<li><a href="#c4.5">C4.5</a></li>
+<li><a href="#cart">CART</a></li>
+</ul></li>
+<li><a href="#回归树">回归树</a><ul>
+<li><a href="#最小二乘回归树">最小二乘回归树</a></li>
+</ul></li>
+<li><a href="#剪枝">剪枝</a></li>
+<li><a href="#优缺点">优缺点</a><ul>
+<li><a href="#优点">优点</a></li>
+<li><a href="#缺点">缺点</a></li>
+</ul></li>
+</ul></div>
+    </section>
+
+    <section>
+        <div id="disqus_thread"></div>
+    </section>
+</article>
+
+<script>
+    /**
+     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+    var disqus_config = function() {
+        this.page.url = 'https://kaizhang91.github.io/blog/'; // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = 'kai-blog'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document,
+            s = d.createElement('script');
+        s.src = 'https://kai-blog.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+<noscript>
+    Please enable JavaScript to view the
+    <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+</noscript>
+
+                </main>
+
+                <footer>
+                    <p>
+                        Site proudly generated by
+                        <a href="http://jaspervdj.be/hakyll">Hakyll</a>
+                    </p>
+                </footer>
+            </div>
+
+            <div class="col-md">
+                <aside>
+                    <div id="newTOC"></div>
+                </aside>
+            </div>
+        </div>
+    </div>
+
+    <script>
+     var app = Elm.Main.init({
+         node: document.getElementById("elm")
+     });
+    </script>
+    <!-- <script src="/js/main.js"></script> -->
+    <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script> -->
+    <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script> -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script> -->
+    <!-- <script type="text/x-mathjax-config"> -->
+    <!-- MathJax.Hub.Config({ TeX: { Macros: { bm: ["\\boldsymbol{#1}", 1] } } } ) -->
+    <!-- </script> -->
+    <!-- <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML' async></script> -->
+    <!-- <script> -->
+    <!-- hljs.initHighlightingOnLoad(); -->
+    <!-- </script> -->
+</body>
+
+</html>

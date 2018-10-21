@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="zh">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>张凯的博客 - 深度学习 QA</title>
+    <link rel="shortcut icon" type="image/x-icon" href="../images/favicon.ico" />
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.min.css"> -->
+    <!-- <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"> -->
+    <!-- <link rel="stylesheet" href="/css/default.css" /> -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/material-components-web@0.37.1/dist/material-components-web.css" rel="stylesheet">
+    <!-- <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+</head>
+
+<body class="mdc-typography">
+    <script src="elm-mdc.js"></script>
+    <script src="main.js"></script>
+    <div id="elm"></div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md">
+                <aside id="leftAside"></aside>
+            </div>
+
+            <div class="col-8">
+                <header>
+                    <div class="logo">
+                        <a href="../">
+                            <h1>
+                                张凯的博客
+                            </h1>
+                        </a>
+                    </div>
+
+                    <nav>
+                        <a href="https://github.com/kaizhang91/blog">
+                            <span class="icon">
+                                <i class="fa fa-github"></i>
+                            </span>
+                        </a>
+                    </nav>
+                </header>
+
+                <main role="main">
+                    <article>
+    <section>
+        <h1>深度学习 QA</h1>
+    </section>
+
+    <section class="header">
+        <div class="container">
+            <div class="row no-gutters align-items-center">
+                <div class="col-sm">
+                    <h2>
+                        张凯 更新于 2018-05-26
+                    </h2>
+                </div>
+
+                <div class="col-sm">
+                    <div class="tags">
+                        标签：<a href="../tags/deep-learning.html">deep-learning</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="content">
+        <p>本文总结了深度学习面试中常见的问题。</p>
+<!--more-->
+<ol type="1">
+<li><p>CNN最成功的应用是在CV, 那为什么NLP和Speech的很多问题也可以用CNN解出来？</p>
+<p><a href="https://zhuanlan.zhihu.com/p/25005808" class="uri">https://zhuanlan.zhihu.com/p/25005808</a></p></li>
+<li><p>什么样的资料集不适合用深度学习</p>
+<ul>
+<li>数据集太小。因为神经网络有大量的参数需要训练</li>
+<li>数据集没有局部相关性。目前深度学习应用的领域图像、语音和自然语言处理，其共性为局部相关性。例如，图像中的像素组成物体，语音中音位组成单词，文本中的单词组成句子。而深度学习过程就是学习局部低层次的特征，然后组合成高层次的特征，得到不同特征之间的空间相关性。</li>
+</ul></li>
+<li><p>对所有优化问题来说, 有没有可能找到比现在已知算法更好的算法？</p>
+<ul>
+<li>不存在一个通用的模型，对所有的优化问题都能做到性能最佳</li>
+</ul>
+<figure>
+<img src="../images/optimise-no-free-lunch.png" alt="图 1: 没有免费的午餐" id="fig:noFreeLunch" /><figcaption>图 1: 没有免费的午餐</figcaption>
+</figure>
+<ul>
+<li>一个学习算法 A，若它在某些问题上比学习算法 B 更好，则必然存在一些问题，在那里 B 比 A 好。也就是说，无论算法 A 多聪明，算法 B 多笨拙，它们的期望性能相等</li>
+<li>没有免费的午餐定理假设所有问题出现的概率相等。实际应用中，不同的场景，会有不同的问题分布。所以算法优化的核心是具体问题具体分析</li>
+</ul></li>
+<li><p>用贝叶斯机率说明 Dropout 的原理</p>
+<p>请参考<a href="./2018-05-29-Dropout-as-a-Bayesian-Approximation-Insights-and-Applications.html">文献阅读：Dropout as a Bayesian Approximation: Insights and Applications</a>。</p></li>
+<li><p>何为共线性，跟过拟合有啥关联？</p>
+<ul>
+<li>共线性指多变量线性回归中，变量之间由于存在高度相关关系而使回归估计不准确。</li>
+<li>共线性会造成冗余，导致过拟合</li>
+<li>解决方法：排除变量的相关性/正则化</li>
+</ul></li>
+<li><p>说明如何用支持向量机实现深度学习</p></li>
+</ol>
+<h2 id="deep-learning">《Deep Learning》</h2>
+<ol type="1">
+<li><p>列举常见的范数及其应用场景，如 <span class="math inline">\(L^0, L^1, L^2, L^\infty\)</span>, Frobenius 范数</p>
+<p>请参考<a href="./2018-06-02-deep-learning-goodfellow2016.html#范数">文献阅读：Deep Learning#范数</a>。</p></li>
+<li><p>贝叶斯概率与频率派概率，以及在统计中对于真实参数的假设</p>
+<p>世界观不同。频率派认为世界是确定的，参数有一个真值，我们的目标是找到这个真值或真值所在的范围；贝叶斯派则认为世界是不确定的，参数是随机变量，人们对参数的概率分布先有一个预判，而后通过观测数据对这个预判做调整，我们的目标是要找到最优的描述参数的概率分布。</p></li>
+<li><p>概率密度的万能近似器</p>
+<p>请参考<a href="./2018-06-02-deep-learning-goodfellow2016.html#混合分布">文献阅读：Deep Learning#混合分布</a>。</p></li>
+<li><p>sigmoid, relu, softplus, tanh 和 RBF 及其应用场景</p>
+<p>请参考<a href="./2018-06-02-deep-learning-goodfellow2016.html#常见函数">文献阅读：Deep Learning#常见函数</a>。</p></li>
+<li><p>KL 散度</p>
+<p>请参考<a href="./2018-06-02-deep-learning-goodfellow2016.html#信息论">文献阅读：Deep Learning#信息论</a>。</p></li>
+<li><p>数值计算中的计算上溢与下溢问题，如 softmax 中的处理方式</p>
+<p>请参考<a href="./2018-06-02-deep-learning-goodfellow2016.html#上溢和下溢">文献阅读：Deep Learning#上溢和下溢</a>。</p></li>
+<li><p>与矩阵的特征值相关联的条件数（病态条件）指什么，与梯度爆炸和梯度弥散的关系</p>
+<p>请参考<a href="./2018-06-02-deep-learning-goodfellow2016.html#病态条件">文献阅读：Deep Learning#病态条件</a>和<a href="./2018-06-02-deep-learning-goodfellow2016.html#长期依赖">文献阅读：Deep Learning#长期依赖</a>。</p></li>
+<li><p>在基于梯度的优化问题中，如何判断一个梯度为 <span class="math inline">\(0\)</span> 的临界点为极大值、极小值还是鞍点？Hessian 矩阵的条件数与梯度下降的关系</p>
+<p>请参考<a href="./2018-06-02-deep-learning-goodfellow2016.html#梯度之外jacobian-和-hessian-矩阵">文献阅读：Deep Learning#梯度之外：Jacobian 和 Hessian 矩阵</a>。</p></li>
+<li><p>KTT 方法与约束优化问题，活跃约束的定义</p>
+<p>请参考<a href="./2018-06-02-deep-learning-goodfellow2016.html#有约束的优化">文献阅读：Deep Learning#有约束的优化</a>。</p></li>
+<li><p>模型容量，表示容量，有效容量和最优容量概念</p>
+<p>请参考<a href="./2018-06-02-deep-learning-goodfellow2016.html#容量过拟合和欠拟合">文献阅读：Deep Learning#容量过拟合和欠拟合</a>。</p></li>
+<li><p>正则化中的权重衰减与加入先验知识在某些条件下的等价性</p>
+<p>请参考<a href="./2018-06-02-deep-learning-goodfellow2016.html#maximum-a-posteriori-map-estimation最大后验概率估计">文献阅读：Deep Learning#Maximum A Posterior (MAP) Estimation（最大后验概率估计）</a>。</p></li>
+<li><p>高斯分布的广泛应用的缘由</p>
+<p>请参考<a href="./2018-06-02-deep-learning-goodfellow2016.html#gaussian-distribution">文献阅读：Deep Learning#Gaussian Distribution</a>。</p></li>
+<li><p>稀疏表示，低维表示和独立表示</p>
+<p>请参考<a href="./2018-06-02-deep-learning-goodfellow2016.html#非监督学习算法">文献阅读：Deep Learning#非监督学习算法</a>。</p></li>
+<li><p>列举一些无法基于梯度优化的代价函数及其具有的特点</p>
+<p>请参考<a href="./2018-06-02-deep-learning-goodfellow2016.html#构建一个机器学习算法">文献阅读：Deep Learning#构建一个机器学习算法</a>。</p></li>
+<li><p>梯度爆炸的一些解决办法</p>
+<p>请参考<a href="./2018-06-02-deep-learning-goodfellow2016.html#参数初始化策略">文献阅读：Deep Learning#参数初始化策略</a>。</p></li>
+<li><p>万能近似定理</p>
+<p>请参考<a href="./2018-06-02-deep-learning-goodfellow2016.html#架构设计">文献阅读：Deep Learning#架构设计</a>。</p></li>
+<li><p>在前馈网络中，深度与宽度的关系及表示能力的差异</p>
+<p>请参考<a href="./2018-06-02-deep-learning-goodfellow2016.html#架构设计">文献阅读：Deep Learning#架构设计</a>。</p></li>
+<li><p>为什么交叉损失熵损失可以提高具有 Sigmoid 和 Softmax 输出的模型的性能，而使用均方误差损失则会存在很多问题？分段线性隐藏层代替 Sigmoid 的利弊。</p>
+<p>请参考<a href="./2018-06-02-deep-learning-goodfellow2016.html#历史说明">文献阅读：Deep Learning#历史说明</a>。</p></li>
+<li><p>表示学习发展的初衷？并介绍其典型例子：自编码器</p>
+<p>请参考<a href="./2018-06-02-deep-learning-goodfellow2016.html#介绍">文献阅读：Deep Learning#介绍</a>。</p></li>
+<li><p>在做正则化过程中，为什么只对权重做正则惩罚，而不对偏置做权重惩罚？</p>
+<p>请参考<a href="./2018-06-02-deep-learning-goodfellow2016.html#参数范数惩罚">文献阅读：Deep Learning#参数范数惩罚</a>。</p></li>
+<li><p>在深度学习神经网络中，所有的层中使用相同权重的利弊</p>
+<p>请参考<a href="./2018-06-02-deep-learning-goodfellow2016.html#参数范数惩罚">文献阅读：Deep Learning#参数范数惩罚</a>。</p></li>
+<li><p>正则化过程中，权重衰减与 Hessian 矩阵中特征值的关系</p>
+<p>请参考<a href="./2018-06-02-deep-learning-goodfellow2016.html#参数范数惩罚">文献阅读：Deep Learning#参数范数惩罚</a>。</p></li>
+<li><p><span class="math inline">\(L^1\)</span>/<span class="math inline">\(L^2\)</span> 正则化与高斯先验/对数先验的 MAP 贝叶斯推断的关系</p>
+<p>请参考<a href="./2018-06-02-deep-learning-goodfellow2016.html#参数范数惩罚">文献阅读：Deep Learning#参数范数惩罚</a>。</p></li>
+<li><p>什么是欠约束？为什么大多数的正则化可以使欠约束下的欠定问题在迭代过程中收敛？</p>
+<p>请参考<a href="./2018-06-02-deep-learning-goodfellow2016.html#正则化和欠约束问题">文献阅读：Deep Learning#正则化和欠约束问题</a>。</p></li>
+<li><p>为什么考虑在模型训练时对输入（隐藏单元/权重）添加方差较小的噪声，与正则化的关系</p>
+<p>请参考<a href="./2018-06-02-deep-learning-goodfellow2016.html#数据集扩充">文献阅读：Deep Learning#数据集扩充</a>和<a href="./2018-06-02-deep-learning-goodfellow2016.html#噪声健壮性">文献阅读：Deep Learning#噪声健壮性</a>。</p></li>
+<li><p>共享参数的概念及在深度学习中的广泛影响</p>
+<p>请参考<a href="./2018-06-02-deep-learning-goodfellow2016.html#多任务学习">文献阅读：Deep Learning#多任务学习</a>和<a href="./2018-06-02-deep-learning-goodfellow2016.html#参数类型和参数共享">文献阅读：Deep Learning#参数类型和参数共享</a>。</p></li>
+<li><p>Dropout 与 Bagging 集成方法的关系，以及 Dropout 带来的意义与其强大的原因</p>
+<p>请参考<a href="./2018-06-02-deep-learning-goodfellow2016.html#dropout">文献阅读：Deep Learning#dropout</a>。</p></li>
+<li><p>批量梯度下降法更新过程中，批量的大小与各种更新的稳定性关系</p>
+<p>请参考<a href="./2018-06-02-deep-learning-goodfellow2016.html#学习与纯优化有何不同">文献阅读：Deep Learning#学习与纯优化有何不同</a>。</p></li>
+<li><p>如何避免深度学习中的病态、鞍点、梯度爆炸和梯度弥散？</p>
+<p>请参考<a href="./2018-06-02-deep-learning-goodfellow2016.html#神经网络优化中的挑战">文献阅读：Deep Learning#神经网络优化中的挑战</a>。</p></li>
+<li><p>SGD 预计学习率的选择方法，带动量的 SGD 对于 Hessian 矩阵病态条件数及随机梯度方差的影响</p>
+<p>请参考<a href="./2018-06-02-deep-learning-goodfellow2016.html#基本算法">文献阅读：Deep Learning#基本算法</a>。</p></li>
+<li><p>初始化权重过程中，权重大小在各种网络结构中的影响，以及一些初始化的方法；偏置的初始化</p>
+<p>请参考<a href="./2018-06-02-deep-learning-goodfellow2016.html#参数初始化策略">文献阅读：Deep Learning#参数初始化策略</a>。</p></li>
+<li><p>自适应学习率算法 AdaGrad、RMSProp 和 Adam 等算法的做法</p>
+<p>请参考<a href="./2018-06-02-deep-learning-goodfellow2016.html#自适应学习率算法">文献阅读：Deep Learning#自适应学习率算法</a>。</p></li>
+<li><p>二阶近似方法牛顿法、共轭梯度和 BGFS 等的做法</p>
+<p>请参考<a href="./2018-06-02-deep-learning-goodfellow2016.html#二阶近似方法">文献阅读：Deep Learning#二阶近似方法</a>。</p></li>
+<li><p>Hessian 矩阵的标准化对于高阶优化算法的意义。</p>
+<p>请参考<a href="./2018-06-02-deep-learning-goodfellow2016.html#优化策略和元算法">文献阅读：Deep Learning#优化策略和元算法</a>。</p></li>
+<li><p>卷积网络中的平移等变性的原因，常见的一些卷积形式</p>
+<p>请参考<a href="./2018-06-02-deep-learning-goodfellow2016.html#基本卷积函数的变体">文献阅读：Deep Learning#基本卷积函数的变体</a>。</p></li>
+<li><p>pooling 的做法的意义</p>
+<p>请参考<a href="./2018-06-02-deep-learning-goodfellow2016.html#pooling">文献阅读：Deep Learning#pooling</a>。</p></li>
+<li><p>循环神经网络常见的一些依赖循环关系，常见的一些输入输出，以及对应的应用场景</p>
+<p>请参考<a href="./2018-06-02-deep-learning-goodfellow2016.html#序列模型循环和递归网络">文献阅读：Deep Learning#序列模型循环和递归网络</a>。</p></li>
+<li><p>seq2seq, gru, lstm 等相关的原理</p>
+<p>请参考<a href="./2018-06-02-deep-learning-goodfellow2016.html#encoder-decoder-sequence-to-sequence-architectures">文献阅读：Deep Learning#encoder-decoder-sequence-to-sequence-architectures</a> 和<a href="./2018-07-29-Understanding-LSTMs.html">文献阅读：Understanding LSTM networks</a>。</p></li>
+<li><p>采样在深度学习中的意义</p>
+<p>请参考<a href="./2018-06-02-deep-learning-goodfellow2016.html#自然语言处理">文献阅读：Deep Learning#自然语言处理</a>。</p></li>
+<li><p>自编码器与线性因子模型、PCA 和 ICA 等的关系</p>
+<p>请参考<a href="./2018-06-02-deep-learning-goodfellow2016.html#线性因子模型">文献阅读：Deep Learning#线性因子模型</a>。</p></li>
+<li><p>自编码器在深度学习中的意义，以及一些常见的变形与应用</p>
+<p>请参考<a href="./2018-06-02-deep-learning-goodfellow2016.html#autoencoders">文献阅读：Deep Learning#autoencoders</a>。</p></li>
+<li><p>稳定分布与马尔科夫链</p>
+<p>请参考<a href="./2018-06-02-deep-learning-goodfellow2016.html#markov-链-monte-carlo-方法">文献阅读：Deep Learning#markov-链-monte-carlo-方法</a>。</p></li>
+<li><p>Gibbs 采样的原理</p>
+<p>请参考<a href="./2018-06-02-deep-learning-goodfellow2016.html#gibbs-采样">文献阅读：Deep Learning#gibbs-采样</a>。</p></li>
+<li><p>几种参数估计的联系与区别：MLE/MAP/贝叶斯</p>
+<p>请参考<a href="./2018-06-02-deep-learning-goodfellow2016.html#machine-learning-basics">文献阅读：Deep Learning#machine-learning-basics</a>。</p></li>
+<li><p>半监督学习的思想以及在深度学习中的应用</p>
+<p>请参考<a href="./2018-06-02-deep-learning-goodfellow2016.html#表示学习">文献阅读：Deep Learning#表示学习</a>。</p></li>
+<li><p>举例 CNN 中的 channel 在不同数据源中的含义</p>
+<p>请参考<a href="./2018-06-02-deep-learning-goodfellow2016.html#数据类型">文献阅读：Deep Learning#数据类型</a>。</p></li>
+<li><p>注意力机制在深度学习的某些场景中为何会被大量使用，其几种不同的情形</p>
+<p>请参考<a href="./2018-06-02-deep-learning-goodfellow2016.html#神经机器翻译">文献阅读：Deep Learning#神经机器翻译</a>。</p></li>
+<li><p>核回归与 RBF 网络的关系</p>
+<p>请参考<a href="./2018-06-02-deep-learning-goodfellow2016.html#支持向量机">文献阅读：Deep Learning#支持向量机</a>。</p></li>
+<li><p>过拟合在深度学习中的常见的一些解决方案或结构设计</p>
+<ul>
+<li>参数范数惩罚</li>
+<li>数据集增强</li>
+<li>提前终止</li>
+<li>参数共享</li>
+<li>Bagging</li>
+<li>Dropout</li>
+</ul></li>
+</ol>
+<div id="toc"><ul>
+<li><a href="#deep-learning">《Deep Learning》</a></li>
+</ul></div>
+    </section>
+
+    <section>
+        <div id="disqus_thread"></div>
+    </section>
+</article>
+
+<script>
+    /**
+     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+    var disqus_config = function() {
+        this.page.url = 'https://kaizhang91.github.io/blog/'; // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = 'kai-blog'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document,
+            s = d.createElement('script');
+        s.src = 'https://kai-blog.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+<noscript>
+    Please enable JavaScript to view the
+    <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+</noscript>
+
+                </main>
+
+                <footer>
+                    <p>
+                        Site proudly generated by
+                        <a href="http://jaspervdj.be/hakyll">Hakyll</a>
+                    </p>
+                </footer>
+            </div>
+
+            <div class="col-md">
+                <aside>
+                    <div id="newTOC"></div>
+                </aside>
+            </div>
+        </div>
+    </div>
+
+    <script>
+     var app = Elm.Main.init({
+         node: document.getElementById("elm")
+     });
+    </script>
+    <!-- <script src="/js/main.js"></script> -->
+    <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script> -->
+    <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script> -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script> -->
+    <!-- <script type="text/x-mathjax-config"> -->
+    <!-- MathJax.Hub.Config({ TeX: { Macros: { bm: ["\\boldsymbol{#1}", 1] } } } ) -->
+    <!-- </script> -->
+    <!-- <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML' async></script> -->
+    <!-- <script> -->
+    <!-- hljs.initHighlightingOnLoad(); -->
+    <!-- </script> -->
+</body>
+
+</html>

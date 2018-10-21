@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="zh">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>张凯的博客 - GBDT 介绍</title>
+    <link rel="shortcut icon" type="image/x-icon" href="../images/favicon.ico" />
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.min.css"> -->
+    <!-- <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"> -->
+    <!-- <link rel="stylesheet" href="/css/default.css" /> -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/material-components-web@0.37.1/dist/material-components-web.css" rel="stylesheet">
+    <!-- <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+</head>
+
+<body class="mdc-typography">
+    <script src="elm-mdc.js"></script>
+    <script src="main.js"></script>
+    <div id="elm"></div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md">
+                <aside id="leftAside"></aside>
+            </div>
+
+            <div class="col-8">
+                <header>
+                    <div class="logo">
+                        <a href="../">
+                            <h1>
+                                张凯的博客
+                            </h1>
+                        </a>
+                    </div>
+
+                    <nav>
+                        <a href="https://github.com/kaizhang91/blog">
+                            <span class="icon">
+                                <i class="fa fa-github"></i>
+                            </span>
+                        </a>
+                    </nav>
+                </header>
+
+                <main role="main">
+                    <article>
+    <section>
+        <h1>GBDT 介绍</h1>
+    </section>
+
+    <section class="header">
+        <div class="container">
+            <div class="row no-gutters align-items-center">
+                <div class="col-sm">
+                    <h2>
+                        张凯 更新于 2018-08-11
+                    </h2>
+                </div>
+
+                <div class="col-sm">
+                    <div class="tags">
+                        标签：<a href="../tags/machine-learning.html">machine-learning</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="content">
+        <p>本文介绍了 GBDT（Gradient Boosting Decision Tree) 方法<span class="citation" data-cites="friedman2001elements">(Friedman, Hastie, and Tibshirani 2001)</span>。</p>
+<!--more-->
+<h2 id="损失函数">损失函数</h2>
+<dl>
+<dt>均方误差</dt>
+<dd><span class="math display">\[L(y, f(x)) = (y-f(x))^2\]</span>
+</dd>
+<dt>绝对值误差</dt>
+<dd><span class="math display">\[L(y, f(x)) = \lvert y-f(x)\rvert\]</span>
+</dd>
+<dt>Huber 损失</dt>
+<dd><span class="math display">\[L(y, f(x)) =
+\begin{cases}
+  [y - f(x)]^2 &amp; \textrm{for } |y - f(x)| \le \delta,\\
+  2\delta|y - f(x)| - \delta^2 &amp; \textrm{otherwise.}
+\end{cases}\]</span>
+</dd>
+</dl>
+<div id="tbl:lossCompare">
+<table>
+<caption>表 1: 不同损失函数的优缺点</caption>
+<thead>
+<tr class="header">
+<th>名称</th>
+<th>优点</th>
+<th>缺点</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>均方误差</td>
+<td>直观，容易生成决策树</td>
+<td>对错误敏感，不够健壮</td>
+</tr>
+<tr class="even">
+<td>绝对值误差</td>
+<td>健壮</td>
+<td>不易生成决策树</td>
+</tr>
+<tr class="odd">
+<td>Huber 损失</td>
+<td>健壮</td>
+<td>不易生成决策树</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="决策树">决策树</h2>
+<p>决策树概念简单、功能强大，而且泛化能力好；但是不一定容易生成。特别地，损失函数为均方误差的决策树称为回归树，可以用贪心算法递归生成。</p>
+<h2 id="梯度下降法">梯度下降法</h2>
+<p>梯度下降法作为优化方法比决策树适用范围更广，可以优化绝对值误差损失函数和 Huber 损失函数；但容易产生过拟合，泛化能力差。</p>
+<h2 id="gbdt">GBDT</h2>
+<p>GBDT 是一种提升方法，先用较弱的模型作为输出，然后在弱模型的基础上向更优的方向迭代。为了模型的健壮性，我们需要选择健壮的损失函数；此时我们只能使用梯度下降法来进行迭代优化；为了得到更好的泛化能力，每次迭代时用回归树来近似梯度，并以贪婪策略选择学习速率。这样，我们就推导出了 GBDT<span class="citation" data-cites="friedman2001elements">(Friedman, Hastie, and Tibshirani 2001)</span>：</p>
+<ol type="1">
+<li>初始化：<span class="math inline">\(f_0(x) = \textrm{arg}\min_{\gamma}\sum_{i=1}^N L(y_i, \gamma)\)</span></li>
+<li>对 <span class="math inline">\(m = 1 \to M\)</span>：
+<ol type="1">
+<li><span class="math inline">\(r_{im} = -\left[\frac{\partial L(y_i, f(x_i))}{\partial f(x_i)}\right]_{f=f_{m-1}}\)</span> 其中，<span class="math inline">\(i = 1, 2, \dots, N\)</span>；</li>
+<li>求 <span class="math inline">\(r_{im}\)</span> 的回归树，记所得终端区域为 <span class="math inline">\(R_{jm}, j = 1, 2, \dots, J_m\)</span>；</li>
+<li>对 <span class="math inline">\(j = 1, 2, \dots, J_m\)</span>，计算 <span class="math display">\[\gamma_{jm} = \textrm{arg}\min_{\gamma}\sum_{x_i\in R_{jm}}L(y_i,f_{m-1}(x_i)+\gamma)\]</span></li>
+<li>更新 <span class="math inline">\(f_m(x) = f_{m-1}(x) + \sum_{j=1}^{J_m}\gamma_{jm}I(x\in R_{jm})\)</span></li>
+</ol></li>
+<li>输出 <span class="math inline">\(\hat{f}(x) = f_M(x)\)</span></li>
+</ol>
+<h2 id="参考文献" class="unnumbered">参考文献</h2>
+<div id="refs" class="references">
+<div id="ref-friedman2001elements">
+<p>Friedman, Jerome, Trevor Hastie, and Robert Tibshirani. 2001. <em>The Elements of Statistical Learning</em>. Vol. 1. 10. Springer series in statistics New York, NY, USA:</p>
+</div>
+</div>
+<div id="toc"><ul>
+<li><a href="#损失函数">损失函数</a></li>
+<li><a href="#决策树">决策树</a></li>
+<li><a href="#梯度下降法">梯度下降法</a></li>
+<li><a href="#gbdt">GBDT</a></li>
+<li><a href="#参考文献">参考文献</a></li>
+</ul></div>
+    </section>
+
+    <section>
+        <div id="disqus_thread"></div>
+    </section>
+</article>
+
+<script>
+    /**
+     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+    var disqus_config = function() {
+        this.page.url = 'https://kaizhang91.github.io/blog/'; // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = 'kai-blog'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document,
+            s = d.createElement('script');
+        s.src = 'https://kai-blog.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+<noscript>
+    Please enable JavaScript to view the
+    <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+</noscript>
+
+                </main>
+
+                <footer>
+                    <p>
+                        Site proudly generated by
+                        <a href="http://jaspervdj.be/hakyll">Hakyll</a>
+                    </p>
+                </footer>
+            </div>
+
+            <div class="col-md">
+                <aside>
+                    <div id="newTOC"></div>
+                </aside>
+            </div>
+        </div>
+    </div>
+
+    <script>
+     var app = Elm.Main.init({
+         node: document.getElementById("elm")
+     });
+    </script>
+    <!-- <script src="/js/main.js"></script> -->
+    <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script> -->
+    <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script> -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script> -->
+    <!-- <script type="text/x-mathjax-config"> -->
+    <!-- MathJax.Hub.Config({ TeX: { Macros: { bm: ["\\boldsymbol{#1}", 1] } } } ) -->
+    <!-- </script> -->
+    <!-- <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML' async></script> -->
+    <!-- <script> -->
+    <!-- hljs.initHighlightingOnLoad(); -->
+    <!-- </script> -->
+</body>
+
+</html>

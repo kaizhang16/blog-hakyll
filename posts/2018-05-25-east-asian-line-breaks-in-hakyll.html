@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="zh">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>张凯的博客 - 在 Hakyll 中使用 east_asian_line_breaks</title>
+    <link rel="shortcut icon" type="image/x-icon" href="../images/favicon.ico" />
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.min.css"> -->
+    <!-- <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"> -->
+    <!-- <link rel="stylesheet" href="/css/default.css" /> -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/material-components-web@0.37.1/dist/material-components-web.css" rel="stylesheet">
+    <!-- <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+</head>
+
+<body class="mdc-typography">
+    <script src="elm-mdc.js"></script>
+    <script src="main.js"></script>
+    <div id="elm"></div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md">
+                <aside id="leftAside"></aside>
+            </div>
+
+            <div class="col-8">
+                <header>
+                    <div class="logo">
+                        <a href="../">
+                            <h1>
+                                张凯的博客
+                            </h1>
+                        </a>
+                    </div>
+
+                    <nav>
+                        <a href="https://github.com/kaizhang91/blog">
+                            <span class="icon">
+                                <i class="fa fa-github"></i>
+                            </span>
+                        </a>
+                    </nav>
+                </header>
+
+                <main role="main">
+                    <article>
+    <section>
+        <h1>在 Hakyll 中使用 east_asian_line_breaks</h1>
+    </section>
+
+    <section class="header">
+        <div class="container">
+            <div class="row no-gutters align-items-center">
+                <div class="col-sm">
+                    <h2>
+                        张凯 更新于 2018-05-25
+                    </h2>
+                </div>
+
+                <div class="col-sm">
+                    <div class="tags">
+                        标签：<a href="../tags/hakyll.html">hakyll</a>, <a href="../tags/pandoc.html">pandoc</a>, <a href="../tags/east_asian_line_breaks.html">east_asian_line_breaks</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="content">
+        <p>本文介绍 <code>Hakyll</code> 里中文断行的处理，这也是 <code>Hakyll</code> 相比于其他静态网站生成软件的优势之一。</p>
+<!--more-->
+<h2 id="中文断行问题">中文断行问题</h2>
+<p>为了编辑和处理的方便，我们常常对 <code>Markdown</code> 源文件进行断行。比如 图. 1 对每 80 个字符进行断行。而默认模式下，<code>Pandoc</code> 把 <code>Markdown</code> 文件转换成 <code>HTML</code> 时，会把多行合并成一行，其中，断行用空格替代，效果如图. 2 所示。在英文里，用空格分割单词，这么做没有问题。但是在中文里，语句里不应该有空格。</p>
+<figure>
+<img src="../images/line-break-demo.png" alt="图 1: Markdown 源文件的断行示意图" id="fig:lineBreakDemo" /><figcaption>图 1: <code>Markdown</code> 源文件的断行示意图</figcaption>
+</figure>
+<figure>
+<img src="../images/space-demo.png" alt="图 2: 生成的 HTML 文件里的空格示意图" id="fig:spaceDemo" /><figcaption>图 2: 生成的 <code>HTML</code> 文件里的空格示意图</figcaption>
+</figure>
+<h2 id="pandoc-的智能断行"><code>Pandoc</code> 的智能断行</h2>
+<p>大部分 <code>Markdown</code> 渲染软件都没有对中文断行做特殊处理，会影响渲染结果的美观性。而 <code>Pandoc</code> 提供了 <code>east_asian_line_breaks</code> 扩展，可以对东亚字符智能断行：</p>
+<ul>
+<li>忽略段落里东亚字符之间的断行；</li>
+<li>保留东亚字符与英文之间或英文单词之间的断行</li>
+</ul>
+<p>效果如图. 3 所示。</p>
+<figure>
+<img src="../images/east-asian-line-breaks-demo.png" alt="图 3: 开启 east_asian_line_breaks 扩展后的 HTML 输出" id="fig:eastAsianLineBreaksDemo" /><figcaption>图 3: 开启 <code>east_asian_line_breaks</code> 扩展后的 <code>HTML</code> 输出</figcaption>
+</figure>
+<h2 id="怎样在-hakyll-里开启-east_asian_line_breaks">怎样在 <code>Hakyll</code> 里开启 <code>east_asian_line_breaks</code>？</h2>
+<p>我们可以定义自己的 <code>myPandocCompiler</code> 来编译 <code>Markdown</code> 源文件：</p>
+<pre><code>import           Hakyll
+import           Text.Pandoc.Shared       (eastAsianLineBreakFilter)
+
+myPandocCompiler :: Compiler (Item String)
+myPandocCompiler =
+  pandocCompilerWithTransform defaultHakyllReaderOptions defaultHakyllWriterOptions eastAsianLineBreakFilter</code></pre>
+<blockquote>
+<p>完整的 <code>site.hs</code> 在 <a href="https://github.com/kaizhang91/blog/blob/master/site.hs" class="uri">https://github.com/kaizhang91/blog/blob/master/site.hs</a>。</p>
+</blockquote>
+<p>需要注意的是，自从 <code>pandoc-2.0</code> 之后，直接在 <code>ReaderOptions</code> 里激活 <code>Ext_east_asian_line_breaks</code> 并不会生效，原因参见 <a href="https://github.com/jgm/pandoc/issues/3703" class="uri">https://github.com/jgm/pandoc/issues/3703</a>。</p>
+<div id="toc"><ul>
+<li><a href="#中文断行问题">中文断行问题</a></li>
+<li><a href="#pandoc-的智能断行"><code>Pandoc</code> 的智能断行</a></li>
+<li><a href="#怎样在-hakyll-里开启-east_asian_line_breaks">怎样在 <code>Hakyll</code> 里开启 <code>east_asian_line_breaks</code>？</a></li>
+</ul></div>
+    </section>
+
+    <section>
+        <div id="disqus_thread"></div>
+    </section>
+</article>
+
+<script>
+    /**
+     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+    var disqus_config = function() {
+        this.page.url = 'https://kaizhang91.github.io/blog/'; // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = 'kai-blog'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document,
+            s = d.createElement('script');
+        s.src = 'https://kai-blog.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+<noscript>
+    Please enable JavaScript to view the
+    <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+</noscript>
+
+                </main>
+
+                <footer>
+                    <p>
+                        Site proudly generated by
+                        <a href="http://jaspervdj.be/hakyll">Hakyll</a>
+                    </p>
+                </footer>
+            </div>
+
+            <div class="col-md">
+                <aside>
+                    <div id="newTOC"></div>
+                </aside>
+            </div>
+        </div>
+    </div>
+
+    <script>
+     var app = Elm.Main.init({
+         node: document.getElementById("elm")
+     });
+    </script>
+    <!-- <script src="/js/main.js"></script> -->
+    <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script> -->
+    <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script> -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script> -->
+    <!-- <script type="text/x-mathjax-config"> -->
+    <!-- MathJax.Hub.Config({ TeX: { Macros: { bm: ["\\boldsymbol{#1}", 1] } } } ) -->
+    <!-- </script> -->
+    <!-- <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML' async></script> -->
+    <!-- <script> -->
+    <!-- hljs.initHighlightingOnLoad(); -->
+    <!-- </script> -->
+</body>
+
+</html>
