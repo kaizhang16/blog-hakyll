@@ -7,11 +7,12 @@ before_install:
   - mkdir -p ~/.local/bin
   - export PATH=$HOME/.local/bin:$PATH
   - travis_retry curl -L https://get.haskellstack.org/stable/linux-x86_64.tar.gz | tar xz --wildcards --strip-components=1 -C ~/.local/bin '*/stack'
+  - curl -o- -L https://yarnpkg.com/install.sh | bash
 install:
-  - stack --no-terminal install
+  - make install
 script:
-  - blog clean
-  - blog build
+  - make clean
+  - make build
 env:
   matrix:
     secure: K5fq+ih59ng1ivF6uPMyb0vXeOQppwLrBI487KPQMsqThqIQAwAx6a52+R0Fb1jYxd7KSlRBpGjO4bvXVUqgS+t8KvN2NhMPBEn15TT/vnFQTQSjo5c7DTLgvYWQ4pJBWtJeyis+OJBEiV06tWy1OpOqg/G8TvepJrvtOxOTvexbDdUAGWm5n1eIJWCVyczbKyPOGZdrHnHC4ILqaKQbLu60uDSSdnVjGHtvZ70snzeBFAY922GXFwQpsuGvLzh+O6krBVOGCE6VAawNdu3QtN6gNt7dfG0bov+UVdzlvCD6OAhxYgAZ/iwIly1wIUvI1Qmy4RYRuJj4aMQRL7OgsfEx4DDKSCQ+/9YRbEDw5gACkJiddep3ze6QKsQEEAm9LopiByPiYAp2T4SdsFENGygsXlmxP+l05RrmS9JFSQNvkoHKRNOfED0uho2FBnd2Ke0MiJClTCEez9yqDKqGWjoHG4rBNPCaVxGtO4TFv+xcRWuNzsi+lxeLe2RWPhC5CJOYP+24QbJhVfM0wQnd3LiKZ1twdka25KCEgvf3nF6vSyCTvy+sdCl9UM1zH9o/2qh5RJoKOLMLwlxGi9QcItpyPckBK4Nn/nEs73BKhNIAygkH5gkh4p3k2A6mmXgNW8ffGkxfjrgmot8E3nfVBS3MmdMw/KZwsO7ScIB6fRo=
